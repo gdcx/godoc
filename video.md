@@ -1,0 +1,138 @@
+[toc]
+
+## Demo
+
+参见目录下
+
+## webrtc 协议
+
+webrtc 协议采用websocket进行信令交互，消息内容采用json 编码。
+
+视频源支持主附码流，并支持动态切换。
+
+建议小窗口非全屏下使用附码流，降低带宽，提高视频的流畅度, 在点击视频全屏时发送Stream消息切换到主码流。
+
+
+## 信令交互流程
+
+```plantuml
+@startuml
+    skinparam backgroundColor #EEEBDC
+    skinparam handwritten true
+    客户端 -> 信令服务器: 连接
+    信令服务器 -> 客户端: Rsp
+    RTC服务-> 信令服务器: 连接
+    信令服务器 -> RTC服务: Rsp
+    RTC服务 -> 摄像头: 连接
+    RTC服务 --> 客户端: Rsp
+    客户端 --> RTC服务: SDP
+    RTC服务 --> 客户端: Answer
+    RTC服务 --> 客户端: SDP
+    RTC服务 --> 客户端: IceCandidate
+    客户端 --> RTC服务: IceCandidate
+    RTC服务 --> 客户端: IceCandidate
+    客户端 --> RTC服务: IceCandidate
+	客户端 --> RTC服务: Stream
+    客户端 --> RTC服务: Disconnect
+
+@enduml
+```
+
+#### 路径
+
+- url: wss://drone.godouav.com/rtc
+- Query:
+	- verify=user
+	- id=用户id
+	- password: 用户token
+
+
+#### 消息定义
+
+```json
+{
+    "from": "消息来源, 可不填充",
+    "to": "消息目的地, 节点id",
+    "cmd": "命令字",
+    // 递增唯一序列号, 建议使用标准unix 时间戳，毫秒级
+    "seq": 1,
+    // 具体消息题
+    "data": {}
+}
+```
+
+
+
+#### 应答消息
+
+- cmd: "rsp"
+- Body: 
+```json
+{
+    // 错误码，0 无错误
+    "code": 0,
+    "msg": "错误信息"
+}
+```
+
+#### 心跳消息
+
+> websocket 心跳保持消息，建议60秒一次
+
+- cmd: "hb"
+- Body:
+```json
+{
+}
+```
+
+
+#### SDP 消息
+
+- cmd: "sdp"
+- Body:
+```json
+{
+    // 唯一标识, 可用uuid， 重复sesion将被拒绝
+    "session": "会话标识",
+    "camera": "camera id",
+	"streamType" "main/sub, 主辅玛流",
+    "sdp": "base64 编码后的sdp消息"
+}
+```
+
+#### Answer 消息
+
+- cmd: "answer"
+- Body:
+```json
+{
+    // 错误码: 0 无错误
+    "code": 0,
+    "session": "会话id"
+}
+```
+
+#### ICECandidate 消息
+
+- cmd: "icecandidate"
+- Body:
+```json
+{
+    "session": "会话id",
+    "camera": "camera id",
+    "candidate": "base64 编码后的ice candidate消息"
+}
+```
+
+#### Stream 消息
+
+- cmd: "stream"
+- Body:
+```json
+{
+	"cameraId": "摄像头id",
+	"session": "回话id",
+	"streamType": "main/sub, 主玛流/辅玛流"
+}
+```
