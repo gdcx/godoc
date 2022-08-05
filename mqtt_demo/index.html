@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lightly-HTML-Project</title>
+    <link type="text/css" rel="stylesheet" href="css/index.css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="module" src="js/mqtt.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+</head>
+
+<body>
+    <div class="content-container">
+        <div class="connect-div">
+            <div class="input-div">
+                <div class="title">mqtt测试Demo(目前数据为103)</div>
+            </div>
+            <div class="input-div">
+                <div class="label">机场id：</div> <input type="text" name="platformId" id="platformId" value="">
+            </div>
+            <div class="input-div">
+                <div class="label">无人机id：</div> <input type="text" name="droneId" id="droneId" value="">
+            </div>
+            <div class="input-div">
+                <div class="label">nodeId：</div> <input type="text" name="nodeId" id="nodeId" value="">
+            </div>
+            <div class="input-div">
+                <div class="label">token：</div><input type="text" name="token" id="token" value="">
+            </div>
+            <div class="input-div">
+                <input type="button" value="连接mqtt" id="connectMqtt" onclick="connectMqttFun()">
+                <input type="button" value="订阅机场信息" onclick="subscribePlatform()">
+                <input type="button" value="订阅无人机信息" onclick="subscribeDrone()">
+            </div>
+
+
+        </div>
+    </div>
+    <div class="message-div">
+        <div class="message" id="receiveMsg">
+
+        </div>
+    </div>
+    <script>
+        let mqttObj = null
+        window.key = ''
+        function connectMqttFun(){
+            let token = $('#token').val()
+            let droneId = $('#droneId').val()
+            let nodeId = $('#nodeId').val()
+            let platformId = $('#platformId').val()
+            // console.log(token,droneId,nodeId,platformId)
+            if(token){
+                 const clientId = 'web__' + token + '__' + Math.round(new Date() / 1000);
+                const username = 'web__' + token + '__' + Math.round(new Date() / 1000);
+
+                // console.log('mqtt连接token' + token)
+                mqttObj = new MqttClient(clientId, username)
+                mqttObj.initMqttClient()
+            }
+        }
+
+        function subscribePlatform(){
+            let nodeId = $('#nodeId').val()
+            let platformId = $('#platformId').val()
+            let stationTopicUrl = 'node/' + nodeId + '/ap/' + platformId + '/station'
+            let receiveMsg = $('#receiveMsg')
+            if(platformId && nodeId && mqttObj){
+                mqttObj.doSubscribe(stationTopicUrl, function (topic, message) {
+                    // console.log(topic, JSON.stringify(message))
+                    let receiveplatformId = topic.split('/')[3]
+                    if (receiveplatformId === platformId) {
+                        let type = topic.split('/')[4]
+                        // 判断对应的订阅数据类别 station 机场信息  moving机场运动信息 weather气象站信息
+                        if (type === 'station') {
+                            receiveMsg.append(new Date() + ':  <div>'+JSON.stringify(message)+'</div>')
+                            if(window.key && window.key === Number(nodeId)){
+                                console.log(window.key+'机场station----》', message)
+                            }
+                        }
+                    }
+
+                })
+            }
+        }
+        function subscribeDrone(){
+            let droneId = $('#droneId').val()
+            let nodeId = $('#nodeId').val()
+            let droneTopicUrl = 'node/' + nodeId + '/drone/' + droneId
+            if(droneId && nodeId && mqttObj){
+                mqttObj.doSubscribe(droneTopicUrl, function (topic, message) {
+                    console.log(topic, JSON.stringify(message))
+                    let receiveDroneId = topic.split('/')[3]
+                     if (receiveDroneId === droneId) {
+                        let type = topic.split('/')[4]
+                        // 无人机信息
+                         receiveMsg.append(new Date() + ':  <div>'+JSON.stringify(message)+'</div>')
+                            if(window.key && window.key === Number(nodeId)){
+                                console.log(window.key+'无人机信息----》', message)
+                            }
+                    }
+
+                })
+            }
+            
+        }
+    </script>
+</body>
+
+</html>
