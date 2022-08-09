@@ -1,0 +1,4180 @@
+{
+	"info": {
+		"_postman_id": "82511e52-68cd-4f41-a6be-fa522f3ae30f",
+		"name": "高度gis接口",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4023151"
+	},
+	"item": [
+		{
+			"name": "客户管理",
+			"item": [
+				{
+					"name": "新增单位信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"parentId\": \"999001\",\r\n    \"areaId\": \"440307\",\r\n    \"unitName\": \"龙岗供电局\",\r\n    \"address\": \"黄阁路338号\", \r\n    \"Remark\": \"AAAAA\",\r\n    \"contacts\": \"张建\",\r\n    \"contactsTel\": \"13480843029\",\r\n    \"principal\": \"张建\",\r\n    \"principalTel\": \"0755-68956558\",\r\n    \"authType\": null,\r\n    \"secret\": null,\r\n    \"authUrl\": null,\r\n    \"latitudeDeg\": 0.0,\r\n    \"longitudeDeg\": 0.0,\r\n    \"status\": 0,\r\n    \"createBy\": \"10000100000000000000000001\",\r\n    \"createDate\": \"2022-03-11 10:24:40.000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/customer/addCustomer",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"customer",
+								"addCustomer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改单位信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"custId\": \"1527495313500278784\",\r\n    \"parentId\": \"999001\",\r\n    \"areaId\": \"440307\",\r\n    \"unitName\": \"龙岗供电局\",\r\n    \"address\": \"黄阁路338号\", \r\n    \"Remark\": \"AAAAA\",\r\n    \"contacts\": \"张建\",\r\n    \"contactsTel\": \"13480843029\",\r\n    \"principal\": \"张建\",\r\n    \"principalTel\": \"0755-68956558\",\r\n    \"authType\": null,\r\n    \"secret\": null,\r\n    \"authUrl\": null,\r\n    \"latitudeDeg\": 15.11,\r\n    \"longitudeDeg\": 16.42,\r\n    \"status\": 0,\r\n    \"createBy\": \"10000100000000000000000001\",\r\n    \"createDate\": \"2022-03-11 10:24:40.000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/customer/updateCustomer",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"customer",
+								"updateCustomer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除客户信息",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/backend/customer/deleteCustomer/1527495313500278784",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"customer",
+								"deleteCustomer",
+								"1527495313500278784"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "停用客户信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/backend/customer/stopCustomer/1527495313500278784",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"customer",
+								"stopCustomer",
+								"1527495313500278784"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "启用客户信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/backend/customer/restartCustomer/1527495313500278784",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"customer",
+								"restartCustomer",
+								"1527495313500278784"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询客户详情按客户Id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "UserId",
+									"value": "10000100000000000000000001",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/customer/queryCustInfroByCustId/999001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"customer",
+								"queryCustInfroByCustId",
+								"999001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询组织树(包括当前节点）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "UserId",
+									"value": "10000100000000000000000001",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/customer/queryTreeByCustId/999001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"customer",
+								"queryTreeByCustId",
+								"999001"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "用户管理",
+			"item": [
+				{
+					"name": "修改用户信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"1528635254271774720\",\r\n    \"custId\": \"999001\",\r\n    \"dataRange\": 1,\r\n    \"AssignDevice\": 1,\r\n    \"accounts\": \"wangwu2\",\r\n    \"passwd\": \"123456\",\r\n    \"name\": \"wangwu\",\r\n    \"mobile\": \"13480843026\",\r\n    \"FaceImage\": \"http://120.24.24.71/images/20210707/1625630592043201.png\",\r\n    \"email\": \"aaa@126.com\",\r\n    \"remark\": \"aaa\",\r\n    \"BelongSys\": \"GIS\",\r\n    \"listCusts\": \"999002\",\r\n    \"listDevices\": \"1001\",\r\n    \"listRoleIds\":\"100002\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/updateUserInfo",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"updateUserInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改密码",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":\"1527583747090812928\",\r\n    \"oldPassword\":\"666666\",\r\n    \"newPassword\":\"123456\",\r\n    \"operateType\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/changePassword",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "上传头像",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Administrator/Pictures/Camera Roll/xiaoxin2.png"
+								},
+								{
+									"key": "userId",
+									"value": "10000100000000000000000001",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改手机",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":\"1527583747090812928\",\r\n    \"mobile\":\"13480843026\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/changeMobile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"changeMobile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改邮箱",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":\"1527583747090812928\",\r\n    \"email\":\"zjc_aaa@126.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/changeEmail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"changeEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户按ID(返回所有操作权限）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/QueryUserByID/10000100000000000000000001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"QueryUserByID",
+								"10000100000000000000000001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户详情按ID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/QueryUserDetailByID/10000100000000000000000001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"QueryUserDetailByID",
+								"10000100000000000000000001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户拥有的角色及功能",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/QueryUserRoleAndFunctionByID/1528635254271774720",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"QueryUserRoleAndFunctionByID",
+								"1528635254271774720"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户能看的组织",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/queryUserRightTree/1528635254271774720",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"queryUserRightTree",
+								"1528635254271774720"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询当前组织下用户",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/queryUserListByCustId/999001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"queryUserListByCustId",
+								"999001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询指定组织能看的设备",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/QueryDevicesByAssignCustIds/999002,999003",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"QueryDevicesByAssignCustIds",
+								"999002,999003"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户能看的设备",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/QueryUserRightDevice",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"QueryUserRightDevice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户能看的无人机及吊舱",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/QueryUserRightDroneAndGimbal",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"QueryUserRightDroneAndGimbal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户能看的设备GIS(机场无人机信息)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/QueryUserRightDeviceForGis/10000100000000000000000004",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"QueryUserRightDeviceForGis",
+								"10000100000000000000000004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户能看的任务列表",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/QueryUserRightMission/10000100000000000000000002",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"QueryUserRightMission",
+								"10000100000000000000000002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户能看的所有吊舱",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/QueryUserRightGimbal",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"QueryUserRightGimbal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户能看的正在执行的吊舱",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/QueryUserRightFlightGimbal/10000100000000000000000002",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"QueryUserRightFlightGimbal",
+								"10000100000000000000000002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "角色信息",
+			"item": [
+				{
+					"name": "查询客户所拥有角色",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/backend/role/findAllByCustID/999001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"role",
+								"findAllByCustID",
+								"999001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询系统功能",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/role/querySysFunction",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"role",
+								"querySysFunction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询角色ID拥有的功能",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/role/queryFunctionByRoleId/1529018698852077568",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"role",
+								"queryFunctionByRoleId",
+								"1529018698852077568"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户是否具有访问某一资源权限",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/role/visitorRight/1528635254271774720/1001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"role",
+								"visitorRight",
+								"1528635254271774720",
+								"1001"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "设备管理",
+			"item": [
+				{
+					"name": "机场管理",
+					"item": [
+						{
+							"name": "查询--查询机场信息列表按NodeId",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/platform/queryListPlatformInfoByNodeId/98",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"platform",
+										"queryListPlatformInfoByNodeId",
+										"98"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询--查询完整机场信息按机场ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/platform/queryPlatformInfoByPlatformId/1534056990437937152",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"platform",
+										"queryPlatformInfoByPlatformId",
+										"1534056990437937152"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询--机场信息按机场ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/platform/queryPlatformInfoByPlatformId/1531813458423713792",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"platform",
+										"queryPlatformInfoByPlatformId",
+										"1531813458423713792"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询---无人机信息按机场ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/drone/queryDroneInfoByPlatformId/1002",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"drone",
+										"queryDroneInfoByPlatformId",
+										"1002"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询---无人机信息按无人机ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/drone/queryDroneInfoByDroneId/30007",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"drone",
+										"queryDroneInfoByDroneId",
+										"30007"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询---查询吊舱信息按无人机信息ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/gimbal/querylistGimbalByDroneId/1531814289856401408",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"gimbal",
+										"querylistGimbalByDroneId",
+										"1531814289856401408"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询--查询机场部署信息按机场ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/platform/queryPlatformLocationByplatformId/1534056990437937152",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"platform",
+										"queryPlatformLocationByplatformId",
+										"1534056990437937152"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询客户机场信息",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/platform/queryPlatformByCustId/999002",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"platform",
+										"queryPlatformByCustId",
+										"999002"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "系统设置",
+			"item": [
+				{
+					"name": "事件类型",
+					"item": [
+						{
+							"name": "新增",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"custId\": \"999001\",\r\n    \"dataRange\": \"1\",\r\n    \"typeName\": \"森林防火\",\r\n    \"remark\": \"森林应急处理\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/ActiveType/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"ActiveType",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询事件类型详情按ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/ActiveType/querySysDataTypeInfoById/1530364170422325248",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"ActiveType",
+										"querySysDataTypeInfoById",
+										"1530364170422325248"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询事件类型列表按客户ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/ActiveType/querySysDataTypeInfoByCustId/999001",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"ActiveType",
+										"querySysDataTypeInfoByCustId",
+										"999001"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "任务类型",
+					"item": [
+						{
+							"name": "新增",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"custId\": \"999001\",\r\n        \"dataRange\": \"1\",\r\n        \"typeName\": \"河道巡检\",\r\n        \"remark\": \"河道巡检\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/MissionType/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"MissionType",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"1530364170422325248\",\r\n    \"custId\": \"999001\",\r\n    \"dataRange\": \"2\",\r\n    \"listCusts\": \"999002,999003\",\r\n    \"typeName\": \"疫情巡检\",\r\n    \"remark\": \"疫情巡检\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/MissionType/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"MissionType",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询任务类型详情按ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/MissionType/querySysDataTypeInfoById/1530364170422325248",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"MissionType",
+										"querySysDataTypeInfoById",
+										"1530364170422325248"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询任务类型列表按客户ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/MissionType/querySysDataTypeInfoByCustId/999001",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"MissionType",
+										"querySysDataTypeInfoByCustId",
+										"999001"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/MissionType/delete/1530364170422325248",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"MissionType",
+										"delete",
+										"1530364170422325248"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "标记类型",
+					"item": [
+						{
+							"name": "新增",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"custId\": \"999001\",\r\n        \"dataRange\": \"1\",\r\n        \"typeName\": \"特殊事件标记\",\r\n        \"remark\": \"巡航过程中特殊事件打点标记\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/VideoCutFlagType/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"VideoCutFlagType",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"1530364170422325248\",\r\n    \"custId\": \"999001\",\r\n    \"dataRange\": \"2\",\r\n    \"listCusts\": \"999002,999003\",\r\n    \"typeName\": \"特殊事件标记\",\r\n    \"remark\": \"特殊事件标记\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/VideoCutFlagType/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"VideoCutFlagType",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询标记类型详情按ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/VideoCutFlagType/querySysDataTypeInfoById/1530364170422325248",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"VideoCutFlagType",
+										"querySysDataTypeInfoById",
+										"1530364170422325248"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询任务类型列表按客户ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/VideoCutFlagType/querySysDataTypeInfoByCustId/999001",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"VideoCutFlagType",
+										"querySysDataTypeInfoByCustId",
+										"999001"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/sysconfig/VideoCutFlagType/delete/1530364170422325248",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"sysconfig",
+										"VideoCutFlagType",
+										"delete",
+										"1530364170422325248"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "界面设置",
+					"item": [
+						{
+							"name": "查询系统界面设置信息",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/syscustomerset/querySysCustomerSetInfoById/999001",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"syscustomerset",
+										"querySysCustomerSetInfoById",
+										"999001"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "添加修改系统界面设置",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"custId\": \"999001\",\r\n        \"dataRange\": 2,\r\n        \"sysName\": \"高度创新地空一体无人机调度平台\",\r\n        \"indexLeftUrl\": \"https://gdcx.com/indexLeft.jpg\",\r\n        \"indexRightUrl\": \"https://gdcx.com/indexRight.jpg\",\r\n        \"loginLogoUrl\": \"https://gdcx.com/login.jpg\",\r\n        \"loginDomain\": \"gdcx.com\",\r\n        \"copyRight\": \"高度创新技术有限公司\",\r\n        \"listCusts\": \"999003,999002\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/syscustomerset/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"syscustomerset",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "文件上传",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Administrator/Pictures/Camera Roll/mobile.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/syscustomerset/upload",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"syscustomerset",
+										"upload"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "设备模型",
+					"item": [
+						{
+							"name": "新增",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"custId\": \"999001\",\r\n    \"dataRange\": 0,\r\n    \"deviceType\": 0,\r\n    \"model\": \"A170\",\r\n    \"url\": \"https://gdcxcloud.oss-cn-shenzhen.aliyuncs.com/2022052910172200c006674f224760ba465e0a001458df.png\",\r\n    \"remark\": \"AAAA\",\r\n    \"listCusts\": \"999002,999003\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/devicemodal/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"devicemodal",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"1530739005866512384\",\r\n    \"custId\": \"999001\",\r\n    \"dataRange\": 1,\r\n    \"deviceType\": 0,\r\n    \"model\": \"A170\",\r\n    \"url\": \"https://gdcxcloud.oss-cn-shenzhen.aliyuncs.com/2022052910172200c006674f224760ba465e0a001458df.png\",\r\n    \"remark\": \"AAAA\",\r\n    \"listCusts\": \"999002,999003\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/devicemodal/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"devicemodal",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询客户配置设备模型",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/devicemodal/queryCustomerDeviceModalById/999001",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"devicemodal",
+										"queryCustomerDeviceModalById",
+										"999001"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "access_token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/backend/devicemodal/delete/1530739005866512384",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"backend",
+										"devicemodal",
+										"delete",
+										"1530739005866512384"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "自动巡航配置相关接口",
+			"item": [
+				{
+					"name": "新增机场自动巡航配置规则",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"platformId\":\"1002\"\r\n   ,\"beginDate\":\"2022-05-30\"\r\n   ,\"endDate\":\"2022-06-03\"\r\n   ,\"circleDays\":\"周一,周二,周三,周四,周五,周六,周日\"\r\n   ,\"listDayExeTimes\":\r\n        [{\"beginTime\":\"15:15\",\"missionId\":\"20211208150446428871195983\",\"status\":\"1\"}\r\n        ,{\"beginTime\":\"15:30\",\"missionId\":\"20211208150450847810410035\",\"status\":\"0\"}\r\n        ,{\"beginTime\":\"15:45\",\"missionId\":\"20211208142353482767546656\",\"status\":\"0\"}\r\n        ,{\"beginTime\":\"16:00\",\"missionId\":\"20211208142359183866342436\",\"status\":\"0\"}\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/autoflight/config/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"autoflight",
+								"config",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询机场自动巡航配置规则",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"flightConfigId\": \"20211208220717186606648192\",\r\n    \"isExecute\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/autoflight/config/queryRuleByPlatformId/1530758019850309632",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"autoflight",
+								"config",
+								"queryRuleByPlatformId",
+								"1530758019850309632"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询机场自动巡航配置规则根据NodeId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"flightConfigId\": \"20211208220717186606648192\",\r\n    \"isExecute\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/autoflight/config/queryRuleByNodeId/98",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"autoflight",
+								"config",
+								"queryRuleByNodeId",
+								"98"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "系统全局数据字典查询",
+			"item": [
+				{
+					"name": "查询机场型号",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"roleId\": \"1529003104656297984\",\r\n        \"custId\": \"999001\",\r\n        \"roleName\": \"201巡逻组\",\r\n        \"comments\": \"201巡逻组\",\r\n        \"roleRight\": [\r\n            {\r\n                \"rightId\": \"1037\"\r\n            },\r\n            {\r\n                \"rightId\": \"1038\"\r\n            },\r\n            {\r\n                \"rightId\": \"1040\"\r\n            }\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/dictionary/queryDicDataByDicType/PlateformModel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"dictionary",
+								"queryDicDataByDicType",
+								"PlateformModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询无人机型号",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"roleId\": \"1529003104656297984\",\r\n        \"custId\": \"999001\",\r\n        \"roleName\": \"201巡逻组\",\r\n        \"comments\": \"201巡逻组\",\r\n        \"roleRight\": [\r\n            {\r\n                \"rightId\": \"1037\"\r\n            },\r\n            {\r\n                \"rightId\": \"1038\"\r\n            },\r\n            {\r\n                \"rightId\": \"1040\"\r\n            }\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/dictionary/queryDicDataByDicType/DroneModel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"dictionary",
+								"queryDicDataByDicType",
+								"DroneModel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "任务维护",
+			"item": [
+				{
+					"name": "添加飞行任务",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"custId\": \"999002\",\r\n    \"missionName\": \"河道巡检\",\r\n    \"missionType\": \"1531445176696967168,1531445368171139072\",\r\n    \"flyKilometer\": \"15m\",\r\n    \"executeTime\": 30,\r\n    \"hightType\": 0,\r\n    \"remark\": \"河道巡检\",\r\n    \"listPlatformId\": \"1530758019850309632\",\r\n    \"listMissionLinePoint\": [\r\n            {\r\n                \"pointIndex\":1,\r\n                \"latitudeDeg\": 41.1409530000,\r\n                \"longitudeDeg\": 123.0140080000,\r\n                \"command\":16,\r\n                \"lelativeAltitudeM\": 150.11,\r\n                \"lpeedMS\": 61,\r\n                \"cameraAction\": 1,\r\n                \"loiterTimeS\": 13\r\n            },\r\n            {\r\n                 \"pointIndex\":2,\r\n                 \"latitudeDeg\": 51.1409530000,\r\n                 \"longitudeDeg\": 153.0140080000,\r\n                 \"command\":16,\r\n                 \"lelativeAltitudeM\": 150.11,\r\n                 \"lpeedMS\": 62,\r\n                 \"cameraAction\": 1,\r\n                 \"loiterTimeS\": 13\r\n            },\r\n            {\r\n                 \"pointIndex\":3,\r\n                 \"latitudeDeg\": 51.1409530000,\r\n                 \"longitudeDeg\": 153.0140080000,\r\n                 \"command\":16,\r\n                 \"lelativeAltitudeM\": 150.11,\r\n                 \"lpeedMS\": 63,\r\n                 \"cameraAction\": 1,\r\n                 \"loiterTimeS\": 13\r\n            },\r\n            {\r\n                 \"pointIndex\":4,\r\n                 \"latitudeDeg\": 51.1409530000,\r\n                 \"longitudeDeg\": 153.0140080000,\r\n                 \"command\":16,\r\n                 \"lelativeAltitudeM\": 150.11,\r\n                 \"lpeedMS\": 64,\r\n                 \"cameraAction\": 1,\r\n                 \"loiterTimeS\": 13\r\n            }\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改飞行任务",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"missionId\": \"1534520103796871168\",\r\n    \"custId\": \"999002\",\r\n    \"missionName\": \"河道巡检\",\r\n    \"missionType\": \"1531445176696967168,1531445368171139072\",\r\n    \"flyKilometer\": 15,\r\n    \"executeTime\": 30,\r\n    \"hightType\": 0,\r\n    \"remark\": \"河道巡检\",\r\n    \"listPlatformId\": \"1530758019850309632\",\r\n    \"listMissionLinePoint\": [\r\n            {\r\n                \"pointIndex\":1,\r\n                \"latitudeDeg\": 41.1409530000,\r\n                \"longitudeDeg\": 123.0140080000,\r\n                \"command\":16,\r\n                \"lelativeAltitudeM\": 150.11,\r\n                \"lpeedMS\": 61,\r\n                \"cameraAction\": 1,\r\n                \"loiterTimeS\": 13\r\n            },\r\n            {\r\n                 \"pointIndex\":2,\r\n                 \"latitudeDeg\": 51.1409530000,\r\n                 \"longitudeDeg\": 153.0140080000,\r\n                 \"command\":16,\r\n                 \"lelativeAltitudeM\": 150.11,\r\n                 \"lpeedMS\": 62,\r\n                 \"cameraAction\": 1,\r\n                 \"loiterTimeS\": 13\r\n            },\r\n            {\r\n                 \"pointIndex\":3,\r\n                 \"latitudeDeg\": 51.1409530000,\r\n                 \"longitudeDeg\": 153.0140080000,\r\n                 \"command\":16,\r\n                 \"lelativeAltitudeM\": 150.11,\r\n                 \"lpeedMS\": 63,\r\n                 \"cameraAction\": 1,\r\n                 \"loiterTimeS\": 13\r\n            },\r\n            {\r\n                 \"pointIndex\":4,\r\n                 \"latitudeDeg\": 51.1409530000,\r\n                 \"longitudeDeg\": 153.0140080000,\r\n                 \"command\":16,\r\n                 \"lelativeAltitudeM\": 150.11,\r\n                 \"lpeedMS\": 64,\r\n                 \"cameraAction\": 1,\r\n                 \"loiterTimeS\": 13\r\n            }\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除飞行任务",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/delete/1531472552000622592",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"delete",
+								"1531472552000622592"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "批量删除飞行任务",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/batchDelete/1531472552000622592,1531473336708763648",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"batchDelete",
+								"1531472552000622592,1531473336708763648"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户能看的任务列表",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/user/QueryUserRightMission/10000100000000000000000004",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"user",
+								"QueryUserRightMission",
+								"10000100000000000000000004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询机场对应的任务列表",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/QueryMissionListByPlatformId/1530758019850309632",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"QueryMissionListByPlatformId",
+								"1530758019850309632"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询任务列表按任务类型ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/QueryMissionByMissionTypeId/1531445176696967168",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"QueryMissionByMissionTypeId",
+								"1531445176696967168"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询任务按任务ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/QueryMissionByMissionId/1531481519670038528",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"QueryMissionByMissionId",
+								"1531481519670038528"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "任务航点查询",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/QueryMissionLinePoint/1531481519670038528",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"QueryMissionLinePoint",
+								"1531481519670038528"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询任务及航点按执行ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/QueryMissionLinePointByExecutionsId/1531939324394868736",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"QueryMissionLinePointByExecutionsId",
+								"1531939324394868736"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询机场信息根据任务ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": " {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/QueryMissionPlatform/1531481519670038528",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"QueryMissionPlatform",
+								"1531481519670038528"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询任务关联信息-定时任务",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/QueryMissionRelationInfoByMissionId/1531481714268966912",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"QueryMissionRelationInfoByMissionId",
+								"1531481714268966912"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询任务列表及航点按机场ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/QueryListMissionAndPointByPlatformId/1530758019850309632",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"QueryListMissionAndPointByPlatformId",
+								"1530758019850309632"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "停掉指定的任务",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/StopRunningMissionByIds/1530758019850309632",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"StopRunningMissionByIds",
+								"1530758019850309632"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "机场复位结束任务",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/resetMissionByPlateId/1541242033614753792",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"resetMissionByPlateId",
+								"1541242033614753792"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询客户任务列表查询-弃用",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/mission/QueryMissionList/999002",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"mission",
+								"QueryMissionList",
+								"999002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "巡航添加管理",
+			"item": [
+				{
+					"name": "获取执行ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"custId\": \"dr1001\",\r\n    \"platformId\": \"dr1001\",\r\n    \"droneId\": \"1531814289856401408\",\r\n    \"activeId\": \"1001\",\r\n    \"missionId\": \"1531481714268966912\",\r\n    \"startTime\": \"2020-08-14 09:45:16\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/executionmission/getExecutionsId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"executionmission",
+								"getExecutionsId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加执行任务",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"custId\": \"dr1001\",\r\n    \"platformId\": \"dr1001\",\r\n    \"droneId\": \"1531814289856401408\",\r\n    \"exeType\": 0,\r\n    \"userId\":\"10000010001\",\r\n    \"activeId\": \"1001\",\r\n    \"missionId\": \"1531481714268966912\",\r\n    \"startTime\": \"2020-08-14 09:45:16\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/executionmission/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"executionmission",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改执行任务",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"executionsId\": \"1531831574117617664\",\r\n    \"endTime\": \"2020-08-14 09:56:18\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/executionmission/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"executionmission",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按日期查询任务执行情况",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"beginTime\": \"2022-07-30\",\r\n   \"endTime\": \"2022-08-26\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/executionmission/QueryMissionExeList",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"executionmission",
+								"QueryMissionExeList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "结束巡航记录",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"executionsId\": \"1531831574117617777\",\r\n   \"endTime\": \"2022-06-07 09:56:16\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/executionmission/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"executionmission",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "巡航实时轨迹点数据添加",
+			"item": [
+				{
+					"name": "飞行执行任务监测",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"executionsId\": \"01418844609194364928\",\r\n    \"droneId\": \"01349005001921531904\",\r\n    \"recordtime\": \"2021-08-26 09:08:16\",\r\n    \"runStatus\": 1,\r\n    \"longitudeDeg\":114.222281,\r\n    \"latitudeDeg\": 22.713938,\r\n    \"relativeAltitudeM\": 150.11,\r\n    \"rollDeg\": 15.1409530000,\r\n    \"pitchDeg\": 20.0140080000,\r\n    \"yawDeg\": 15.11,\r\n    \"numSatelites\": 3,\r\n    \"voltageV\": 25.1400000000,\r\n    \"remainingParcent\": 0.760080000,\r\n    \"flightdistance\": 15.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/missionmonitor/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"missionmonitor",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询执行航点数据通过任务执行ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"executionsId\": \"10000101299539388417576960\",\r\n    \"recordtime\": \"2020-08-16 09:52:16\",\r\n    \"latitudeDeg\": 41.1409530000,\r\n    \"longitudeDeg\": 123.0140080000,\r\n    \"relativeAltitudeM\": 150.11,\r\n    \"rollDeg\": 15.1409530000,\r\n    \"pitchDeg\": 20.0140080000,\r\n    \"yawDeg\": 15.11,\r\n    \"numSatelites\": 3,\r\n    \"voltageV\": 25.1400000000,\r\n    \"remainingParcent\": 0.760080000,\r\n    \"flightdistance\": 15.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/missionmonitor/QueryMissionExecuteLinePoint/1534449217861455872",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"missionmonitor",
+								"QueryMissionExecuteLinePoint",
+								"1534449217861455872"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按时间段查询无人机状态列表信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJTdGF0dXMiOiIwIiwiQ3JlYXRlQnkiOiIxMDAwMDEwMDAwMDAwMDAwMDAwMDAwMDAwMSIsImlzcyI6ImdkY3giLCJNb2JpbGUiOiIxMzQ4MDg0MzAyOSIsIkNyZWF0ZURhdGUiOjE1OTg2MDI3NzAwMDAsIlBhc3N3ZCI6IkUxMEFEQzM5NDlCQTU5QUJCRTU2RTA1N0YyMEY4ODNFIiwiTmFtZSI6Indhbmd3dSIsIlVwZGF0ZUJ5IjoiMTAwMDAxMDAwMDAwMDAwMDAwMDAwMDAwMDEiLCJVcGRhdGVEYXRlIjoxNTk4NjAyNzcwMDAwLCJVc2VySWQiOiIxMDAwMDEwMTI5OTI2MDMwMjI4NTczNzk4NCIsIkZhY2VJbWFnZSI6IiIsImV4cCI6MTYwMTU0MDU1OSwiaWF0IjoxNjAwOTM1NzU5LCJBY2NvdW50cyI6Indhbmd3dSIsImp0aSI6ImJmNDkwMDJiLWVkMWMtNDhiMy1hM2YwLWI5ZTZiNGIwZjVmYiJ9.M73z_-56KighGziLLTPq9SzQ6OqN-luifXe8QTL7ipQ"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"100001\",\r\n   \"beginTime\": \"2020-07-03\",\r\n   \"endTime\": \"2020-09-26\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/missionmonitor/QueryDroneStatusListdata",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"missionmonitor",
+								"QueryDroneStatusListdata"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "视频录像接口",
+			"item": [
+				{
+					"name": "按条件查询视屏录制按执行ID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"20211102161812395210072355\",\r\n   \"executionsId\": \"20220214164746903257584217\",\r\n   \"missionId\": \"20211105214821866693819834\",\r\n   \"beginTime\": \"2022-02-14 17:00:15\",\r\n   \"endTime\": \"2022-02-14 17:00:15\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/videorecord/QueryVideoRecord/1531831574117617777",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"videorecord",
+								"QueryVideoRecord",
+								"1531831574117617777"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "关闭视频Camera004",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJTdGF0dXMiOiIwIiwiQ3JlYXRlQnkiOiIxMDAwMDEwMDAwMDAwMDAwMDAwMDAwMDAwMSIsImlzcyI6ImdkY3giLCJNb2JpbGUiOiIxMzQ4MDg0MzAyOSIsIkNyZWF0ZURhdGUiOjE1OTg2MDI3NzAwMDAsIlBhc3N3ZCI6IkUxMEFEQzM5NDlCQTU5QUJCRTU2RTA1N0YyMEY4ODNFIiwiTmFtZSI6Indhbmd3dSIsIlVwZGF0ZUJ5IjoiMTAwMDAxMDAwMDAwMDAwMDAwMDAwMDAwMDEiLCJVcGRhdGVEYXRlIjoxNTk4NjAyNzcwMDAwLCJVc2VySWQiOiIxMDAwMDEwMTI5OTI2MDMwMjI4NTczNzk4NCIsIkZhY2VJbWFnZSI6IiIsImV4cCI6MTYwMTU0MDU1OSwiaWF0IjoxNjAwOTM1NzU5LCJBY2NvdW50cyI6Indhbmd3dSIsImp0aSI6ImJmNDkwMDJiLWVkMWMtNDhiMy1hM2YwLWI5ZTZiNGIwZjVmYiJ9.M73z_-56KighGziLLTPq9SzQ6OqN-luifXe8QTL7ipQ"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userId",
+									"value": "u0004",
+									"type": "text"
+								},
+								{
+									"key": "cameraId",
+									"value": "Camera004",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8082/closePlay",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"closePlay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "得到摄像机心跳状态",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJTdGF0dXMiOiIwIiwiQ3JlYXRlQnkiOiIxMDAwMDEwMDAwMDAwMDAwMDAwMDAwMDAwMSIsImlzcyI6ImdkY3giLCJNb2JpbGUiOiIxMzQ4MDg0MzAyOSIsIkNyZWF0ZURhdGUiOjE1OTg2MDI3NzAwMDAsIlBhc3N3ZCI6IkUxMEFEQzM5NDlCQTU5QUJCRTU2RTA1N0YyMEY4ODNFIiwiTmFtZSI6Indhbmd3dSIsIlVwZGF0ZUJ5IjoiMTAwMDAxMDAwMDAwMDAwMDAwMDAwMDAwMDEiLCJVcGRhdGVEYXRlIjoxNTk4NjAyNzcwMDAwLCJVc2VySWQiOiIxMDAwMDEwMTI5OTI2MDMwMjI4NTczNzk4NCIsIkZhY2VJbWFnZSI6IiIsImV4cCI6MTYwMTU0MDU1OSwiaWF0IjoxNjAwOTM1NzU5LCJBY2NvdW50cyI6Indhbmd3dSIsImp0aSI6ImJmNDkwMDJiLWVkMWMtNDhiMy1hM2YwLWI5ZTZiNGIwZjVmYiJ9.M73z_-56KighGziLLTPq9SzQ6OqN-luifXe8QTL7ipQ"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://120.24.24.71/api_video2/getHeartBeat/Camera003",
+							"protocol": "http",
+							"host": [
+								"120",
+								"24",
+								"24",
+								"71"
+							],
+							"path": [
+								"api_video2",
+								"getHeartBeat",
+								"Camera003"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "得到摄像机心跳状态本地",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJTdGF0dXMiOiIwIiwiQ3JlYXRlQnkiOiIxMDAwMDEwMDAwMDAwMDAwMDAwMDAwMDAwMSIsImlzcyI6ImdkY3giLCJNb2JpbGUiOiIxMzQ4MDg0MzAyOSIsIkNyZWF0ZURhdGUiOjE1OTg2MDI3NzAwMDAsIlBhc3N3ZCI6IkUxMEFEQzM5NDlCQTU5QUJCRTU2RTA1N0YyMEY4ODNFIiwiTmFtZSI6Indhbmd3dSIsIlVwZGF0ZUJ5IjoiMTAwMDAxMDAwMDAwMDAwMDAwMDAwMDAwMDEiLCJVcGRhdGVEYXRlIjoxNTk4NjAyNzcwMDAwLCJVc2VySWQiOiIxMDAwMDEwMTI5OTI2MDMwMjI4NTczNzk4NCIsIkZhY2VJbWFnZSI6IiIsImV4cCI6MTYwMTU0MDU1OSwiaWF0IjoxNjAwOTM1NzU5LCJBY2NvdW50cyI6Indhbmd3dSIsImp0aSI6ImJmNDkwMDJiLWVkMWMtNDhiMy1hM2YwLWI5ZTZiNGIwZjVmYiJ9.M73z_-56KighGziLLTPq9SzQ6OqN-luifXe8QTL7ipQ"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8082/getHeartBeat/Camera001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"getHeartBeat",
+								"Camera001"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "飞行截图打点",
+			"item": [
+				{
+					"name": "飞行视频截图上传-文件",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Administrator/Pictures/Camera Roll/xiaoxin3.png"
+								},
+								{
+									"key": "missionId",
+									"value": "1506154800155332608",
+									"type": "text"
+								},
+								{
+									"key": "executionsId",
+									"value": "1506456090274041856",
+									"type": "text"
+								},
+								{
+									"key": "longitudeDeg",
+									"value": "114.24293619966046",
+									"type": "text"
+								},
+								{
+									"key": "latitudeDeg",
+									"value": "22.75912309499026",
+									"type": "text"
+								},
+								{
+									"key": "picType",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "remark",
+									"value": "飞行截图上传",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/VideoCutPic/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"VideoCutPic",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "下载飞行视频截图",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "filePath",
+									"value": "798b49d7-f333-48b1-9216-d59f9701bcb4xiaoxin3.png",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/VideoCutPic/download?filePath=798b49d7-f333-48b1-9216-d59f9701bcb4xiaoxin3.png",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"VideoCutPic",
+								"download"
+							],
+							"query": [
+								{
+									"key": "filePath",
+									"value": "798b49d7-f333-48b1-9216-d59f9701bcb4xiaoxin3.png"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据执行任务ID查询飞行视频截图",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/VideoCutPic/QueryVideoCutPic/1531831574117617777",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"VideoCutPic",
+								"QueryVideoCutPic",
+								"1531831574117617777"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "机场监测数据",
+			"item": [
+				{
+					"name": "添加机场监测数据",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"platformId\": \"1349004679924813824\",\r\n    \"recordtime\": \"2021-11-03 17:05:27.200\",\r\n    \"faultstatus\": 2,\r\n    \"innerTemperature\": 125.142,\r\n    \"outsideTemperature\": 28.014,\r\n    \"innerHumidity\": 16.11,\r\n    \"upsstatus\": 1,\r\n    \"batteryStatus\": 1,\r\n    \"airConditionerStatus\": 1,\r\n    \"uPSIncomeVolt\": 11.0,\r\n    \"uPSIncomingFrequency\": 22.0,\r\n    \"uPSOutputVolt\": 33.0,\r\n    \"uPSOutputFrequency\": 44.0,\r\n    \"uPSOutputAmp\": 55.0,\r\n    \"uPSLoadPercentage\": 66.0,\r\n    \"uPSBatteryVolt\": 77.0,\r\n    \"uPSCapacityPercentage\":88.0,\r\n    \"uPSBatteryLife\": 99.0,\r\n    \"uPSTemperature\": 101.0,\r\n    \"uPSLoadPower\": 102.0,\r\n    \"airConditionerAOneNo0\": 103.0,\r\n    \"airConditionerAOneNo1\": 104.0,\r\n    \"airConditionerAOneNo2\": 105.0,\r\n    \"airConditionerAOneNo3\": 106.0,\r\n    \"airConditionerAOneNo4\": 107.0,\r\n    \"airConditionerAOneNo5\": 108.0,\r\n    \"airConditionerAOneNo6\": 109.0,\r\n    \"airConditionerAOneNo7\": 110.0,\r\n    \"airConditionerAOneNo8\": 111.0,\r\n    \"airConditionerAOneNo9\": 112.0,\r\n    \"airConditionerAOneNo10\": 113.0,\r\n    \"airConditionerAOneNo11\": 114.0,\r\n    \"airConditionerAOneNo12\": 115.0,\r\n    \"airConditionerAOneNo13\": 116.0,\r\n    \"airConditionerAOneNo14\": 117.0,\r\n    \"airConditionerAOneNo15\": 118.0,\r\n    \"airConditionerBOneNo0\": 201.0,\r\n    \"airConditionerBOneNo1\": 202.0,\r\n    \"airConditionerBOneNo2\": 203.0,\r\n    \"airConditionerBOneNo3\": 204.0,\r\n    \"airConditionerBOneNo4\": 205.0,\r\n    \"airConditionerBOneNo5\": 206.0,\r\n    \"airConditionerBOneNo6\": 207.0,\r\n    \"airConditionerBOneNo7\": 208.0,\r\n    \"airConditionerBOneNo8\": 209.0,\r\n    \"airConditionerBOneNo9\": 210.0,\r\n    \"airConditionerBOneNo10\": 211.0,\r\n    \"airConditionerBOneNo11\": 212.0,\r\n    \"airConditionerBOneNo12\": 213.0,\r\n    \"airConditionerBOneNo13\": 214.0,\r\n    \"airConditionerBOneNo14\": 215.0,\r\n    \"airConditionerBOneNo15\": 216.0,\r\n    \"minWindDirection\": 11,\r\n    \"averageWindDirection\": 12,\r\n    \"maxWindDirection\": 13,\r\n    \"minWindSpeed\": 14.0,\r\n    \"averageWindSpeed\": 15.0,\r\n     \"maxWindSpeed\": 16.0,\r\n    \"temperature\": 17.0,\r\n    \"humidity\": 18.0,\r\n    \"pressure\": 19.0,\r\n    \"rainfall\": 20.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/plateformmonitor/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"plateformmonitor",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询所有机场监测数据",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/plateformmonitor/QueryPlatformMonitor/20211102161947261790334652",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"plateformmonitor",
+								"QueryPlatformMonitor",
+								"20211102161947261790334652"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询最新一条机场监测数据",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/plateformmonitor/QueryLastedPlatformMonitorData/99652757790654473",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"plateformmonitor",
+								"QueryLastedPlatformMonitorData",
+								"99652757790654473"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按日期查询机场状态信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"999999\",\r\n   \"beginTime\": \"2020-09-03\",\r\n   \"endTime\": \"2020-09-27 11:31:27\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/plateformmonitor/QueryPlatformMonitorData",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"plateformmonitor",
+								"QueryPlatformMonitorData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按日期查询机场温度信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"999999\",\r\n   \"beginTime\": \"2020-09-03\",\r\n   \"endTime\": \"2020-09-27 11:31:27\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/plateformmonitor/QueryPlatformTemperature",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"plateformmonitor",
+								"QueryPlatformTemperature"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "电池管理",
+			"item": [
+				{
+					"name": "查询客户电池信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJTdGF0dXMiOiIwIiwiQ3JlYXRlQnkiOiIxMDAwMDEwMDAwMDAwMDAwMDAwMDAwMDAwMSIsImlzcyI6ImdkY3giLCJNb2JpbGUiOiIxMzQ4MDg0MzAyOSIsIkNyZWF0ZURhdGUiOjE1OTg2MDI3NzAwMDAsIlBhc3N3ZCI6IkUxMEFEQzM5NDlCQTU5QUJCRTU2RTA1N0YyMEY4ODNFIiwiTmFtZSI6Indhbmd3dSIsIlVwZGF0ZUJ5IjoiMTAwMDAxMDAwMDAwMDAwMDAwMDAwMDAwMDEiLCJVcGRhdGVEYXRlIjoxNTk4NjAyNzcwMDAwLCJVc2VySWQiOiIxMDAwMDEwMTI5OTI2MDMwMjI4NTczNzk4NCIsIkZhY2VJbWFnZSI6IiIsImV4cCI6MTYwMTU0MDU1OSwiaWF0IjoxNjAwOTM1NzU5LCJBY2NvdW50cyI6Indhbmd3dSIsImp0aSI6ImJmNDkwMDJiLWVkMWMtNDhiMy1hM2YwLWI5ZTZiNGIwZjVmYiJ9.M73z_-56KighGziLLTPq9SzQ6OqN-luifXe8QTL7ipQ"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/battery/queryListBatteryByCustId/100001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"battery",
+								"queryListBatteryByCustId",
+								"100001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按时间段查询电池状态列表信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJTdGF0dXMiOiIwIiwiQ3JlYXRlQnkiOiIxMDAwMDEwMDAwMDAwMDAwMDAwMDAwMDAwMSIsImlzcyI6ImdkY3giLCJNb2JpbGUiOiIxMzQ4MDg0MzAyOSIsIkNyZWF0ZURhdGUiOjE1OTg2MDI3NzAwMDAsIlBhc3N3ZCI6IkUxMEFEQzM5NDlCQTU5QUJCRTU2RTA1N0YyMEY4ODNFIiwiTmFtZSI6Indhbmd3dSIsIlVwZGF0ZUJ5IjoiMTAwMDAxMDAwMDAwMDAwMDAwMDAwMDAwMDEiLCJVcGRhdGVEYXRlIjoxNTk4NjAyNzcwMDAwLCJVc2VySWQiOiIxMDAwMDEwMTI5OTI2MDMwMjI4NTczNzk4NCIsIkZhY2VJbWFnZSI6IiIsImV4cCI6MTYwMTU0MDU1OSwiaWF0IjoxNjAwOTM1NzU5LCJBY2NvdW50cyI6Indhbmd3dSIsImp0aSI6ImJmNDkwMDJiLWVkMWMtNDhiMy1hM2YwLWI5ZTZiNGIwZjVmYiJ9.M73z_-56KighGziLLTPq9SzQ6OqN-luifXe8QTL7ipQ"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"100002\",\r\n   \"beginTime\": \"2020-07-03\",\r\n   \"endTime\": \"2020-09-25\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/battery/QueryBatteryStatusListdata",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"battery",
+								"QueryBatteryStatusListdata"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "报表管理",
+			"item": [
+				{
+					"name": "按月统计作业频次",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"1349004547074428928\",\r\n   \"beginTime\": \"2020-07-03\",\r\n   \"endTime\": \"2021-09-26\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryTotalOperateCounts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryTotalOperateCounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按日期统计作业时长",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"100001\",\r\n   \"beginTime\": \"2020-09-03\",\r\n   \"endTime\": \"2020-09-26\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryTotalOperateTimes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryTotalOperateTimes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按日期统计总操作概况",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"100001\",\r\n   \"beginTime\": \"2020-09-03\",\r\n   \"endTime\": \"2020-09-26\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryTotalOutlook",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryTotalOutlook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按时间段查询无人机状态列表信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"100001\",\r\n   \"beginTime\": \"2020-07-03\",\r\n   \"endTime\": \"2020-09-26\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryDroneStatusListdata",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryDroneStatusListdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按日期查询机场状态信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"999999\",\r\n   \"beginTime\": \"2020-09-03\",\r\n   \"endTime\": \"2020-09-27 11:31:27\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryPlatformMonitorData",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryPlatformMonitorData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按日期查询机场温度信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"999999\",\r\n   \"beginTime\": \"2020-09-03\",\r\n   \"endTime\": \"2020-09-27 11:31:27\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryPlatformMonitorData",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryPlatformMonitorData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按分钟查询机场内部外部最低最高温度",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"platformId\": \"pate100001\",\r\n   \"beginTime\": \"2020-12-01 00:01:01\",\r\n   \"endTime\": \"2020-12-01 00:59:01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryPlatformTemperatureByMinutes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryPlatformTemperatureByMinutes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按小时 查询机场内部外部最低最高温度",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"platformId\": \"pate100001\",\r\n   \"beginTime\": \"2020-12-01 01:01:01\",\r\n   \"endTime\": \"2020-12-01 15:59:01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryPlatformTemperatureByHours",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryPlatformTemperatureByHours"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按天 查询机场内部外部最低最高温度",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"platformId\": \"pate100001\",\r\n   \"beginTime\": \"2020-12-01 01:01:01\",\r\n   \"endTime\": \"2020-12-15 01:59:01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryPlatformTemperatureByDays",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryPlatformTemperatureByDays"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按时间段查询电池状态列表信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"100002\",\r\n   \"beginTime\": \"2020-07-03\",\r\n   \"endTime\": \"2020-09-25\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryBatteryStatusListdata",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryBatteryStatusListdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按条件查询检测风速信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"platformId\": \"20211102161947261790334652\",\r\n   \"beginTime\": \"2022-02-10 23:30:00\",\r\n   \"endTime\": \"2022-02-10 23:59:59\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryListMonitorWindSpeed",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryListMonitorWindSpeed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按条件查询监测雨量信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"platformId\": \"20211102161947261790334652\",\r\n   \"beginTime\": \"2022-02-14 16:20:50\",\r\n   \"endTime\": \"2022-02-14 16:21:19\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryListMonitorRainfall",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryListMonitorRainfall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按日期查询客户任务执行列表",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"custId\": \"1349004679924813824\",\r\n   \"beginTime\": \"2021-07-24 16:20:50\",\r\n   \"endTime\": \"2021-07-24 16:21:19\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryMissionListByDate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryMissionListByDate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询最近半小时内的最大风速及雨量",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"platformId\": \"20211102161947261790334652\",\r\n   \"beginTime\": \"2022-02-15 15:00:30\",\r\n   \"endTime\": \"2022-02-15 15:09:30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/backend/report/QueryMaxWindSpeedAndRainfall",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backend",
+								"report",
+								"QueryMaxWindSpeedAndRainfall"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://192.168.0.18:8000/api/"
+		},
+		{
+			"key": "access_token",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJTdGF0dXMiOjAsIkNyZWF0ZUJ5IjoiLTEiLCJpc3MiOiJnZGN4IiwiTW9iaWxlIjoiMTgzMDE2NTAyNjciLCJDcmVhdGVEYXRlIjoxNTk3MzY5NTE2MDAwLCJOYW1lIjoiYWRtaW4iLCJVcGRhdGVCeSI6bnVsbCwiVXBkYXRlRGF0ZSI6MTY1NDg0MzM2MTAwMCwiVXNlcklkIjoiMTAwMDAxMDAwMDAwMDAwMDAwMDAwMDAwMDEiLCJGYWNlSW1hZ2UiOiJodHRwczovL2dkY3hjbG91ZC5vc3MtY24tc2hlbnpoZW4uYWxpeXVuY3MuY29tLzIwMjIwNjEwMTQ0MjQxZmVjMGI0ODJhOWExNGE2YzlhYjI2NDg4YjFmY2E2YjUucG5nIiwiZXhwIjoxNjU5OTkzMTE0LCJpYXQiOjE2NTk5MjY5OTQsIkFjY291bnRzIjoiYWRtaW4iLCJqdGkiOiI1MWIxNTJkMi1hYjFjLTRjY2ItODBiYi03NDY3ODgwYmNjYmUifQ.f4cHda4t7p_1W9gDwI0M6YDcAnlkuwyfCWn0FKDJ59g"
+		}
+	]
+}
