@@ -7,7 +7,11 @@ let Config = {
             credential: 'kurento'
         }
         ]
-    }
+    },
+    server: "wss://drone.godouav.com/rtc",
+    token: "",
+    node: "",
+    camerId: ""
 };
 
 export default Config;

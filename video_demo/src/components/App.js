@@ -2,16 +2,17 @@ import React from 'react';
 import Video from './Video';
 import WS from '../WS';
 import WebRTC from '../WebRTC';
+import Config from '../Config';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            wsAddr: 'wss://drone.godouav.com/rtc',
-            token: '',
-            node: '',
-            cameraId: '',
+            wsAddr: Config.server,
+            token: Config.token,
+            node: Config.node,
+            cameraId: Config.camerId,
             showVideo: false,
             connecting: false,
             stream: 'main'
