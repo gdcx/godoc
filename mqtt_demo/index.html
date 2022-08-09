@@ -75,7 +75,7 @@
                         let type = topic.split('/')[4]
                         // 判断对应的订阅数据类别 station 机场信息  moving机场运动信息 weather气象站信息
                         if (type === 'station') {
-                            receiveMsg.append(new Date() + ':  <div>'+JSON.stringify(message)+'</div>')
+                            receiveMsg.append('<div>'+new Date() + ':</div>  <div>'+JSON.stringify(message)+'</div><br>')
                             if(window.key && window.key === Number(nodeId)){
                                 console.log(window.key+'机场station----》', message)
                             }
@@ -89,6 +89,7 @@
             let droneId = $('#droneId').val()
             let nodeId = $('#nodeId').val()
             let droneTopicUrl = 'node/' + nodeId + '/drone/' + droneId
+            let receiveMsg = $('#receiveMsg')
             if(droneId && nodeId && mqttObj){
                 mqttObj.doSubscribe(droneTopicUrl, function (topic, message) {
                     console.log(topic, JSON.stringify(message))
@@ -96,7 +97,7 @@
                      if (receiveDroneId === droneId) {
                         let type = topic.split('/')[4]
                         // 无人机信息
-                         receiveMsg.append(new Date() + ':  <div>'+JSON.stringify(message)+'</div>')
+                         receiveMsg.append('<div>'+new Date() + ':</div>  <div>'+JSON.stringify(message)+'</div><br>')
                             if(window.key && window.key === Number(nodeId)){
                                 console.log(window.key+'无人机信息----》', message)
                             }
