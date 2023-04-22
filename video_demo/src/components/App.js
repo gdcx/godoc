@@ -4,6 +4,7 @@ import WS from '../WS';
 import WebRTC from '../WebRTC';
 import Config from '../Config';
 
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -15,7 +16,7 @@ class App extends React.Component {
             cameraId: Config.camerId,
             showVideo: false,
             connecting: false,
-            stream: 'main'
+            stream: 'main',
         };
 
         this.changeWS = this.changeWS.bind(this);
@@ -27,6 +28,8 @@ class App extends React.Component {
         this.onPlay = this.onPlay.bind(this);
         this.onDisconnect = this.onDisconnect.bind(this);
         this.getBtnText = this.getBtnText.bind(this);
+
+        this.onSwitch5gVideo = this.onSwitch5gVideo.bind(this)
     }
 
     render() {
@@ -56,6 +59,8 @@ class App extends React.Component {
                 {this.state.showVideo &&
                     < Video cameraId={this.state.cameraId} rtc={this.rtc} />
                 }
+                <br></br>
+                <input type="button" value="连接5g视频" onClick={this.onSwitch5gVideo}></input>
             </form>
         )
     };
@@ -99,6 +104,41 @@ class App extends React.Component {
             this.state.stream = 'main';
         }
         this.rtc.switchStream(this.state.stream);
+    }
+
+    //切换5g视频方案
+    onSwitch5gVideo(event){
+        console.log(this.state)
+        if (this.state.cameraId === '') {
+            alert('无效CameraID!');
+            return;
+        }
+        const signalLocal = new Signal.IonSFUJSONRPCSignal(
+            Config.server_5g
+        );
+        const clientLocal = new IonSDK.Client(signalLocal, {
+            codec: Config.codec,
+            iceServers: Config.iceServers
+        });
+        let cameraId = this.state.cameraId
+        signalLocal.onopen = () => clientLocal.join(cameraId);
+        clientLocal.ontrack = (track, stream) => {
+            console.log("got track", track.id, "for stream", stream.id);
+            if (track.kind === "video") {
+                let remoteVideo = document.getElementById('rtc');
+                if (!remoteVideo) {
+                    remoteVideo = document.createElement("video");
+                }        
+                remoteVideo.srcObject = stream;
+                remoteVideo.autoplay = true;
+                remoteVideo.muted = true;
+                // track.onremovetrack = () => remotesDiv.removeChild(remoteVideo);
+            }
+        };
+        this.setState({
+            showVideo: true,
+            connecting: true
+        });
     }
 
     onDisconnect(event) {

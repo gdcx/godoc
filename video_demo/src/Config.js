@@ -11,7 +11,16 @@ let Config = {
     server: "wss://drone.godouav.com/rtc",
     token: "",
     node: "",
-    camerId: ""
+    camerId: "",
+
+    //5g方案
+    server_5g: 'wss://drone.godouav.com:443/sfu/ws',
+    codec: 'vp8',
+    iceServers: [
+        {
+            "urls": "stun:stun.l.google.com:19302",
+        }
+    ]
 };
 
 export default Config;
