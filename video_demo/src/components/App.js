@@ -17,6 +17,10 @@ class App extends React.Component {
             showVideo: false,
             connecting: false,
             stream: 'main',
+
+            clientLocal: null,
+            rtcObj: null,
+            connecting5g: false,
         };
 
         this.changeWS = this.changeWS.bind(this);
@@ -29,11 +33,14 @@ class App extends React.Component {
         this.onDisconnect = this.onDisconnect.bind(this);
         this.getBtnText = this.getBtnText.bind(this);
 
-        this.onSwitch5gVideo = this.onSwitch5gVideo.bind(this)
+        this.get5gBtnText = this.get5gBtnText.bind(this);
+
+        this.on5gBtnClick = this.on5gBtnClick.bind(this)
     }
 
     render() {
         let btnText = this.getBtnText();
+        let btn5gText = this.get5gBtnText();
         return (
             <form >
                 <label>Websocket 地址:</label>
@@ -60,7 +67,7 @@ class App extends React.Component {
                     < Video cameraId={this.state.cameraId} rtc={this.rtc} />
                 }
                 <br></br>
-                <input type="button" value="连接5g视频" onClick={this.onSwitch5gVideo}></input>
+                <input type="button" value={btn5gText} onClick={this.on5gBtnClick}></input>
             </form>
         )
     };
@@ -96,6 +103,13 @@ class App extends React.Component {
             this.onPlay(event)
         }
     }
+    on5gBtnClick(event){
+        if(this.state.connecting5g){
+            this.onDisconnect5g(event)
+        }else{
+            this.onSwitch5gVideo(event)
+        }
+    }
 
     onSwitchStream(event) {
         if (this.state.stream == 'main') {
@@ -109,6 +123,13 @@ class App extends React.Component {
     //切换5g视频方案
     onSwitch5gVideo(event){
         console.log(this.state)
+        if(this.rtc){
+            this.rtc.stop()//切换5g视频选择关闭rtc
+            this.rtc = null
+            this.setState({
+                connecting: false
+            });
+        }
         if (this.state.cameraId === '') {
             alert('无效CameraID!');
             return;
@@ -120,6 +141,7 @@ class App extends React.Component {
             codec: Config.codec,
             iceServers: Config.iceServers
         });
+        this.clientLocal = clientLocal
         let cameraId = this.state.cameraId
         signalLocal.onopen = () => clientLocal.join(cameraId);
         clientLocal.ontrack = (track, stream) => {
@@ -137,19 +159,36 @@ class App extends React.Component {
         };
         this.setState({
             showVideo: true,
-            connecting: true
+            connecting5g: true
         });
     }
 
     onDisconnect(event) {
-        //this.rtc.stop()
-        document.getElementById(this.cameraId).pause();
+        this.rtc.stop()
+        this.rtc = null
+        document.getElementById('rtc').pause();
         this.setState({
             connecting: false
         })
     }
+    onDisconnect5g(event){
+        if(this.clientLocal){
+            this.clientLocal.close()
+            this.clientLocal = null;
+        }
+        this.setState({
+            connecting5g: false
+        })
+    }
 
     onPlay(event) {
+        if(this.clientLocal){
+            this.clientLocal.close()//关闭5g视频流
+            this.clientLocal = null;
+            this.setState({
+                connecting5g: false
+            });
+        }
         if (this.state.wsAddr === '') {
             alert('无效websocket地址')
             return;
@@ -185,9 +224,15 @@ class App extends React.Component {
 
     getBtnText() {
         if (this.state.connecting) {
-            return '断开';
+            return '断开自组网视频';
         }
-        return '连接';
+        return '连接自组网视频';
+    }
+    get5gBtnText(){
+        if (this.state.connecting5g) {
+            return '断开5g视频';
+        }
+        return '连接5g视频';
     }
 
     getUserID() {
