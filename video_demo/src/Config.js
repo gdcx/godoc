@@ -2,7 +2,7 @@
 let Config = {
     rtc: {
         iceServers: [{
-            urls: ["turn:p.godouav.com"],
+            urls: ["turn:stun.godouav.com"],
             username: 'kurento',
             credential: 'kurento'
         }
@@ -11,14 +11,14 @@ let Config = {
     server: "wss://drone.godouav.com/rtc",
     token: "",
     node: "",
-    camerId: "",
+    cameraId: "",
 
     //5g方案
     server_5g: 'wss://drone.godouav.com:443/sfu/ws',
     codec: 'vp8',
     iceServers: [
         {
-            "urls": "stun:stun.l.google.com:19302",
+            "urls": "stun:stun.godouav.com",
         }
     ]
 };

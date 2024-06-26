@@ -13,7 +13,7 @@ class App extends React.Component {
             wsAddr: Config.server,
             token: Config.token,
             node: Config.node,
-            cameraId: Config.camerId,
+            cameraId: Config.cameraId,
             showVideo: false,
             connecting: false,
             stream: 'main',
@@ -43,30 +43,41 @@ class App extends React.Component {
         let btn5gText = this.get5gBtnText();
         return (
             <form >
-                <label>Websocket 地址:</label>
-                <input type="text" value={this.state.wsAddr} size="50" onChange={this.changeWS}></input>
+                <div>
+                    <label>Websocket 地址:</label>
+                    <input type="text" value={this.state.wsAddr} size="50" onChange={this.changeWS}></input>
+                </div>
                 <br></br>
 
+                <div>
                 <label>Token:</label>
                 <input type="text" value={this.state.token} size="50" onChange={this.changeToken}></input>
+                </div>
                 <br></br>
 
+                <div>
                 <label> Node:
                 </label>
                 <input type="text" value={this.state.node} size="10" onChange={this.changeNode}></input>
+                </div>
                 <br></br>
 
+                <div>
                 <label> CameraID:
                 </label>
                 <input type="text" value={this.state.cameraId} size="30" onChange={this.changeCameraId}></input>
+                </div>
                 <br></br>
 
-                <input type="button" value={btnText} onClick={this.onBtnClick}></input><br></br>
+                <div>
+                    <input type="button" value={btnText} onClick={this.onBtnClick}></input>
+                </div>
+                <div>
                 <input type="button" value="切换玛流" onClick={this.onSwitchStream}></input>
                 {this.state.showVideo &&
                     < Video cameraId={this.state.cameraId} rtc={this.rtc} />
                 }
-                <br></br>
+                </div>
                 <input type="button" value={btn5gText} onClick={this.on5gBtnClick}></input>
             </form>
         )
@@ -92,7 +103,7 @@ class App extends React.Component {
 
     changeCameraId(event) {
         this.setState({
-            cameraID: event.target.value
+            cameraId: event.target.value
         })
     }
 
