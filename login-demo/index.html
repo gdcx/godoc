@@ -51,11 +51,11 @@
         <div class="title">
             登录
         </div>
-        <div><input type="text" id="account" value="wx01" placeholder="用户名"><br><br></div>
+        <div><input type="text" id="account" value="" placeholder="用户名"><br><br></div>
         <div><input type="password" id="password" value="" placeholder="密码"><br></div>
-        <div class="tip">
+        <!-- <div class="tip">
             请输入用户名和密码
-        </div>
+        </div> -->
         <br>
         <div><button onclick="login()">登录</button></div>
     </div>
@@ -65,13 +65,18 @@
     <script src="./login.js"></script>
     <script>
         var baseUrl="http://dev.godouav.com/api";
+        const APP_ID='';
+        //签名
+        const SIGN_SECRET='';
+        //公钥key
+        const publicKey=''
         function login(){
-            console.log(11111)
             //判断是否输入账号名和密码
             let account = document.getElementById('account').value
             let password = document.getElementById('password').value
             if(account && password){
-                commonLogin(baseUrl,account,password,'')
+                //参数 用户名,密码,短信验证码,根请求路径,APP_ID,签名,公钥
+                commonLogin(account,password,baseUrl,APP_ID,SIGN_SECRET,publicKey)
             }else{
                 alert('请输入用户名和密码')
             }

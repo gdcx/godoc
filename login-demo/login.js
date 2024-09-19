@@ -1,8 +1,6 @@
-const APP_ID='gdcx1001';
-const SIGN_SECRET='baa2847a57b5c45c79754442daeca425c56ffde81499ebe33de03ddefd19d46c';
 var loginUrl='/sso/login'
-function commonLogin(baseUrl,account, password, vertifyCode,appid=APP_ID,sign_secret=SIGN_SECRET) {
-    let passwordSec = Rsa.rsaPublicData(password);
+function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
+    let passwordSec = Rsa.rsaPublicData(password,publicKey);
     var xhr=new XMLHttpRequest();
     let timestamp=Math.round(new Date())
     xhr.open("POST", baseUrl+loginUrl, true);
@@ -17,7 +15,7 @@ function commonLogin(baseUrl,account, password, vertifyCode,appid=APP_ID,sign_se
     let params={
         accounts: account,
         passwd: passwordSec,
-        verifyInput: vertifyCode,
+        verifyInput: '',
     }
     xhr.send(JSON.stringify(params))
     xhr.onreadystatechange=function () {
@@ -25,6 +23,7 @@ function commonLogin(baseUrl,account, password, vertifyCode,appid=APP_ID,sign_se
             // 请求成功
             var json=JSON.parse(xhr.responseText);
             console.log(json);
+            alert('登录成功')
         }
     };
 }
