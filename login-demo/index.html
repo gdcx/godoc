@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .continer{
+            width: 300px;
+            /* height: 400px; */
+            box-sizing: border-box;
+            padding: 20px;
+            background-color: rgba(25, 31, 31, .3);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -150px;
+            margin-top: -200px;
+            /* display: flex;
+            align-items: center;
+            flex-direction: column; */
+        }
+        .title{
+            color: red;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        input{
+            width: 200px;
+            height: 32px;
+        }
+        button{
+            width: 80px;
+            height: 32px;
+        }
+        .tip{
+            font-size: 12px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="continer">
+        <div class="title">
+            登录
+        </div>
+        <div><input type="text" id="account" value="wx01" placeholder="用户名"><br><br></div>
+        <div><input type="password" id="password" value="" placeholder="密码"><br></div>
+        <div class="tip">
+            请输入用户名和密码
+        </div>
+        <br>
+        <div><button onclick="login()">登录</button></div>
+    </div>
+    <script src="./plugins/jsencrypt.js"></script>
+    <script src="./plugins/rsa.js"></script>
+    <script src="./plugins/sha256.min.js"></script>
+    <script src="./login.js"></script>
+    <script>
+        var baseUrl="http://dev.godouav.com/api";
+        function login(){
+            console.log(11111)
+            //判断是否输入账号名和密码
+            let account = document.getElementById('account').value
+            let password = document.getElementById('password').value
+            if(account && password){
+                commonLogin(baseUrl,account,password,'')
+            }else{
+                alert('请输入用户名和密码')
+            }
+            
+        }
+    </script>
+</body>
+
+</html>
