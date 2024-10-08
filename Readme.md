@@ -5740,7 +5740,7 @@ group/{gimbalId}/moving/
 
 ### DEMO
 
-视频demo已将两种连接方式整合在一起，参见video_demo
+视频demo已将两种连接方式整合在一起，参见[video_demo](video_demo)
 
 ### webrtc协议
 
