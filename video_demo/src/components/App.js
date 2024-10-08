@@ -145,8 +145,13 @@ class App extends React.Component {
             alert('无效CameraID!');
             return;
         }
+        // 原始5g连接
+        // const signalLocal = new Signal.IonSFUJSONRPCSignal(
+        //     Config.server_5g
+        // );
+        // 20240905改版后,新增授权
         const signalLocal = new Signal.IonSFUJSONRPCSignal(
-            Config.server_5g
+            Config.server_5g+'?access_token='+Config.token
         );
         const clientLocal = new IonSDK.Client(signalLocal, {
             codec: Config.codec,
@@ -154,6 +159,7 @@ class App extends React.Component {
         });
         this.clientLocal = clientLocal
         let cameraId = this.state.cameraId
+        //聚合拉流则直接为cameraId 服务器分发拉流则为cameraId+'_dock',表示地面端拉流
         signalLocal.onopen = () => clientLocal.join(cameraId);
         clientLocal.ontrack = (track, stream) => {
             console.log("got track", track.id, "for stream", stream.id);

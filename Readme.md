@@ -5690,7 +5690,7 @@ group/{gimbalId}/moving/
 	"type": 1,          // 见 ObjectType 定义
 	"latitude": 22.0,   // 经度
 	"longitude": 114.0, // 纬度
-	"altitude": 80.0    // 海拔，没有为nan
+	"altitude": 80.0    // 海拔，没有为NAN
 }
 ```
 
@@ -5706,9 +5706,762 @@ group/{gimbalId}/moving/
 
 视频实时接入功能提供了将高度无人机远程调度平台中客户自有设备的无人机信息接入到自有平台，实现视频流间的无缝集成。
 
+### 多链路视频
 
+无人机支持自组网链路和5G链路两种模式，在自组网或5G链路信号出现问题时可切换到另一种模式查看视频和控制无人机。（截止20230422需手动切换）
 
+视频均采用WebRTC 方式，因自组网和5G链路的上传带宽不同，所以自组网上采用标准P2P模式，5G链路下采用推流/拉流模式，降低5G的上行带宽要求。
 
+因此视频两个链路对应了两个独立的连接方式（截止20230422）
 
+#### 20240905视频调整：
 
+1. ionClient 拉流调整：
+
+   ```
+   原始：wsUrl    => 新： wsUrl+'?access_token='+当前登录用户的token   新增授权进行连接,否则ws未授权，无法连接视频
+   ```
+
+2. 视频推送方式整体划分为：P2P直推（webRTC），服务器分发（ionClient）
+
+3. 无人机设备新增视频聚合的开关（如果开启聚合开关，默认链接聚合视频且链接方式为ionClient,无5g）
+
+   ```
+   clientLocal.join(cameraId);//聚合推流
+   ```
+
+4. 聚合开关关闭,判断机场推流方式，如果是P2P默认连接自组网视频(webRTC)
+
+   如果为服务端分发则默认连接ionClient,当前自组网视频按照ionClient方式去连接
+
+   ```
+   clientLocal.join(cameraId+'_dock');//自组网通过服务器拉流
+   ```
+
+### DEMO
+
+视频demo已将两种连接方式整合在一起，参见video_demo
+
+### webrtc协议
+
+webrtc 协议采用websocket进行信令交互，消息内容采用json 编码。
+
+视频源支持主辅码流，并支持动态切换。
+
+建议小窗口非全屏下使用附码流，降低带宽，提高视频的流畅度, 在点击视频全屏时发送Stream消息切换到主码流。
+
+#### 信令交互流程
+
+```
+skinparam backgroundColor #EEEBDC
+    skinparam handwritten true
+    客户端 -> 信令服务器: 连接
+    信令服务器 -> 客户端: Rsp
+    RTC服务-> 信令服务器: 连接
+    信令服务器 -> RTC服务: Rsp
+    RTC服务 -> 摄像头: 连接
+    RTC服务 --> 客户端: Rsp
+    客户端 --> RTC服务: SDP
+    RTC服务 --> 客户端: Answer
+    RTC服务 --> 客户端: SDP
+    RTC服务 --> 客户端: IceCandidate
+    客户端 --> RTC服务: IceCandidate
+    RTC服务 --> 客户端: IceCandidate
+    客户端 --> RTC服务: IceCandidate
+	客户端 --> RTC服务: Stream
+    客户端 --> RTC服务: Disconnect
+```
+
+#### 路径
+
+- url: wss://drone.godouav.com/rtc
+- Query:
+  - verify=user
+  - password: 用户token
+
+#### 消息定义
+
+```
+{
+    "from": "消息来源, 可不填充",
+    "to": "消息目的地, 节点id",
+    "cmd": "命令字",
+    // 递增唯一序列号, 建议使用标准unix 时间戳，毫秒级
+    "seq": 1,
+    // 具体消息题
+    "data": {}
+}
+```
+
+#### 应答消息
+
+- Cmd: "rsp"
+
+- Body: 
+
+  ```
+  {
+      // 错误码，0 无错误
+      "code": 0,
+      "msg": "错误信息"
+  }
+  ```
+
+#### 心跳消息
+
+> websocket 心跳保持消息，建议60秒一次
+
+- Cmd: "hb"
+
+- Body:
+
+  ```
+  {}
+  ```
+
+#### SDP消息
+
+- Cmd: "sdp"
+
+- Body: 
+
+  ```
+  {
+      // 唯一标识, 可用uuid， 重复sesion将被拒绝
+      "session": "会话标识",
+      "camera": "camera id",
+  	"streamType" "main/sub, 主辅玛流",
+      "sdp": "base64 编码后的sdp消息"
+  }
+  ```
+
+#### Answer消息
+
+- Cmd: "answer"
+
+- Body: 
+
+  ```
+  {
+      // 错误码: 0 无错误
+      "code": 0,
+      "session": "会话id"
+  }
+  ```
+
+#### ICECandidate 消息
+
+- Cmd: "icecandidate"
+
+- Body: 
+
+  ```
+  {
+      "session": "会话id",
+      "camera": "camera id",
+      "candidate": "base64 编码后的ice candidate消息"
+  }
+  ```
+
+#### 切换码流消息
+
+- Cmd: "stream"
+
+- Body: 
+
+  ```
+  {
+  	"cameraId": "摄像头id",
+  	"session": "回话id",
+  	"streamType": "main/sub, 主玛流/辅玛流"
+  }
+  ```
+
+### IonClient连接(服务器拉流)
+
+```
+// 原始5g连接
+        // const signalLocal = new Signal.IonSFUJSONRPCSignal(
+        //     Config.server_5g
+        // );
+        // 20240905改版后,新增授权
+        const signalLocal = new Signal.IonSFUJSONRPCSignal(
+            Config.server_5g+'?access_token='+Config.token
+        );
+        const clientLocal = new IonSDK.Client(signalLocal, {
+            codec: Config.codec,
+            iceServers: Config.iceServers
+        });
+        this.clientLocal = clientLocal
+        let cameraId = this.state.cameraId
+        //聚合拉流则直接为cameraId 服务器分发拉流则为cameraId+'_dock',表示地面端拉流
+        signalLocal.onopen = () => clientLocal.join(cameraId);
+        clientLocal.ontrack = (track, stream) => {
+            console.log("got track", track.id, "for stream", stream.id);
+            if (track.kind === "video") {
+                let remoteVideo = document.getElementById('rtc');
+                if (!remoteVideo) {
+                    remoteVideo = document.createElement("video");
+                }        
+                remoteVideo.srcObject = stream;
+                remoteVideo.autoplay = true;
+                remoteVideo.muted = true;
+                // track.onremovetrack = () => remotesDiv.removeChild(remoteVideo);
+            }
+        };
+```
+
+### 录像文件路径
+
+1. 调用QueryVideoRecord 接口 获取全部相关录像文件列表 
+
+   - 旧版视频自组网和5g视频记录为一条 
+   - 新版视频录像改为：一个视频文件一条记录
+
+2. 增加参数说明
+
+   - videoType: 视频类型（0:吊舱(普通); 1 ai视频；2;机舱外-起飞视频，3：机舱外-降落视频 4:机舱内-起飞视频；5.机场内-降落视频）
+   - storeType: 文件存储类型（0老版视频存储类型、1自组网本地路径、2自组网云端地址、3云端绝对路径、4云端相对路径）
+   - 其中1、2、3、4无需区分自组网和5g
+
+3. 相关接口
+
+   ```
+   自定义方法（如getProxyRealUrl（fileName,token））发送get请求：  
+   
+   
+   
+   url: https://drone.godouav.com/api/backend/videorecord/generate/visitUrl?fileName=\${fileName}&access_token=${token}  
+   
+   
+   
+   返回参数：真实的文件地址  
+   ```
+
+4. 具体使用
+
+   视频文件路径为playPath参数 
+
+   - storeType==0:（兼容历史录像文件） 
+
+     a.自组网视频：
+
+     判断filePath是否为http开头，如果是的话直接取用filePath作为视频路径；不包含则取出nodeId(109)和fileName(static/AAA.mp4)进行路径拼接(如：https://drone.godouav.com/record/192.168.109.151/static/AAA.mp4）
+
+     b.5g视频：判断playPath是否为http开头，如果是的话直接使用
+
+     
+
+   - storeType==1 
+
+     直接取出playPath，拼接域名https://drone.godouav.com+playPath
+
+     
+
+   - storeType==2 
+
+     取出playPath，作为参数fileName通过方法getProxyRealUrl获取   云端真实路径作为视频文件路径
+
+     
+
+   - storeType==3
+
+     直接取出playPath使用
+
+     
+
+   - storeType==4 
+
+     取出playPath，作为参数fileName通过方法getProxyRealUrl获取   云端真实路径作为视频文件路径
+
+## 5.14.AI识别
+
+### 5.14.1请求涉及内容
+
+- **API接⼝调⽤**
+- **mqtt订阅**
+- **AI识别结果绘制**
+
+### 5.14.2API接口调用
+
+- AI数据字典查询
+- 组织拥有AI模型能力查询
+- 当前正在调用的AI能力
+- 开启AI识别
+- 关闭AI识别
+
+#### AI数据字典查询
+
+| **URL**                | {{base_url}}/backend/dictionary/queryDicDataByDicType/AIIdentifyType |
+| ---------------------- | ------------------------------------------------------------ |
+| **Method**             | post                                                         |
+| **Headers**            | access_token                                                 |
+| **Params**             | 无                                                           |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** | **code：** AI能力编码code<br />**dicId：** 字典编码<br />**content：** 能力名称（中）<br />**flag：** 能力名称（英） |
+
+返回示例：
+
+```json
+{
+            "code": 0,
+            "msg": "操作成功",
+            "data": [
+                {
+                    "code": "AI-00",
+                    "flag": "somke",
+                    "remark": null,
+                    "dicId": "AI-00",
+                    "content": "烟雾",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-01",
+                    "flag": "pedestrian",
+                    "remark": null,
+                    "dicId": "AI-01",
+                    "content": "行人",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-02",
+                    "flag": "people",
+                    "remark": null,
+                    "dicId": "AI-02",
+                    "content": "人",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-03",
+                    "flag": "bicycle",
+                    "remark": null,
+                    "dicId": "AI-03",
+                    "content": "自行车",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-04",
+                    "flag": "car",
+                    "remark": null,
+                    "dicId": "AI-04",
+                    "content": "汽车",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-05",
+                    "flag": "van",
+                    "remark": null,
+                    "dicId": "AI-05",
+                    "content": "面包车",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-06",
+                    "flag": "truck",
+                    "remark": null,
+                    "dicId": "AI-06",
+                    "content": "卡车",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-07",
+                    "flag": "tricycle",
+                    "remark": null,
+                    "dicId": "AI-07",
+                    "content": "三轮车",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-08",
+                    "flag": "awning-tricycle",
+                    "remark": null,
+                    "dicId": "AI-08",
+                    "content": "遮阳三轮车",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-09",
+                    "flag": "bus",
+                    "remark": null,
+                    "dicId": "AI-09",
+                    "content": "公交车",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-10",
+                    "flag": "motor ",
+                    "remark": null,
+                    "dicId": "AI-10",
+                    "content": "摩托车",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-11",
+                    "flag": "Floating debris",
+                    "remark": null,
+                    "dicId": "AI-11",
+                    "content": "漂浮物",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-12",
+                    "flag": "illegal structure",
+                    "remark": null,
+                    "dicId": "AI-12",
+                    "content": "蓝色彩钢瓦",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-13",
+                    "flag": "yc",
+                    "remark": null,
+                    "dicId": "AI-13",
+                    "content": "渔船",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-14",
+                    "flag": "xlc",
+                    "remark": null,
+                    "dicId": "AI-14",
+                    "content": "巡逻船",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-15",
+                    "flag": "ljc",
+                    "remark": null,
+                    "dicId": "AI-15",
+                    "content": "垃圾船",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-16",
+                    "flag": "guard",
+                    "remark": null,
+                    "dicId": "AI-16",
+                    "content": "防护网",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-17",
+                    "flag": "bottle",
+                    "remark": null,
+                    "dicId": "AI-17",
+                    "content": "瓶子",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-18",
+                    "flag": "plastic",
+                    "remark": null,
+                    "dicId": "AI-18",
+                    "content": "塑料垃圾",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-19",
+                    "flag": "garbage",
+                    "remark": null,
+                    "dicId": "AI-19",
+                    "content": "其他垃圾",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-20",
+                    "flag": "rubbish",
+                    "remark": null,
+                    "dicId": "AI-20",
+                    "content": "垃圾堆放",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-21",
+                    "flag": "move vendors",
+                    "remark": null,
+                    "dicId": "AI-21",
+                    "content": "流动摊贩",
+                    "dicType": "AIIdentifyType"
+                },
+                {
+                    "code": "AI-22",
+                    "flag": "Dam abnormal alarm",
+                    "remark": "",
+                    "dicId": "AI-22",
+                    "content": "大坝异常",
+                    "dicType": "AIIdentifyType"
+                }
+            ]
+        }
+```
+
+#### **组织拥有AI模型能力查询**
+
+| **URL**                | {{base_url}}/ai/customer/queryAiByCustId/{{custId}}          |
+| ---------------------- | ------------------------------------------------------------ |
+| **Method**             | post                                                         |
+| **Headers**            | access_token                                                 |
+| **Params**             | 无                                                           |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** | **aiInvokeMaxCount：** AI可调用模型数量  <br/>**aiDetail：** 具体模型能力 <br/>**aiTypeId：** 能力Id <br/>**aiTypeName：** 识别能力名称（中） <br/>**aiTypeNameEn：** 识别能力名称（英文） <br/>**modelId：** 模型Id <br/>**modelName：** 模型名称 <br/>**custId：** 组织id <br/>**aiSwitch：** 能力开关 <br/>**aiServers：** AI服务器 <br/>**aiEndDate：** 到期时间 <br/>**aiEffDate：** 生效时间 |
+
+返回示例：
+
+```json
+{
+            "code": 0,
+            "msg": "operate success.",
+            "data": {
+                "aiInvokeMaxCount": 3,
+                "aiDetail": [
+                    {
+                        "aiTypeName": "烟雾",
+                        "modelName": "烟雾模型",
+                        "createBy": "1725684357466820608438748095",
+                        "creator": "lrz",
+                        "modelId": "1811314484164317184331193567",
+                        "aiTypeId": "AI-00",
+                        "aiTypeNameEn": "somke"
+                    },
+                    {
+                        "aiTypeName": "人",
+                        "modelName": "人车模型",
+                        "createBy": "1725684357466820608438748095",
+                        "creator": "lrz",
+                        "modelId": "1811591883006808064129620382",
+                        "aiTypeId": "AI-02",
+                        "aiTypeNameEn": "people"
+                    },
+                    {
+                        "aiTypeName": "汽车",
+                        "modelName": "人车模型",
+                        "createBy": "1725684357466820608438748095",
+                        "creator": "lrz",
+                        "modelId": "1811591883006808064129620382",
+                        "aiTypeId": "AI-04",
+                        "aiTypeNameEn": "car"
+                    },
+                    {
+                        "aiTypeName": "蓝色彩钢瓦",
+                        "modelName": "非法搭建模型",
+                        "createBy": "1725684357466820608438748095",
+                        "creator": "lrz",
+                        "modelId": "1812014756104249344317781687",
+                        "aiTypeId": "AI-12",
+                        "aiTypeNameEn": "illegal structure"
+                    },
+                    {
+                        "aiTypeName": "垃圾堆放",
+                        "modelName": "垃圾堆放模型",
+                        "createBy": "1725684357466820608438748095",
+                        "creator": "lrz",
+                        "modelId": "1814495434871373824148428250",
+                        "aiTypeId": "AI-20",
+                        "aiTypeNameEn": "rubbish"
+                    },
+                    {
+                        "aiTypeName": "流动摊贩",
+                        "modelName": "流动摊贩模型",
+                        "createBy": "1725684357466820608438748095",
+                        "creator": "lrz",
+                        "modelId": "1814496782174093312366919308",
+                        "aiTypeId": "AI-21",
+                        "aiTypeNameEn": "move vendors"
+                    }
+                ],
+                "custId": "999001",
+                "aiEffDate": "2024-06-01 00:00:00",
+                "aiSwitch": 1,
+                "aiServers": "aiserver1",
+                "aiEndDate": "2024-12-31 00:00:00"
+            }
+        }
+```
+
+#### 当前正在调用AI能力
+
+| **URL**                | {{base_url}}/ai/schedule/object/identify/info/{{executionsId}} |
+| ---------------------- | ------------------------------------------------------------ |
+| **Method**             | get                                                          |
+| **Headers**            | access_token                                                 |
+| **Params**             | 无                                                           |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** | **aiTypeId：** 能力Id <br/>**aiTypeName：** 识别能力名称<br/>**modelId：** 模型Id<br/>**modelName：** 模型名称<br/>**status：** 调用状态（0调用中） |
+
+返回示例：
+
+```json
+{
+            "code": 0,
+            "msg": "operate success.",
+            "data":[
+        	    {
+                    "aiTypeId": "AI-00",
+                    "aiTypeName": 0,
+                    "modelId": '1811591883006808064129620382',
+                    "modelName": '人车模型',
+                    "reliability": "0.6",
+                    "status": 0,
+                }
+            ]
+        }
+```
+
+#### 开启AI识别
+
+| **URL**                | {{base_url}}/ai/schedule/object/identify/start               |
+| ---------------------- | ------------------------------------------------------------ |
+| **Method**             | post                                                         |
+| **Headers**            | access_token                                                 |
+| **Params**             | **executionsId：** 执行id<br/>**infers：** 具体调用<br/>**aiTypeId：** 能力Id<br/>**aiTypeName：** 识别能力名称<br/>**modelId：** 模型Id<br/>**modelName：** 模型名称<br/>**reliability：** 置信度（**默认0.6**） |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** | **execute-ai-server-id：** 执行的AI服务器                    |
+
+请求示例：
+
+```json
+{
+        	"executionsId": "GDM002S2312178-20240930-60886504",
+        		"infers": [
+        			{
+        			"aiTypeId": "AI-04",
+        			"aiTypeName": "汽车",
+        			"reliability": 0.6,
+        			"modelId": "1811591883006808064129620382",
+        			"modelName": "人车模型"
+        			}
+        		]
+        }
+```
+
+返回示例：
+
+```json
+{
+            "code": 0,
+            "msg": "ai schedule request success,command code has sent to ai server. ",
+            "data": {
+                "execute-ai-server-id": "aiserver1"
+            }
+        }
+```
+
+#### 关闭AI识别
+
+| **URL**                | {{base_url}}/ai/schedule/object/identify/sub                 |
+| ---------------------- | ------------------------------------------------------------ |
+| **Method**             | post                                                         |
+| **Headers**            | access_token                                                 |
+| **Params**             | **executionsId：** 执行id<br/>**infers：** 具体调用<br/>**aiTypeId：** 能力Id<br/>**aiTypeName：** 识别能力名称<br/>**modelId：** 模型Id<br/>**modelName：** 模型名称<br/>**reliability：** 置信度（**默认0.6**） |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** | **execute-ai-server-id：** 执行的AI服务器                    |
+
+请求示例：
+
+```json
+{
+        	"executionsId": "GDM002S2312178-20240930-60886504",
+        		"infers": [
+        			{
+        			"aiTypeId": "AI-04",
+        			"aiTypeName": "汽车",
+        			"reliability": 0.6,
+        			"modelId": "1811591883006808064129620382",
+        			"modelName": "人车模型"
+        			}
+        		]
+        }
+```
+
+返回示例：
+
+```json
+{
+            "code": 0,
+            "msg": "ai schedule request success,command code has sent to ai server. ",
+            "data": {
+                "execute-ai-server-id": "aiserver1"
+            }
+        }
+```
+
+### 5.14.3MQTT订阅（AI）
+
+#### **颜色参考**
+
+**['#FF0000', '#00FF00', '#FF00FF', '#FFFF00', '#FF6700', '#912CEE', '#F45A8E', '#00BFFF', '#00FFFF', '#1E90FF']**
+
+#### **识别事件触发推送**
+
+| **topic**              | **gis/{{droneId}}/AIPicWarnTip**                             |
+| ---------------------- | ------------------------------------------------------------ |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** | **videoCutPicId：** 保存的图片id<br/>**custId：** 组织id<br/>**missionId：** 任务id<br/>**executionsId：** 执行id<br/>**longitudeDeg：** 经度<br/>**latitudeDeg：** 纬度<br/>**altitude：** 高度<br/>**picType：** 图片类别（0普通 1异常 2警告 3事件）<br/>**aiFlag：** 图片类型（0普通图片 1AI图片）<br/>**fileName：** 图片名称<br/>**fileUrl：** 图片地址<br/>**modelId：** 模型id<br/>**identifyType：** 识别能力编码<br/>**identifyTypeName：** 识别能力名称<br/>**IdentifyQty：** 识别结果数量（多少个识别框）<br/>**reliability：** 置信度<br/>**auditStatus：** 审核状态<br/>**beginTime：** 发生时间 |
+
+返回示例：
+
+```json
+{
+    "videoCutPicId": "1840642066134167552823980406",
+    "custId": "999001",
+    "missionId": "",
+    "executionsId": "GDM002S2312178-20240930-60886504",
+    "latitudeDeg": 22.759178995556777,
+    "longitudeDeg": 114.24295786452764,
+    "picType": "2",
+    "aiFlag": 1,
+    "bucketName": "gdcx-dev",
+    "fileName": "2024093014372007b1c36bccb04b9992d4be4deaa28f11.jpg",
+    "filePath": "AI/999001/pic/20240930/GDM002S2312178-20240930-60886504",
+    "fileUrl": "https://gdcx-dev.oss-cn-shenzhen.aliyuncs.com/AI/999001/pic/20240930/GDM002S2312178-20240930-60886504/2024093014372007b1c36bccb04b9992d4be4deaa28f11.jpg",
+    "remark": "AI",
+    "createBy": "10000100000999900000000001",
+    "modelId": "1811591883006808064129620382",
+    "identifyType": "AI-04",
+    "identifyTypeName": "car",
+    "IdentifyQty": "21",
+    "reliability": 0.849418044090271,
+    "altitude": "100.0",
+    "auditStatus": 0,
+    "beginTime": "2024-09-30 14:37:20"
+}
+```
+
+#### **识别结果推送**（识别框）
+
+| **topic**              | aiserver/{{droneId}}/infer                                   |
+| ---------------------- | ------------------------------------------------------------ |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** | **1811591883006808064129620382** 表示AI模型id<br/>**cresult：** 具体识别结果<br/>**rect：** 识别框数据<br/> **x：** 左上角顶点横坐标<br/>**y：** 左上角顶点纵坐标<br/>**w：** 识别框宽度<br/>**x：** 识别框高度<br/>**strcode：** AI识别能力<br/>**cidx：** 对应矩形框颜色下标 |
+| **description**        | 1. 目前通用无人机视频分辨率1920*1080<br/>2. 绘制原点为当前视频画面的左上角<br/>3. 绘制AI识别框，需要将当前元素的宽高和无人机视频真实宽高做等比换算，再进行绘制 |
+
+返回示例：
+
+```json
+{"1811591883006808064129620382":[
+        {"cresult":{"rect":{"x":970,"y":915,"w":25,"h":48},"conf":0.8596795},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":767,"y":968,"w":51,"h":27},"conf":0.83327514},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":759,"y":857,"w":49,"h":25},"conf":0.8217843},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":761,"y":881,"w":48,"h":25},"conf":0.81388754},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":740,"y":665,"w":43,"h":22},"conf":0.8130608},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":737,"y":687,"w":45,"h":22},"conf":0.80385333},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":778,"y":1007,"w":47,"h":20},"conf":0.7984146},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":728,"y":594,"w":44,"h":23},"conf":0.7954998},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":812,"y":339,"w":19,"h":33},"conf":0.79113454},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":762,"y":920,"w":49,"h":24},"conf":0.78745794},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":743,"y":738,"w":44,"h":23},"conf":0.77644974},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":731,"y":634,"w":45,"h":26},"conf":0.7555676},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":956,"y":848,"w":22,"h":41},"conf":0.72812295},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":722,"y":565,"w":46,"h":26},"conf":0.7061017},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":748,"y":780,"w":46,"h":25},"conf":0.69504964},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":716,"y":473,"w":37,"h":20},"conf":0.68678445},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":766,"y":943,"w":49,"h":26},"conf":0.6539735},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":732,"y":615,"w":42,"h":22},"conf":0.6513415},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":708,"y":445,"w":37,"h":22},"conf":0.64585465},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":708,"y":416,"w":36,"h":18},"conf":0.64570165},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":744,"y":758,"w":45,"h":24},"conf":0.64337564},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":753,"y":816,"w":45,"h":21},"conf":0.6375995},"strcode":"AI-04","cidx":0},
+        {"cresult":{"rect":{"x":799,"y":414,"w":17,"h":31},"conf":0.6231104},"strcode":"AI-04","cidx":0}
+        ]}
+```
 
