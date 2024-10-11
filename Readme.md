@@ -6465,3 +6465,36 @@ skinparam backgroundColor #EEEBDC
         ]}
 ```
 
+# 6.MQTT 登陆
+
+## MQTT 用户名 密码
+
+采用动态用户名 密码，需要匹配时间戳，防止泄漏。
+
+### 用户名
+
+用户名为: "ROLE__USERNAME__TIMESTAMP", 其中:
+
+* ROLE
+
+固定为 api
+
+* USERNAME
+
+分配的 appid
+
+* TIMESTAMP
+
+当前unix时间戳，精确到毫秒
+
+
+### 密码
+
+```
+    // 生成用户名的base64
+    b64 := base64(username)
+    // 使用 appid 对应的 secret 对 b64 进行 hmac sha256 签名
+    hash := hmac_sha256(b64, password)
+    // 将结果转换成 16进制 字符串
+    password := hex(hash)
+```
