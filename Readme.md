@@ -3355,7 +3355,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.11查询航向锁定
 
@@ -3404,7 +3403,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.12设置返航高度
 
@@ -3453,7 +3451,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.13查询返航高度
 
@@ -3502,7 +3499,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.14环绕飞行
 
@@ -3556,7 +3552,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.15指点朝向
 
@@ -3607,7 +3602,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.16设置跟踪模式
 
@@ -3655,7 +3649,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.17设置跟踪目标
 
@@ -3705,7 +3698,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.18开启/关闭 警示灯
 
@@ -3754,7 +3746,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.19无人机降落
 
@@ -3802,7 +3793,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.20设定巡航速度
 
@@ -3851,7 +3841,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.21查询巡航速度
 
@@ -3900,7 +3889,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ### 5.8.22返航到机场
 
@@ -3949,7 +3937,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  ### 
 
 ## 5.9.编队飞行
 
@@ -4037,7 +4024,6 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
-  
 
 ### 5.9.2联合调度 - 指点朝向
 
