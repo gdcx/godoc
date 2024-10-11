@@ -6467,34 +6467,165 @@ skinparam backgroundColor #EEEBDC
 
 # 6.MQTT 登陆
 
-## MQTT 用户名 密码
-
 采用动态用户名 密码，需要匹配时间戳，防止泄漏。
 
-### 用户名
-
-用户名为: "ROLE__USERNAME__TIMESTAMP", 其中:
-
-* ROLE
-
-固定为 api
-
-* USERNAME
-
-分配的 appid
-
-* TIMESTAMP
-
-当前unix时间戳，精确到毫秒
 
 
-### 密码
+- 用户名生成
 
-```
-    // 生成用户名的base64
-    b64 := base64(username)
-    // 使用 appid 对应的 secret 对 b64 进行 hmac sha256 签名
-    hash := hmac_sha256(b64, password)
-    // 将结果转换成 16进制 字符串
-    password := hex(hash)
-```
+  ```
+  username = third__{appId}__{timstamp}
+  
+  其中：third 为固定，appId 为分配的id,timstamp为毫秒，third ,appId ,timstamp三者这间用“__”连接
+       long timestamp = System.currentTimeMillis();
+        
+  例如：third__VUVxPG1gcjTCplDXwAgPmnUj__1728642326935
+  ```
+
+  
+
+- 密码生成
+
+  ```
+   password = GetSign(username)
+  ```
+
+- 密码加密
+
+  signSecret授予的签名信息
+
+  ```
+   public String GetSign(String username) {
+          String signSecret = "e278a1beaa0c0ac885a39ecf2dd0281f7be6348b7cfb5bbffa2e4e16797a254f89";
+          String usernameBase64 = Base64Util.enCodeBase64NoSalt(username);
+          String Result = Hmac256Utils.encryptHmacSHA256(usernameBase64.getBytes(), appSecret.getBytes());
+          return Result;
+      }
+  ```
+
+  
+
+- 设计加密类
+
+  ```
+  import java.nio.charset.Charset;
+  
+  public class Base64Util {
+      public static String enCodeBase64NoSalt(String str){
+          String enc = java.util.Base64.getEncoder().encodeToString(str.getBytes());
+          return  enc;
+      }
+      public static String enCodeBase64(String str){
+          String salt="ABCDEFG123456ABC";
+          str = str + salt;
+          String enc = java.util.Base64.getEncoder().encodeToString(str.getBytes());
+          return  enc;
+      }
+      public static String DeCodeBase64(String str){
+          byte[] decode = java.util.Base64.getDecoder().decode(str);
+          String aSrc = new String(decode);
+          return  aSrc.replace("ABCDEFG123456ABC","");
+  
+      }
+  }
+  
+  
+  
+  
+  
+  import javax.crypto.KeyGenerator;
+  import javax.crypto.Mac;
+  import javax.crypto.SecretKey;
+  import javax.crypto.spec.SecretKeySpec;
+  import java.nio.charset.Charset;
+  
+  public class Hmac256Utils {
+  
+      // 获取 HmacMD5 Key
+      public static byte[] getHmacMd5Key() {
+          return getHmacKey("HmacMD5");
+      }
+  
+      // 获取 HmacSHA256
+      public static byte[] getHmacSha256Key() {
+          return getHmacKey("HmacSHA256");
+      }
+  
+      // 获取 HmacSHA512
+      public static byte[] getHmacSha512Key() {
+          return getHmacKey("HmacSHA512");
+      }
+  
+      // 获取 HMAC Key
+      public static byte[] getHmacKey(String type) {
+          try {
+              // 1、创建密钥生成器
+              KeyGenerator keyGenerator = KeyGenerator.getInstance(type);
+              // 2、产生密钥
+              SecretKey secretKey = keyGenerator.generateKey();
+              // 3、获取密钥
+              byte[] key = secretKey.getEncoded();
+              return key;
+          } catch (Exception e) {
+              throw new RuntimeException(e);
+          }
+      }
+  
+      // HMAC MD5 加密
+      public static String encryptHmacMD5(byte[] data, byte[] key) {
+          return encryptHmac(data, key, "HmacMD5");
+      }
+  
+      // HMAC SHA256 加密
+      public static String encryptHmacSHA256(byte[] data, byte[] key) {
+          return encryptHmac(data, key, "HmacSHA256");
+      }
+  
+      // HMAC SHA521 加密
+      public static String encryptHmacSHA512(byte[] data, byte[] key) {
+          return encryptHmac(data, key, "HmacSHA512");
+      }
+  
+      // 基础MAC 算法
+      public static String encryptHmac(byte[] data, byte[] key, String type) {
+          try {
+              // 1、还原密钥
+              SecretKey secretKey = new SecretKeySpec(key, type);
+              // 2、创建MAC对象
+              Mac mac = Mac.getInstance(type);
+              // 3、设置密钥
+              mac.init(secretKey);
+              // 4、数据加密
+              byte[] bytes = mac.doFinal(data);
+              // 5、生成数据
+              String rs = encodeHex(bytes);
+              return rs;
+          } catch (Exception e) {
+              throw new RuntimeException(e);
+          }
+      }
+  
+      // 数据准16进制编码
+      public static String encodeHex(final byte[] data) {
+          return encodeHex(data, true);
+      }
+  
+      // 数据转16进制编码
+      public static String encodeHex(final byte[] data, final boolean toLowerCase) {
+          final char[] DIGITS_LOWER = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+          final char[] DIGITS_UPPER = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+          final char[] toDigits = toLowerCase ? DIGITS_LOWER : DIGITS_UPPER;
+          final int l = data.length;
+          final char[] out = new char[l << 1];
+          // two characters form the hex value.
+          for (int i = 0, j = 0; i < l; i++) {
+              out[j++] = toDigits[(0xF0 & data[i]) >>> 4];
+              out[j++] = toDigits[0x0F & data[i]];
+          }
+          return new String(out);
+      }
+  }
+  ```
+
+  
+
