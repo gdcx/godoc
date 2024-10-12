@@ -6491,7 +6491,7 @@ skinparam backgroundColor #EEEBDC
 
   
 
-- 设计加密类
+- 涉及加密类
 
   ```
   import java.nio.charset.Charset;
