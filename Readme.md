@@ -6482,9 +6482,9 @@ skinparam backgroundColor #EEEBDC
 
   ```
    public String GetSign(String username) {
-          String signSecret = "e278a1beaa0c0ac885a39ecf2dd0281f7be6348b7cfb5bbffa2e4e16797a254f89";
+          String signSecret = "xxxxxxxx";
           String usernameBase64 = Base64Util.enCodeBase64NoSalt(username);
-          String Result = Hmac256Utils.encryptHmacSHA256(usernameBase64.getBytes(), appSecret.getBytes());
+          String Result = Hmac256Utils.encryptHmacSHA256(usernameBase64.getBytes(), signSecret.getBytes());
           return Result;
       }
   ```
