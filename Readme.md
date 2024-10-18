@@ -6299,7 +6299,7 @@ skinparam backgroundColor #EEEBDC
 | ---------------------- | ------------------------------------------------------------ |
 | **Method**             | post                                                         |
 | **Headers**            | access_token                                                 |
-| **Params**             | **executionsId：** 执行id<br/>**infers：** 具体调用<br/>**aiTypeId：** 能力Id<br/>**aiTypeName：** 识别能力名称<br/>**modelId：** 模型Id<br/>**modelName：** 模型名称<br/>**reliability：** 置信度（**默认0.6**） |
+| **Params**             | **executionsId：** 执行id<br/>**infers：** 具体调用<br/>**aiTypeId：** 能力Id<br/>**aiTypeName：** 识别能力名称<br/>**modelId：** 模型Id<br/>**reliability：** 置信度（**默认0.6**） |
 | **Response**           | 参考返回示例                                                 |
 | **Response Parameter** | **execute-ai-server-id：** 执行的AI服务器                    |
 
@@ -6313,8 +6313,7 @@ skinparam backgroundColor #EEEBDC
         			"aiTypeId": "AI-04",
         			"aiTypeName": "汽车",
         			"reliability": 0.6,
-        			"modelId": "1811591883006808064129620382",
-        			"modelName": "人车模型"
+        			"modelId": "1811591883006808064129620382"
         			}
         		]
         }
@@ -6338,7 +6337,7 @@ skinparam backgroundColor #EEEBDC
 | ---------------------- | ------------------------------------------------------------ |
 | **Method**             | post                                                         |
 | **Headers**            | access_token                                                 |
-| **Params**             | **executionsId：** 执行id<br/>**infers：** 具体调用<br/>**aiTypeId：** 能力Id<br/>**aiTypeName：** 识别能力名称<br/>**modelId：** 模型Id<br/>**modelName：** 模型名称<br/>**reliability：** 置信度（**默认0.6**） |
+| **Params**             | **executionsId：** 执行id<br/>**infers：** 具体调用<br/>**aiTypeId：** 能力Id<br/>**aiTypeName：** 识别能力名称<br/>**modelId：** 模型Id<br/>**reliability：** 置信度（**默认0.6**） |
 | **Response**           | 参考返回示例                                                 |
 | **Response Parameter** | **execute-ai-server-id：** 执行的AI服务器                    |
 
@@ -6352,8 +6351,45 @@ skinparam backgroundColor #EEEBDC
         			"aiTypeId": "AI-04",
         			"aiTypeName": "汽车",
         			"reliability": 0.6,
-        			"modelId": "1811591883006808064129620382",
-        			"modelName": "人车模型"
+        			"modelId": "1811591883006808064129620382"
+        			}
+        		]
+        }
+```
+
+返回示例：
+
+```json
+{
+            "code": 0,
+            "msg": "ai schedule request success,command code has sent to ai server. ",
+            "data": {
+                "execute-ai-server-id": "aiserver1"
+            }
+        }
+```
+
+#### 置信度修改
+
+| **URL**                | {{base_url}}/ai/schedule/object/identify/change/reliability                 |
+| ---------------------- | ------------------------------------------------------------ |
+| **Method**             | post                                                         |
+| **Headers**            | access_token                                                 |
+| **Params**             | **executionsId：** 执行id<br/>**infers：** 具体调用<br/>**aiTypeId：** 能力Id<br/>**aiTypeName：** 识别能力名称<br/>**modelId：** 模型Id<br/>**reliability：** 置信度（**默认0.6**） |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** | **execute-ai-server-id：** 执行的AI服务器                    |
+
+请求示例：
+
+```json
+{
+        	"executionsId": "GDM002S2312178-20240930-60886504",
+        		"infers": [
+        			{
+        			"aiTypeId": "AI-04",
+        			"aiTypeName": "汽车",
+        			"reliability": 0.7,
+        			"modelId": "1811591883006808064129620382"
         			}
         		]
         }
@@ -6450,6 +6486,68 @@ skinparam backgroundColor #EEEBDC
         {"cresult":{"rect":{"x":799,"y":414,"w":17,"h":31},"conf":0.6231104},"strcode":"AI-04","cidx":0}
         ]}
 ```
+
+绘制示例：（**目前是以无人机视频1920*1080比例做绘制，有其他分辨率则需要根据视频实际来做适配**）
+
+```
+//上面为mqtt返回AI识别结果的订阅数据message，在订阅数据回调中做具体绘制调用
+
+let ele = document.getElementById("videoCanvas");//要绘制识别框的画布元素
+let ctx = ele.getContext("2d");
+let videoWidth = ele.width;
+let videoHeight = ele.height;
+ctx.clearRect(0, 0, videoWidth, videoHeight);
+clearTimeout(drawTimeout);//收到新的ai绘制数据，清理上一次的绘制
+let results = message.results;
+let resultKeys = Object.keys(results);
+if (resultKeys.length > 0 && resultKeys instanceof Array) {
+     resultKeys.forEach((modelId) => {
+          let resultList = results[modelId];
+          resultList.forEach((result) => {
+          		getCoordnatePliex(result,ele,ctx,videoWidth,videoHeight);
+          })
+        })
+}
+//3s后自动清除上一次绘制，以防有历史框遗留
+drawTimeout = setTimeout(() => {
+    ctx.clearRect(0, 0, videoWidth, videoHeight);
+}, 3000);
+
+
+
+
+
+//AI对应识别颜色组
+let colors = ['#FF0000', '#00FF00', '#FF00FF', '#FFFF00', '#FF6700', '#912CEE', '#F45A8E', '#00BFFF', '#00FFFF', '#1E90FF']
+//获取当前AI坐标在屏幕画面中实际所占的顶点像素值及矩形框的长和宽（目前按照无人机实际视频分辨率为1920*1080做适配）
+const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
+	let cResult = result.cresult;
+	if(drawing){
+		let receiveRect = cResult.rect;
+        let realLeftTopX = receiveRect.x;
+        let realLeftTopY = receiveRect.y;
+
+        let rectWidth = receiveRect.w;
+        let rectHeight = receiveRect.h;
+
+        let canvasLeftTopX = 0;
+        let canvasLeftTopY = 0;
+        canvasLeftTopX = (realLeftTopX * videoWidth) / 1920;
+        canvasLeftTopY = (realLeftTopY * videoHeight) / 1080;
+
+        rectWidth = (rectWidth * videoWidth) / 1920;
+        rectHeight = (rectHeight * videoHeight) / 1080;
+        
+        // 矩形
+        ctx.lineWidth = 2;//大视频窗口，建议为2 ，小视频窗口建议为1
+        ctx.strokeStyle =
+          result.cidx != undefined ? colors[result.cidx] : colors[0];
+        ctx.strokeRect(canvasLeftTopX, canvasLeftTopY, rectWidth, rectHeight);
+	}
+}
+```
+
+
 
 # 6.MQTT 登陆
 
