@@ -363,7 +363,7 @@ public class URLEncodeUtil {
   | timestamp | header   | string   | 是       | 当前时间戳，单位毫秒                        |
   | sign      | header   | string   | 是       | 签名字符串，签名算法 sha256Hex 签名后的字符 |
   | accounts  | body     | string   | 是       | 授权账号                                    |
-  | passwd    | body     | string   | 是       | 公钥教秘后的密文(加密授权密码)                                   |
+  | passwd    | body     | string   | 是       | 公钥加密后的密文(加密授权密码)                                   |
 
   
 
