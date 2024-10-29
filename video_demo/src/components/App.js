@@ -145,13 +145,17 @@ class App extends React.Component {
             alert('无效CameraID!');
             return;
         }
+        if (this.state.token === '') {
+            alert('无效token!');
+            return;
+        }
         // 原始5g连接
         // const signalLocal = new Signal.IonSFUJSONRPCSignal(
         //     Config.server_5g
         // );
         // 20240905改版后,新增授权
         const signalLocal = new Signal.IonSFUJSONRPCSignal(
-            Config.server_5g+'?access_token='+Config.token
+            Config.server_5g+'?access_token='+this.state.token
         );
         const clientLocal = new IonSDK.Client(signalLocal, {
             codec: Config.codec,
