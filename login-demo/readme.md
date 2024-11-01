@@ -12,7 +12,7 @@
     - APP_ID
     - SIGN_SECRET
     - publicKey 
-    上面三个参数由高度颁发,下边为真实用户
+    上面三个参数由平台颁发,下边为真实用户
     - account 用户名
     - password 密码
     - baseUrl 根请求路径

@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "82511e52-68cd-4f41-a6be-fa522f3ae30f",
-		"name": "高度gis接口",
+		"name": "gis接口",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "4023151"
 	},
@@ -1833,7 +1833,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n        \"custId\": \"999001\",\r\n        \"dataRange\": 2,\r\n        \"sysName\": \"高度创新地空一体无人机调度平台\",\r\n        \"indexLeftUrl\": \"https://gdcx.com/indexLeft.jpg\",\r\n        \"indexRightUrl\": \"https://gdcx.com/indexRight.jpg\",\r\n        \"loginLogoUrl\": \"https://gdcx.com/login.jpg\",\r\n        \"loginDomain\": \"gdcx.com\",\r\n        \"copyRight\": \"高度创新技术有限公司\",\r\n        \"listCusts\": \"999003,999002\"\r\n    }",
+									"raw": "{\r\n        \"custId\": \"999001\",\r\n        \"dataRange\": 2,\r\n        \"sysName\": \"无人机调度平台\",\r\n        \"indexLeftUrl\": \"https://gdcx.com/indexLeft.jpg\",\r\n        \"indexRightUrl\": \"https://gdcx.com/indexRight.jpg\",\r\n        \"loginLogoUrl\": \"https://gdcx.com/login.jpg\",\r\n        \"loginDomain\": \"gdcx.com\",\r\n        \"copyRight\": \"",\r\n        \"listCusts\": \"999003,999002\"\r\n    }",
 									"options": {
 										"raw": {
 											"language": "json"
