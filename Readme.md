@@ -5940,12 +5940,12 @@ skinparam backgroundColor #EEEBDC
 
   * storeType==3  
     公网：取出playPath后边文件的相对路径，作为参数fileName通过方法getProxyRealUrl获取，云端真实路径（代理后的地址）
-  私有化部署：可直接进行下边的地址拼接方法
+    私有化部署：可直接进行下边的地址拼接方法
 
   * storeType==4  
     取出playPath，作为参数fileName通过方法getProxyRealUrl获取	
-  公网：云端真实路径（代理后的地址）作为视频文件路径
-  私有化部署：获取代理地址之后，进行下边的地址拼接方法
+    公网：云端真实路径（代理后的地址）作为视频文件路径
+    私有化部署：获取代理地址之后，进行下边的地址拼接方法
 
 **私有化部署拼接说明：**
 
@@ -5977,8 +5977,10 @@ let testUrl='http://192.168.142.101:9091/gdcxvideo/record/1625428017968975872868
   let acuUrl= getVideoRealUrl(testUrl)
   console.log('最后', acuUrl)
   ```
-  以上方法也可用于私有化部署，接口返回的图片地址的拼接
-  
+ getUrl.js路径拼接封装，参见[getUrl.js](video_demo/getUrl.js) 
+
+ 以上方法也可用于私有化部署，接口返回的图片地址的拼接
+
 ## 5.14.AI识别
 
 ### 5.14.1请求涉及内容

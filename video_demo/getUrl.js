@@ -2,7 +2,7 @@ let testUrl='http://192.168.142.101:9091/gdcxvideo/record/1625428017968975872868
 let testUrl1 = 'http://192.168.142.101:9091/gdcxvideo/screenshot/1544592785276014001/20241031/GDCXM190012302100314-20241031-82/20241031165604f78baa18bc2548799033786368e8b261.jpg'
 let ip = 'http://113.108.32.190:9091'
 //判断返回的路径是否属于ali
-function getVideoRealUrl(proxyUrl) {
+export function getVideoRealUrl(proxyUrl) {
     if (proxyUrl.indexOf('aliyuncs.com')>-1) {//公网
         return proxyUrl
     } else {//私有化
