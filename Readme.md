@@ -5912,54 +5912,73 @@ skinparam backgroundColor #EEEBDC
 
 3. 相关接口
 
-   ```
-   自定义方法（如getProxyRealUrl（fileName,token））发送get请求：  
-   
-   
-   
-   url: https://drone.godouav.com/api/backend/videorecord/generate/visitUrl?fileName=\${fileName}&access_token=${token}  
-   
-   
-   
-   返回参数：真实的文件地址  
-   ```
+      自定义方法（如getProxyRealUrl（fileName,token））发送 get请求：  
+
+      url: https://drone.godouav.com/api/backend/videorecord/generate/visitUrl?fileName=\${fileName}&access_token=${token}  
+
+      返回参数：真实的文件地址 
+      fileName: 文件的完整相对路径 
+
 
 4. 具体使用
 
-   视频文件路径为playPath参数 
+     视频文件路径为playPath参数  
 
-   - storeType==0:（兼容历史录像文件） 
+  * storeType==0:（兼容历史录像文件）  
+    a.自组网视频：
+    判断filePath是否为ali公网地址，如果是的话直接取用filePath作为视频路径；不包含则取出nodeId(109)和fileName(static/AAA.mp4)进行路径拼接(如：https://drone.godouav.com/record/192.168.109.151/static/AAA.mp4）
+    b.5g视频：判断playPath是否为http开头，如果是的话直接使用
 
-     a.自组网视频：
 
-     判断filePath是否为http开头，如果是的话直接取用filePath作为视频路径；不包含则取出nodeId(109)和fileName(static/AAA.mp4)进行路径拼接(如：https://drone.godouav.com/record/192.168.109.151/static/AAA.mp4）
+  * storeType==1  
+    直接取出playPath，拼接域名例如：https://drone.godouav.com+playPath
 
-     b.5g视频：判断playPath是否为http开头，如果是的话直接使用
+  * storeType==2  
+    取出playPath，作为参数fileName通过方法getProxyRealUrl获取
+    公网：云端真实路径（代理后的地址）作为视频文件路径
+    私有化部署：获取代理地址之后，进行下边的地址拼接方法
 
-     
+  * storeType==3  
+    公网：取出playPath后边文件的相对路径，作为参数fileName通过方法getProxyRealUrl获取，云端真实路径（代理后的地址）
+  私有化部署：可直接进行下边的地址拼接方法
 
-   - storeType==1 
+  * storeType==4  
+    取出playPath，作为参数fileName通过方法getProxyRealUrl获取	
+  公网：云端真实路径（代理后的地址）作为视频文件路径
+  私有化部署：获取代理地址之后，进行下边的地址拼接方法
 
-     直接取出playPath，拼接域名https://drone.godouav.com+playPath
+**私有化部署拼接说明：**
 
-     
+  私有化文件存储采用minio,视频地址处理参考：
 
-   - storeType==2 
-
-     取出playPath，作为参数fileName通过方法getProxyRealUrl获取   云端真实路径作为视频文件路径
-
-     
-
-   - storeType==3
-
-     直接取出playPath使用
-
-     
-
-   - storeType==4 
-
-     取出playPath，作为参数fileName通过方法getProxyRealUrl获取   云端真实路径作为视频文件路径
-
+  ```
+let testUrl='http://192.168.142.101:9091/gdcxvideo/record/1625428017968975872868399283/1625428017968975872868399283_1730364449.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=admin%2F20241101%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241101T031346Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=3491d550515b0004ae215ca1e3b70c3d444d45dfa50129867ad9840646008e79'
+  let testUrl1 = 'http://192.168.142.101:9091/gdcxvideo/screenshot/1544592785276014001/20241031/GDCXM190012302100314-20241031-82/20241031165604f78baa18bc2548799033786368e8b261.jpg'
+  let ip = 'http://113.108.32.190:9091'//域名
+  //判断返回的路径是否属于ali
+  function getVideoRealUrl(proxyUrl) {
+      if (proxyUrl.indexOf('aliyuncs.com')>-1) {//公网
+          return proxyUrl
+      } else {//私有化
+          if (!proxyUrl) {
+              return ''
+          }
+          let arrUrl=proxyUrl.split("//")
+          var start=arrUrl[1].indexOf('/')
+          let relUrl=arrUrl[1].substring(start+1)
+          if (relUrl.indexOf("?")>-1) {
+              relUrl=relUrl.split('?')[0]
+          }
+          console.log('11', relUrl)
+          let url=ip+"/"+relUrl
+          return url
+      }
+  }
+  let acuUrl= getVideoRealUrl(testUrl)
+  console.log('最后', acuUrl)
+  ```
+  以上方法也可用于私有化部署，接口返回的图片地址的拼接
+  
 ## 5.14.AI识别
 
 ### 5.14.1请求涉及内容
