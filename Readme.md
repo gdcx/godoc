@@ -1081,38 +1081,50 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
     "data": {
         "listMission": [
             {
-                "missionId": "1820382209627467776203092248",
-                "custId": "999001",
-                "missionName": "XXX河道巡检",
-                "missionLineType": 0,
-                "missionType": "1725435460400058368624656727",
-                "isExecute": 0,
-                "flyKilometer": "47m",
-                "flyArea": "0",
-                "flyAreaShape": null,
-                "lineShape": null,
-                "signalLostDeal": 0,
-                "hightType": 0,
-                "executeTime": "5s"
-                "platformId": "1725358456837378048289490001",
-                "platformName": "103测试机场",
-                "droneId": "1725358456837378048289495838",
-                "droneName": "103无人机",
-                "aiSwitch": 0,
-                "aiTypeId": null,
+                "updateDate": "2024-11-21 10:00:10",
                 "photoMode": 0,
+                "signalLostDeal": 0,
+                "flyKilometer": "970m",
+                "aiTypeId": null,
                 "collectPhotos": 0,
+                "remark": null,
                 "collectTakeOffHight": 0.0,
+                "dicId": null,
                 "collectMargins": 0.0,
+                "plateformLatitudeDeg": null,
+                "lineShape": null,
+                "droneId": null,
+                "missionType": "1725435460400058368624656727",
                 "collectPhotoHight": 0.0,
+                "updateBy": "10000100000999900000000001",
+                "plateformHight": null,
+                "custId": "1850710839633068032611515045",
+                "missionName": "ddd",
+                "platformName": null,
+                "flyAreaShape": null,
+                "aiSwitch": 1,
+                "createDate": "2024-08-05 16:51:54",
+                "hightType": 0,
+                "systemId": null,
+                "missionId": "1820382209627467776203092248",
+                "plateformLongitudeDeg": null,
+                "platformId": "1725358456837378048289490001",
+                "custName": null,
                 "chooseShot": null,
                 "collectFlightOverlapRate": 0.0,
                 "collectGimbalModel": null,
+                "flyArea": null,
                 "collectFlightAngle": 0.0,
                 "collectType": null,
                 "collectSideOverlapRate": 0.0,
+                "createBy": "1725362106884296704265405637",
                 "collectSpeed": 0.0,
-                "operateMode": 0
+                "missionLineType": 0,
+                "operateMode": 0,
+                "gsd": 0.0,
+                "nodeId": null,
+                "droneName": null,
+                "executeTime": "1min30s"
             }
         ]
     }
@@ -1124,38 +1136,45 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   | 字段名                   | 说明                                        |
   | ------------------------ | ------------------------------------------- |
   | missionId                | 航线ID                                      |
-  | custId                   | 租户ID                                      |
-  | missionName              | 航线名                                      |
   | missionLineType          | 航线类型；0：航点航线；1跳点航线;2 建图航线 |
+  | platformId               | 关联机场ID                                  |
+  | platformName             | 关联机场名                                  |
+  | plateformHight           | 机场模型海拔                                |
+  | nodeId                   | uavm服务ID                                  |
+  | plateformLongitudeDeg    | 机场经度                                    |
+  | plateformLatitudeDeg     | 机场维度                                    |
+  | droneId                  | 最近一次执飞该航线的无人机ID                |
+  | droneName                | 最近一次执飞该航线的无人机                  |
+  | systemId                 | 系统id                                      |
+  | custId                   | 租户ID                                      |
+  | custName                 | 客户名                                      |
   | missionType              | 航线类型                                    |
-  | isExecute                | 航线当前状态：0,未执行或执行结束，1执行中   |
-  | flyKilometer             | 预计飞行公里数                              |
+  | missionName              | 航线名                                      |
   | flyArea                  | 预计巡飞面积                                |
   | flyAreaShape             | 预计采集区域形状                            |
   | lineShape                | 采集线条形状                                |
+  | collectPhotos            | 预计建图照片数                              |
+  | collectGimbalModel       | 挂载型号(DC-03)                             |
+  | chooseShot               | 选择镜头(0:广角、1.红外、2.可见光等镜头)    |
+  | collectType              | 采集方式                                    |
+  | Gsd                      | GSD                                         |
+  | collectTakeOffHight      | 起飞高度                                    |
+  | collectPhotoHight        | 建图高度                                    |
+  | collectSpeed             | 采集速度                                    |
+  | collectSideOverlapRate   | 航向重叠率                                  |
+  | collectFlightOverlapRate | 航向重叠率                                  |
+  | collectMargins           | 边距                                        |
+  | collectFlightAngle       | 航线角度                                    |
+  | photoMode                | 拍照模式 0:等距间隔拍照; 1:等时间隔拍照     |
   | signalLostDeal           | 信号丢失 0:继续执行; 1:断联系返航           |
-  | hightType                | 0：相对起飞点；1：相对海拔                  |
+| flyKilometer             | 航线规划飞行距离                            |
   | executeTime              | 预计飞行时长                                |
-  | platformId               | 关联机场ID                                  |
-  | platformName             | 关联机场名                                  |
-  | droneId                  | 最近一次执飞该航线的无人机ID                |
-  | droneName                | 最近一次执飞该航线的无人机                  |
+  | hightType                | 0：相对起飞点；1：相对海拔                  |
+  | operateMode              | 0手动，1自动(监控点自动触发）,3定时自动巡航 |
   | aiSwitch                 | AI识别开关                                  |
   | aiTypeId                 | AI模型能力                                  |
-  | photoMode                | 拍照模式 0:等距间隔拍照; 1:等时间隔拍照     |
-  | collectPhotos            | 预计建图照片数                              |
-  | collectTakeOffHight      | 起飞高度                                    |
-  | collectMargins           | 边距                                        |
-  | collectPhotoHight        | 建图高度                                    |
-  | chooseShot               | 选择镜头(0:广角、1.红外、2.可见光等镜头)    |
-  | collectFlightOverlapRate | 旁向重叠率                                  |
-  | collectGimbalModel       | 挂载型号(DC-03)                             |
-  | collectFlightAngle       | 航线角度                                    |
-  | collectType              | 采集方式                                    |
-  | collectSideOverlapRate   | 航向重叠率                                  |
-  | collectSpeed             | 采集速度                                    |
-  | operateMode              | 0手动，1自动(监控点自动触发）,3定时自动巡航 |
-
+  | remark                   | 备注                                        |
+  
   
 
 ### 5.5.2查询机场相关任务列表
