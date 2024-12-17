@@ -5352,7 +5352,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   | ------------- | -------- | -------- | -------- | ------------------------------------------------------------ |
   | access_token  | Header   | string   | 是       | 接口访问token凭证                                            |
   | activeId      | Body     | string   | 是       | 巡航ID, 参考 5.6.1获取执行ID                                 |
-  | platformId    | Body     | string   | 是       | 机场ID, 该字段不为空，则将触发该机场中的无人机巡飞到预警点，一般不填 |
+  | platformId    | Body     | string   | 否       | 机场ID, 该字段不为空则将触发该机场ID中的无人机巡飞到预警点，一般不填 |
   | activeTypeId  | Body     | string   | 否       | 事件类型id                                                   |
   | activeLevelId | Body     | string   | 否       | 事件等级id                                                   |
   | warnName      | Body     | string   | 是       | 预警名                                                       |
