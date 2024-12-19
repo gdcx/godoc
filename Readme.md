@@ -5351,7 +5351,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   | 参数名称      | 参数位置 | 数据类型 | 是否必须 | 参数描述                                                     |
   | ------------- | -------- | -------- | -------- | ------------------------------------------------------------ |
   | access_token  | Header   | string   | 是       | 接口访问token凭证                                            |
-  | activeId      | Body     | string   | 是       | 巡航ID, 参考 5.6.1获取执行ID                                 |
+  | activeId      | Body     | string   | 是       | 第三方系统中的事件ID，如果多次推送则只接收第一次记录，后续的记录丢弃 |
   | platformId    | Body     | string   | 否       | 机场ID, 该字段不为空则将触发该机场ID中的无人机巡飞到预警点，一般不填 |
   | activeTypeId  | Body     | string   | 否       | 事件类型id                                                   |
   | activeLevelId | Body     | string   | 否       | 事件等级id                                                   |
