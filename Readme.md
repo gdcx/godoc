@@ -5373,6 +5373,34 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
+- 事件类型
+
+  | activeTypeId | 名称       |
+  | ------------ | ---------- |
+  | 560401       | 森林火情   |
+  | 560402       | 危化品监测 |
+  | 560403       | 三防预警   |
+  | 560404       | 交通拥堵   |
+  | 560405       | 有限空间   |
+  | 560406       | 燃气管道   |
+  | 560407       | 城中村隐患 |
+  | 560408       | 工贸企业   |
+
+  
+
+- 事件等级
+
+  | activeLevelId | 名称 |
+  | ------------- | ---- |
+  | 550401        | 一级 |
+  | 550402        | 二级 |
+  | 550403        | 三级 |
+  | 550404        | 四级 |
+
+  
+
+
+
 ​       ![image-20240927100255068](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20240927100255068.png)
 
 
