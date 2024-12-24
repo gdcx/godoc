@@ -1817,6 +1817,167 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 
   
 
+### 5.6.8查询时间段范围内风速及雨量
+
+- 接口说明
+
+​       查询时间段范围内风速及雨量
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/backend/plateformmonitor/QueryListWindSpeedAndRainfall
+  ```
+
+- 请求方法
+
+  ```
+  POST
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称          | 参数位置 | 数据类型 | 是否必须 | 参数描述                             |
+  | ----------------- | -------- | -------- | -------- | ------------------------------------ |
+  | access_token      | Header   | string   | 是       | 接口访问token凭证                    |
+  | platformId        | POST     | string   | 是       | 机场ID, 既获取机场列表中的platformId |
+  | isFlightException | POST     | string   | 是       | 0:全部，1：有异常；2：无异常         |
+  | beginTime         | POST     | string   | 是       | 开始时间  如2024-12-21               |
+  | endTime           | POST     | string   | 是       | 开始时间 如2024-12-23                |
+  | pageNum           | POST     | string   | 是       | 每页条数                             |
+  | pageSize          | POST     | string   | 是       | 查询第几页                           |
+
+- 返回值
+
+  ```
+  {
+      "code": 0,
+      "msg": "查询成功",
+      "data": {
+          "total": 9,
+          "list": [
+              {
+                  "averageWindSpeed": 0.0,
+                  "rainfall": 400.0,
+                  "maxWindSpeed": 2.3,
+                  "minWindSpeed": 0.0,
+                  "time": "14:21",
+                  "day": "2024-12-23"
+              },
+              {
+                  "averageWindSpeed": 0.0,
+                  "rainfall": 400.0,
+                  "maxWindSpeed": 2.3,
+                  "minWindSpeed": 0.0,
+                  "time": "10:47",
+                  "day": "2024-12-23"
+              },
+              {
+                  "averageWindSpeed": 0.0,
+                  "rainfall": 400.0,
+                  "maxWindSpeed": 2.3,
+                  "minWindSpeed": 0.0,
+                  "time": "15:13",
+                  "day": "2024-12-21"
+              },
+              {
+                  "averageWindSpeed": 0.0,
+                  "rainfall": 400.0,
+                  "maxWindSpeed": 2.3,
+                  "minWindSpeed": 0.0,
+                  "time": "10:05",
+                  "day": "2024-12-20"
+              },
+              {
+                  "averageWindSpeed": 0.0,
+                  "rainfall": 400.0,
+                  "maxWindSpeed": 5.0,
+                  "minWindSpeed": 0.0,
+                  "time": "16:34",
+                  "day": "2024-12-19"
+              },
+              {
+                  "averageWindSpeed": 0.0,
+                  "rainfall": 400.0,
+                  "maxWindSpeed": 5.0,
+                  "minWindSpeed": 0.0,
+                  "time": "15:34",
+                  "day": "2024-12-19"
+              },
+              {
+                  "averageWindSpeed": 0.0,
+                  "rainfall": 400.0,
+                  "maxWindSpeed": 5.0,
+                  "minWindSpeed": 0.0,
+                  "time": "12:33",
+                  "day": "2024-12-18"
+              },
+              {
+                  "averageWindSpeed": 0.0,
+                  "rainfall": 400.0,
+                  "maxWindSpeed": 5.0,
+                  "minWindSpeed": 0.0,
+                  "time": "12:32",
+                  "day": "2024-12-18"
+              },
+              {
+                  "averageWindSpeed": 0.0,
+                  "rainfall": 400.0,
+                  "maxWindSpeed": 5.0,
+                  "minWindSpeed": 0.0,
+                  "time": "11:32",
+                  "day": "2024-12-18"
+              }
+          ],
+          "pageNum": 1,
+          "pageSize": 20,
+          "size": 9,
+          "startRow": 1,
+          "endRow": 9,
+          "pages": 1,
+          "prePage": 0,
+          "nextPage": 0,
+          "isFirstPage": true,
+          "isLastPage": true,
+          "hasPreviousPage": false,
+          "hasNextPage": false,
+          "navigatePages": 8,
+          "navigatepageNums": [
+              1
+          ],
+          "navigateFirstPage": 1,
+          "navigateLastPage": 1
+      }
+  }
+  ```
+
+  - 返回字段说明
+
+    | 字段名           | 说明     |
+    | ---------------- | -------- |
+    | day              | 日期     |
+    | time             | 时间     |
+    | minWindSpeed     | 最小风速 |
+    | maxWindSpeed     | 最大风速 |
+    | averageWindSpeed | 平均风速 |
+    | rainfall         | 雨量     |
+
+    
+
+
+
 ## 5.7吊舱操作相关
 
 ### 5.7.1吊舱回中
