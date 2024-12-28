@@ -1,4 +1,4 @@
-# 高度无人机远程调度平台开放API
+高度无人机远程调度平台开放API
 
 [TOC]
 
@@ -1478,6 +1478,412 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 | CameraAction      | 相机模式                        |
 | LoiterTimeS       | 悬停时间                        |
 | Params            | 该航点上复杂指令的相关参数集    |
+
+### 5.5.4新增航线
+
+- 接口说明
+
+​       航线添加 ；(必须设置command 为 178的点，既无人机巡航速度，command 为 -1 的起飞点，command 为 16的轨迹点，以及command 为 20的返航点)
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/backend/mission/add
+  ```
+
+- 请求方法
+
+  ```
+  POST
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称             | 参数位置 | 数据类型 | 是否必须 | 参数描述                                                     |
+  | -------------------- | -------- | -------- | -------- | ------------------------------------------------------------ |
+  | access_token         | header   | string   | 是       | 接口访问token凭证                                            |
+  | custId               | body     | string   | 是       | 客户ID                                                       |
+  | missionName          | body     | string   | 是       | 航线名                                                       |
+  | missionType          | body     | string   | 是       | 任务类型                                                     |
+  | flyKilometer         | body     | string   | 是       | 预计飞行公里数                                               |
+  | executeTime          | body     | string   | 是       | 预计飞行时长                                                 |
+  | missionLineType      | body     | string   | 是       | 航线类型；0：航点航线；1跳点航线;2 建图航线                  |
+  | listPlatformId       | body     | string   | 是       | 航线关联机场(起飞机场id)                                     |
+  | listMissionLinePoint | body     | string   | 是       | 航点                                                         |
+  | pointIndex           | body     | int      | 是       | 航点顺序(自增序列)                                           |
+  | longitudeDeg         | body     | double   | 否       | 精度（command 为-1或16必须填写经纬度坐标）                   |
+  | latitudeDeg          | body     | double   | 否       | 维度（command 为-1或16必须填写经纬度坐标）                   |
+  | relativeAltitudeM    | body     | double   | 否       | 航点相对高度（command 为-1或16必须填写相对高度）             |
+  | command              | body     | int      | 是       | -1表示home点（即起飞机场的经纬度信息机及机场id）， 178速度改变点（指定无人机执飞速度）、16普通航点 、20返航点（必须添加） |
+  | speedMS              | body     | float    | 是       | 为command=178中的speedMS                                     |
+  | cameraAction         | body     | int      | 是       | 默认0                                                        |
+  | loiterTimeS          | body     | float    | 否       | 悬停时间 默认为0即可                                         |
+  | pointType            | body     | int      | 是       | 航点类型 0普通航点                                           |
+  | platformId           | body     | string   | 否       | command=-1必须填写起飞机场，其他均为null即可                 |
+
+- demo
+
+  ```
+  {
+      "custId": "999001",
+      "missionName": "test",//航线名称
+      "missionType": "1725435460400058368624656727", 
+      "flyKilometer": "166m",//飞行距离
+      "executeTime": "17s",//预计飞行时长
+      "missionLineType": 0,//航线类型  0普通航线 2建图航线
+      "listPlatformId": "1642065245725921280159197398",//起飞机场id
+      "listMissionLinePoint": [
+          {
+              "pointIndex": -2,
+              "latitudeDeg": null,
+              "longitudeDeg": null,
+              "relativeAltitudeM": null,
+              "command": 178,
+              "speedMS": 10,
+              "cameraAction": 0,
+              "loiterTimeS": null,
+              "platformId": null
+          },
+          {
+              "pointIndex": -1,
+              "latitudeDeg": 23.5892552,
+              "longitudeDeg": 116.3999023,
+              "relativeAltitudeM": 0,
+              "command": -1,
+              "speedMS": null,
+              "cameraAction": 0,
+              "loiterTimeS": 0,
+              "pointType": 0,
+              "platformId": "1642065245725921280159197398"
+          },
+          {
+              "pointIndex": 0,
+              "latitudeDeg": "23.58950253",
+              "longitudeDeg": "116.39990656",
+              "relativeAltitudeM": 100,
+              "command": 16,
+              "speedMS": 10,
+              "cameraAction": 0,
+              "loiterTimeS": 0,
+              "params": "",
+              "pointType": 0,
+              "platformId": null
+          },
+          {
+              "pointIndex": 1,
+              "latitudeDeg": "23.58974689",
+              "longitudeDeg": "116.40028031",
+              "relativeAltitudeM": 100,
+              "command": 16,
+              "speedMS": 10,
+              "cameraAction": 0,
+              "loiterTimeS": 0,
+              "params": "",
+              "pointType": 0,
+              "platformId": null
+          },
+          {
+              "pointIndex": 2,
+              "latitudeDeg": "23.58892255",
+              "longitudeDeg": "116.40021323",
+              "relativeAltitudeM": 100,
+              "command": 16,
+              "speedMS": 10,
+              "cameraAction": 0,
+              "loiterTimeS": 0,
+              "params": "",
+              "pointType": 0,
+              "platformId": null
+          },
+          {
+              "pointIndex": 3,
+              "latitudeDeg": null,
+              "longitudeDeg": null,
+              "relativeAltitudeM": null,
+              "command": 20,
+              "speedMS": null,
+              "cameraAction": 0,
+              "loiterTimeS": null,
+              "platformId": null
+          }
+      ]
+  }
+  ```
+
+- 返回结果
+
+  ```
+  {
+      "code": 0,
+      "msg": "操作成功"
+  }
+  ```
+
+### 5.5.5编辑航线
+
+- 接口说明
+
+​       航线添加 ；(必须设置command 为 178的点，既无人机巡航速度，command 为 -1 的起飞点，command 为 16的轨迹点，以及command 为 20的返航点)
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/backend/mission/add
+  ```
+
+- 请求方法
+
+  ```
+  POST
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称             | 参数位置 | 数据类型 | 是否必须 | 参数描述                                                     |
+  | -------------------- | -------- | -------- | -------- | ------------------------------------------------------------ |
+  | access_token         | header   | string   | 是       | 接口访问token凭证                                            |
+  | missionId            | body     | string   | 是       | 是                                                           |
+  | custId               | body     | string   | 是       | 客户ID                                                       |
+  | missionName          | body     | string   | 是       | 航线名                                                       |
+  | missionType          | body     | string   | 是       | 任务类型                                                     |
+  | flyKilometer         | body     | string   | 是       | 预计飞行公里数                                               |
+  | executeTime          | body     | string   | 是       | 预计飞行时长                                                 |
+  | missionLineType      | body     | string   | 是       | 航线类型；0：航点航线；1跳点航线;2 建图航线                  |
+  | listPlatformId       | body     | string   | 是       | 航线关联机场(起飞机场id)                                     |
+  | listMissionLinePoint | body     | string   | 是       | 航点                                                         |
+  | pointIndex           | body     | int      | 是       | 航点顺序(自增序列)                                           |
+  | longitudeDeg         | body     | double   | 否       | 精度（command 为-1或16必须填写经纬度坐标）                   |
+  | latitudeDeg          | body     | double   | 否       | 维度（command 为-1或16必须填写经纬度坐标）                   |
+  | relativeAltitudeM    | body     | double   | 否       | 航点相对高度（command 为-1或16必须相对高度）                 |
+  | command              | body     | int      | 是       | -1表示home点（即起飞机场的经纬度信息机及机场id）， 178速度改变点（指定无人机执飞速度）、16普通航点 、20返航点（必须添加） |
+  | speedMS              | body     | float    | 是       | 为command=178中的speedMS                                     |
+  | cameraAction         | body     | int      | 是       | 默认0                                                        |
+  | loiterTimeS          | body     | float    | 否       | 悬停时间 默认为0即可                                         |
+  | pointType            | body     | int      | 是       | 航点类型 0普通航点                                           |
+  | platformId           | body     | string   | 否       | command=-1必须填写起飞机场，其他均为null即可                 |
+
+- demo
+
+  ```
+  {
+      "custId": "999001",
+      "missionName": "test",//航线名称
+      "missionType": "1725435460400058368624656727", 
+      "flyKilometer": "166m",//飞行距离
+      "executeTime": "17s",//预计飞行时长
+      "missionLineType": 0,//航线类型  0普通航线 2建图航线
+      "listPlatformId": "1642065245725921280159197398",//起飞机场id
+      "listMissionLinePoint": [
+          {
+              "pointIndex": -2,
+              "latitudeDeg": null,
+              "longitudeDeg": null,
+              "relativeAltitudeM": null,
+              "command": 178,
+              "speedMS": 10,
+              "cameraAction": 0,
+              "loiterTimeS": null,
+              "platformId": null
+          },
+          {
+              "pointIndex": -1,
+              "latitudeDeg": 23.5892552,
+              "longitudeDeg": 116.3999023,
+              "relativeAltitudeM": 0,
+              "command": -1,
+              "speedMS": null,
+              "cameraAction": 0,
+              "loiterTimeS": 0,
+              "pointType": 0,
+              "platformId": "1642065245725921280159197398"
+          },
+          {
+              "pointIndex": 0,
+              "latitudeDeg": "23.58950253",
+              "longitudeDeg": "116.39990656",
+              "relativeAltitudeM": 100,
+              "command": 16,
+              "speedMS": 10,
+              "cameraAction": 0,
+              "loiterTimeS": 0,
+              "params": "",
+              "pointType": 0,
+              "platformId": null
+          },
+          {
+              "pointIndex": 1,
+              "latitudeDeg": "23.58974689",
+              "longitudeDeg": "116.40028031",
+              "relativeAltitudeM": 100,
+              "command": 16,
+              "speedMS": 10,
+              "cameraAction": 0,
+              "loiterTimeS": 0,
+              "params": "",
+              "pointType": 0,
+              "platformId": null
+          },
+          {
+              "pointIndex": 2,
+              "latitudeDeg": "23.58892255",
+              "longitudeDeg": "116.40021323",
+              "relativeAltitudeM": 100,
+              "command": 16,
+              "speedMS": 10,
+              "cameraAction": 0,
+              "loiterTimeS": 0,
+              "params": "",
+              "pointType": 0,
+              "platformId": null
+          },
+          {
+              "pointIndex": 3,
+              "latitudeDeg": null,
+              "longitudeDeg": null,
+              "relativeAltitudeM": null,
+              "command": 20,
+              "speedMS": null,
+              "cameraAction": 0,
+              "loiterTimeS": null,
+              "platformId": null
+          }
+      ]
+  }
+  ```
+
+- 返回结果
+
+  {
+      "code": 0,
+      "msg": "操作成功"
+  }
+
+
+
+### 5.5.6查询任务类型列表按客户
+
+- 接口说明
+
+​       查询客户的航线类型
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/backend/sysconfig/MissionType/querySysDataTypeInfoByCustId/{custId}
+  ```
+
+- 请求方法
+
+  ```
+  GET
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称     | 参数位置     | 数据类型 | 是否必须 | 参数描述          |
+  | ------------ | ------------ | -------- | -------- | ----------------- |
+  | access_token | Header       | string   | 是       | 接口访问token凭证 |
+  | custId       | pathVariable | string   | 是       | 客户ID            |
+
+- 返回值
+
+  ```
+  {
+      "code": 0,
+      "msg": "操作成功",
+      "data": [
+          {
+              "listCusts": null,
+              "typeName": "普通航线",
+              "id": "1725435460400058368624656727",
+              "sortNo": 0,
+              "qty": 0,
+              "display": 0,
+              "isShare": 0,
+              "originalId": null,
+              "createBy": "1725361181457256448485625223",
+              "status": 0,
+              "createDate": "2023-11-17 16:47:25.000",
+              "updateDate": "2024-10-15 10:25:47.000",
+              "updateBy": "1725684357466820608438748095",
+              "custId": "999001",
+              "remark": "",
+              "isSystemFlag": 0,
+              "isInherit": null,
+              "dataRange": 1,
+              "category": "MissionType"
+          },
+          {
+              "listCusts": null,
+              "typeName": "河道航线",
+              "id": "1848259070238539776321951444",
+              "sortNo": 0,
+              "qty": 0,
+              "display": 0,
+              "isShare": 0,
+              "originalId": null,
+              "createBy": "1725684357466820608438748095",
+              "status": 0,
+              "createDate": "2024-10-21 15:04:36.000",
+              "updateDate": "2024-10-21 15:04:51.000",
+              "updateBy": "1725684357466820608438748095",
+              "custId": "999001",
+              "remark": "沙发上房贷首付",
+              "isSystemFlag": 0,
+              "isInherit": null,
+              "dataRange": 1,
+              "category": "MissionType"
+          }
+      ]
+  }
+  ```
+
+  - 返回值说明
+
+    | 字段名   | 说明       |
+    | -------- | ---------- |
+    | id       | 航线类型ID |
+    | typeName | 类型名     |
+
+    
+
+  
 
 ## 5.6 机场操作相关
 
@@ -5475,6 +5881,61 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 | remark        | 备注                                                         |
 | flagName      | 标会名                                                       |
 
+### 5.10.2添加巡航图片
+
+- 接口说明
+
+​       添加巡航记录
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/backend/VideoCutPic/upload
+  ```
+
+- 请求方法
+
+  ```
+  POST
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称     | 参数位置 | 数据类型 | 是否必须 | 参数描述                            |
+  | ------------ | -------- | -------- | -------- | ----------------------------------- |
+  | access_token | Header   | string   | 是       | 接口访问token凭证                   |
+  | file         | Body     | file     | 是       | 图片文件                            |
+  | missionId    | Body     | string   | 是       | 航线ID                              |
+  | executionsId | Body     | string   | 是       | 巡航ID, 参考 5.6.1获取执行ID        |
+  | longitudeDeg | Body     | string   | 是       | 精度                                |
+  | latitudeDeg  | Body     | string   | 是       | 维度                                |
+  | picType      | Body     | string   | 是       | 0正常 1绿色常规 2黄色警告 3红色异常 |
+  | remark       | Body     | string   | 是       | 备注                                |
+
+- 返回值
+
+  {
+
+    "code": 0,
+
+    "msg": "操作成功",
+
+    "data": "GDM002S2312178-20240926-43522513"
+
+  }
+
 ## 5.11.预警管理
 
 ### 5.11.1预警推送
@@ -6904,7 +7365,7 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
 
 采用动态用户名 密码，需要匹配时间戳，防止泄漏。
 
-
+### 6.1mqtt用户名及密码生成规则
 
 - 用户名生成
 
@@ -7064,3 +7525,488 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
 
   
 
+# 7.电子围栏
+
+## 7.1 电子围栏分类查询
+
+- 接口说明
+
+​       查询客户的电子围栏分类
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/backend/sysconfig/ElectBarrier/querySysDataTypeInfoByCustId/{custId}
+  ```
+
+- 请求方法
+
+  ```
+  GET
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称     | 参数位置     | 数据类型 | 是否必须 | 参数描述          |
+  | ------------ | ------------ | -------- | -------- | ----------------- |
+  | access_token | Header       | string   | 是       | 接口访问token凭证 |
+  | custId       | pathVariable | string   | 是       | 客户ID            |
+
+- 返回值
+
+  ```
+  {
+      "code": 0,
+      "msg": "操作成功",
+      "data": [
+          {
+              "listCusts": null,
+              "qty": 49,
+              "createBy": "2023-02-08 16:11:48",
+              "createDate": null,
+              "updateBy": null,
+              "updateDate": null,
+              "isShare": 0,
+              "category": "ElectBarrier",
+              "isSystemFlag": 1,
+              "id": "13502490637328451041",
+              "status": 0,
+              "custId": "999001",
+              "dataRange": 0,
+              "typeName": "默认文件夹",
+              "remark": null,
+              "originalId": null,
+              "isInherit": null,
+              "sortNo": 0,
+              "display": 49
+          },
+          {
+              "listCusts": null,
+              "qty": 0,
+              "createBy": "1698969891148795904448840187",
+              "createDate": "2023-09-07 16:15:21.000",
+              "updateBy": null,
+              "updateDate": null,
+              "isShare": 0,
+              "category": "ElectBarrier",
+              "isSystemFlag": 0,
+              "id": "1699697852944617472104183400",
+              "status": 0,
+              "custId": "999001",
+              "dataRange": 0,
+              "typeName": "军事禁飞区",
+              "remark": null,
+              "originalId": null,
+              "isInherit": null,
+              "sortNo": 1,
+              "display": 0
+          }
+      ]
+  }
+  ```
+
+  
+
+- 返回值说明
+
+  | 字段名   | 说明           |
+  | -------- | -------------- |
+  | id       | 电子围栏分类ID |
+  | category | 分类           |
+  | typeName | 电子围栏分类名 |
+
+  
+
+## 7.2 电子围栏添加
+
+- 接口说明
+
+​       添加电子围栏
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/gis/flag/ElectBarrier/add
+  ```
+
+- 请求方法
+
+  ```
+  POST
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称         | 参数位置 | 数据类型 | 是否必须 | 参数描述                                                     |
+  | ---------------- | -------- | -------- | -------- | ------------------------------------------------------------ |
+  | access_token     | Header   | string   | 是       | 接口访问token凭证                                            |
+  | custId           | body     | string   | 是       | 客户ID                                                       |
+  | flagCategoryId   | body     | string   | 是       | 分类ID                                                       |
+  | flagName         | body     | string   | 是       | 电子围栏名                                                   |
+  | limitFlightType  | body     | String   | 是       | 限飞类型(0:禁飞区;  1:限高区 ； 2 限低区)                    |
+  | limitMode        | body     | String   | 是       | 限制模式(0:内部限制;  1:外部限制)                            |
+  | shapeType        | body     | String   | 是       | 绘制类型(0:点;  1:线;  2:面; 3:圆(存点和半径) ；4:带(存的线)) |
+  | polygon          | body     | String   | 否       | 面(shapeType=2 必填)                                         |
+  | point            | body     | String   | 否       | 圆(shapeType=3 必填)                                         |
+  | radius           | body     | double   | 否       | 圆(shapeType=3 必填)                                         |
+  | lineString       | body     | String   | 否       | 带(shapeType=4 必填)                                         |
+  | horizontalArea   | body     | double   | 否       | 水平面积                                                     |
+  | safeDistance     | body     | double   | 是       | 安全距离                                                     |
+  | flightLimitLow   | body     | double   | 是       | 飞行限低                                                     |
+  | flightLimitHight | body     | double   | 是       | 飞行限高                                                     |
+  | remark           | body     | String   | 否       | 备注                                                         |
+
+- DEMO(面、圆、带)
+
+  ```
+  {
+      "custId": "999001",
+      "flagCategoryId": "1560508286661431296",
+      "flagName": "",
+      "limitFlightType": "0",
+      "limitMode": "0",
+      "shapeType": "2",
+      "polygon": "POLYGON((121.474243 31.234504,121.471775 31.233348,121.470724 31.23155,121.471603 31.230229,121.472655 31.230357,121.475777 31.232045,121.474243 31.234504))",
+      "horizontalArea": "85.05",
+      "safeDistance": "20",
+      "flightLimitLow": "30",
+      "flightLimitHight": "60",
+      "remark": ""
+  }
+  ```
+
+  ```
+  {
+      "custId": "999001",
+      "flagCategoryId": "1560508286661431296",
+      "flagName": "圆电子围栏",
+      "limitFlightType": "0",
+      "limitMode": "0",
+      "shapeType": "3",
+      "point": "POINT(121.474103 31.232862)",
+      "horizontalArea": "85.05",
+      "radius": "15",
+      "safeDistance": "20",
+      "flightLimitLow": "30",
+      "flightLimitHight": "60",
+      "remark": ""
+  }
+  ```
+
+  ```
+  {
+     
+      "flagId": "1562007789474287616",
+      "custId": "999001",
+      "flagCategoryId": "1560508286661431296",
+      "flagName": "带状电子围栏2",
+      "limitFlightType": "0",
+      "limitMode": "0",
+      "shapeType": "4",
+      "lineString": "LINESTRING(0 0, 10 10, 20 25, 50 60)",
+      "beltWidth": "20",
+      "safeDistance": "20",
+      "flightLimitLow": "30",
+      "flightLimitHight": "60",
+      "length": "850.6",
+      "remark": ""
+  }
+  ```
+
+  
+
+- 返回值
+
+  ```
+  {
+      "code": 0,
+      "msg": "操作成功"
+  }
+  ```
+
+  
+
+- 返回值说明
+
+  | 字段名   | 说明           |
+  | -------- | -------------- |
+  | id       | 电子围栏分类ID |
+  | custName | 客户           |
+  | flagId   | 电子围栏分类名 |
+
+  
+
+## 7.3 电子围栏查询
+
+- 接口说明
+
+​       查询权限范围内的电子围栏
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/gis/flag/ElectBarrier/QueryMapFlagRight
+  ```
+
+- 请求方法
+
+  ```
+  GET
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称     | 参数位置 | 数据类型 | 是否必须 | 参数描述          |
+  | ------------ | -------- | -------- | -------- | ----------------- |
+  | access_token | Header   | string   | 是       | 接口访问token凭证 |
+
+- 返回值
+
+  ```
+  {
+      "code": 0,
+      "msg": "operate successed.",
+      "data": [
+          {
+              "category": null,
+              "pageNo": 0,
+              "pageSize": 0,
+              "distance": 0.0,
+              "custId": "1611291344955904000",
+              "flagId": "1627931432880050176526270691",
+              "flagName": "xx禁飞区",
+              "flagCategoryId": "13502490637328451036",
+              "shareBy": null,
+              "limitFlightType": "0",
+              "limitMode": "0",
+              "shapeType": "2",
+              "point": null,
+              "lineString": null,
+              "polygon": "POLYGON((114.5815039653 22.6394611598,114.5793307218 22.6335064376,114.5775190191 22.6288532945,114.5802135617 22.6233617924,114.5769222382 22.6181909749,114.5736296213 22.6165898954,114.5708728805 22.6159334228,114.5690523782 22.6135903004,114.5620543027 22.6079350717,114.5601258205 22.6097674832,114.5560445591 22.6132239831,114.5525189249 22.6097094582,114.5450197345 22.6032143159,114.5403772198 22.6001916673,114.5402116728 22.5972820951,114.5368994153 22.5966125040,114.5368288720 22.5922896192,114.5368422482 22.5885017209,114.5387068109 22.5855733727,114.5442941764 22.5853013655,114.5540946565 22.5870038133,114.5677209420 22.5968301149,114.5842093929 22.6080723628,114.5894703085 22.6136979507,114.5907453168 22.6188009163,114.5940930270 22.6263544824,114.5969575972 22.6351310732,114.6067060017 22.6461829827,114.5973459690 22.6560244072,114.5815039653 22.6394611598))",
+              "radius": 0.0,
+              "beltWidth": 0.0,
+              "safeDistance": 500.0,
+              "flightLimitHight": 20.0,
+              "flightLimitLow": 20.0,
+              "topAltitude": 0.0,
+              "bottomAltitude": 0.0,
+              "transparentRate": 0.0,
+              "createDate": "2023-02-21 15:21:13",
+              "activeId": null,
+              "updateBy": "1656573619091935232343597720",
+              "updateDate": "2024-05-07 15:09:45",
+              "status": 0,
+              "createBy": "1625324762073010176490426430",
+              "display": 0,
+              "imageUrl": null,
+              "creator": "张三",
+              "updator": "张三",
+              "flagNameDesc": null,
+              "applyState": 0,
+              "starTime": null,
+              "perTimeNeedApply": 0,
+              "shareTime": null,
+              "remark": "xx危险区域",
+              "endTime": null,
+              "custName": "xx环保",
+              "shapeColor": "null",
+              "altitude": 0.0,
+              "altitudeArrays": null,
+              "horizontalDistance": 0.0,
+              "lineDistance": 0.0,
+              "altitudeDiff": 0.0,
+              "horizontalArea": 1.59685912E7,
+              "horizontalCircle": 0.0,
+              "length": 0.0
+          },
+          {
+              "category": null,
+              "pageNo": 0,
+              "pageSize": 0,
+              "distance": 0.0,
+              "custId": "1544592785276014592",
+              "flagId": "1641637617781051392590726620",
+              "flagName": "地铁x号线",
+              "flagCategoryId": "1641685781078740992647494724",
+              "shareBy": null,
+              "limitFlightType": "0",
+              "limitMode": "0",
+              "shapeType": "4",
+              "point": null,
+              "lineString": "LINESTRING(114.2748492033 22.7326950105,114.2696143604 22.7301481763,114.2594762649 22.7240976025,114.251500182 22.7201797095,114.2476449094 22.7191426783,114.2463550691 22.7184778991,114.2344592114 22.7077312639,114.2327562705 22.7055375429,114.2239512677 22.6918227403,114.2223216925 22.6817039251,114.2213268087 22.6791024164,114.216977041 22.6717019819,114.2164811068 22.6707315877,114.2161249925 22.6697939086,114.2156385217 22.6679532979,114.2147810621 22.6647935084,114.2142583483 22.6636833158,114.2123172245 22.6600179546,114.211878598 22.6595239948,114.2114269623 22.6590243436,114.2088072862 22.65669808,114.2050769325 22.652045992,114.1969449037 22.6455394308,114.1959616485 22.6450405389,114.194491678 22.6446841859)",
+              "polygon": null,
+              "radius": 0.0,
+              "beltWidth": 50.0,
+              "safeDistance": 10.0,
+              "flightLimitHight": 20.0,
+              "flightLimitLow": 20.0,
+              "topAltitude": 0.0,
+              "bottomAltitude": 0.0,
+              "transparentRate": 0.0,
+              "createDate": "2023-03-31 11:04:42",
+              "activeId": null,
+              "updateBy": "1562057441594707968",
+              "updateDate": "2023-10-15 15:37:57",
+              "status": 0,
+              "createBy": "1582678903783297025",
+              "display": 0,
+              "imageUrl": null,
+              "creator": "张三",
+              "updator": "张三",
+              "flagNameDesc": null,
+              "applyState": 0,
+              "starTime": null,
+              "perTimeNeedApply": 0,
+              "shareTime": null,
+              "remark": null,
+              "endTime": null,
+              "custName": "xxx应急局",
+              "shapeColor": "null",
+              "altitude": 0.0,
+              "altitudeArrays": null,
+              "horizontalDistance": 0.0,
+              "lineDistance": 13401.0,
+              "altitudeDiff": 0.0,
+              "horizontalArea": 0.0,
+              "horizontalCircle": 0.0,
+              "length": 13401.0
+          },
+          {
+              "category": null,
+              "pageNo": 0,
+              "pageSize": 0,
+              "distance": 0.0,
+              "custId": "1657208109833261056703101920",
+              "flagId": "1645383885909004288311028865",
+              "flagName": "深圳部-xx河不可跨越",
+              "flagCategoryId": "1630091522156400640699659204",
+              "shareBy": null,
+              "limitFlightType": "0",
+              "limitMode": "0",
+              "shapeType": "4",
+              "point": null,
+              "lineString": "LINESTRING(114.127325469 22.5395567413,114.1286786963 22.5399695552,114.130179124 22.541701598,114.1311135292 22.541963788,114.1338175991 22.5414467912,114.1349997315 22.5417768319,114.1368801353 22.5432746447,114.1378259884 22.5435406843,114.1387600568 22.5434514299,114.1394539375 22.5431291467)",
+              "polygon": null,
+              "radius": 0.0,
+              "beltWidth": 30.0,
+              "safeDistance": 30.0,
+              "flightLimitHight": 20.0,
+              "flightLimitLow": 20.0,
+              "topAltitude": 0.0,
+              "bottomAltitude": 0.0,
+              "transparentRate": 0.0,
+              "createDate": "2023-04-10 19:11:02",
+              "activeId": null,
+              "updateBy": "1830852595363999744207528700",
+              "updateDate": "2024-12-18 17:47:29",
+              "status": 0,
+              "createBy": "1643794613024198656733328575",
+              "display": 1,
+              "imageUrl": null,
+              "creator": "张三",
+              "updator": "张三",
+              "flagNameDesc": null,
+              "applyState": 0,
+              "starTime": null,
+              "perTimeNeedApply": 0,
+              "shareTime": null,
+              "remark": null,
+              "endTime": null,
+              "custName": "xx部",
+              "shapeColor": "null",
+              "altitude": 0.0,
+              "altitudeArrays": null,
+              "horizontalDistance": 0.0,
+              "lineDistance": 1436.9,
+              "altitudeDiff": 0.0,
+              "horizontalArea": 0.0,
+              "horizontalCircle": 0.0,
+              "length": 1436.9
+          }
+      ]
+  }
+  ```
+
+  
+
+- 返回值说明
+
+  | 字段名             | 说明                                                         |
+  | ------------------ | ------------------------------------------------------------ |
+  | id                 | 电子围栏分类ID                                               |
+  | custName           | 客户                                                         |
+  | flagId             | 电子围栏ID                                                   |
+  | custId             | 客户ID                                                       |
+  | flagCategoryId     | 标绘大类ID                                                   |
+  | flagName           | 标绘名称                                                     |
+  | shapeType          | 绘制类型(0:点;  1:线;  2:面; 3:圆(存点和半径) ；4:带(存的线)) |
+  | shapeColor         | 颜色(0:蓝色;1:绿色;2:橙色;3:红色;4:紫色)                     |
+  | limitMode          | 限制模式(0:内部限制;  1:外部限制)                            |
+  | limitFlightType    | 限飞类型(0:禁飞区;  1:限高区 ； 2 限低区)                    |
+  | point              | 点                                                           |
+  | lineString         | 线                                                           |
+  | polygon            | 面                                                           |
+  | altitude           | 海拔高度                                                     |
+  | altitudeArrays     | 海拔高度点集合                                               |
+  | topAltitude        | 顶部海拔高度(障碍物涉及)                                     |
+  | bottomAltitude     | 底部海拔高度(障碍物涉及)                                     |
+  | horizontalDistance | 水平距离                                                     |
+  | lineDistance       | 直线距离                                                     |
+  | altitudeDiff       | 高度差                                                       |
+  | horizontalArea     | 水平面积                                                     |
+  | horizontalCircle   | 水平周长                                                     |
+  | safeDistance       | 安全距离                                                     |
+  | flightLimitLow     | 飞行限低                                                     |
+  | flightLimitHight   | 飞行限高                                                     |
+  | radius             | 半径                                                         |
+  | beltWidth          | 带状围栏才有宽度                                             |
+  | length             | 长度                                                         |
+  | imageUrl           | 标准图片地址                                                 |
+  | flagNameDesc       | 标会说明(如空域说明) 2024-01-10                              |
+  | applyState         | 申请状态 0通过，1限制飞行，2为通过 2024-01-10                |
+  | starTime           | 开始时间                                                     |
+  | endTime            | 结束时间                                                     |
+  | perTimeNeedApply   | 每次起飞申请,0:是；1否 2024-01-10                            |
+  | transparentRate    | 颜色透明度                                                   |
+  | remark             | 备注                                                         |
+  | display            | 是都显示                                                     |
+  | creator            | 创建人                                                       |
+  | createDate         | 创建时间                                                     |
+
+  
