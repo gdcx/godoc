@@ -1,6 +1,6 @@
-高度无人机远程调度平台开放API
+无人机远程调度平台开放API
 
-[TOC]
+
 
 # 1.文档说明
 
@@ -8,7 +8,7 @@
 
 ------
 
-高度无人机远程调度平台(以下简称平台)提供了：单点登录、设备授权、任务执行、机场复位、无人机悬停、无人机指点、无人机返航、视频接入，吊舱操控、实时数据获取、预警接入、飞行申报、AI识别、电子围栏、地图标会、电子围栏、飞行管控、地图资源、三维地图等开放功能。基于平台开放的能力，合作厂家和开发者可快速实现丰富的综合应用。 本文档详细描述了平台开放的API接口、调用方式、使用场景等内容。用于指导开发者基于平台做二次开发。
+无人机远程调度平台(以下简称平台)提供了：单点登录、设备授权、任务执行、机场复位、无人机悬停、无人机指点、无人机返航、视频接入，吊舱操控、实时数据获取、预警接入、飞行申报、AI识别、电子围栏、地图标会、电子围栏、飞行管控、地图资源、三维地图等开放功能。基于平台开放的能力，合作厂家和开发者可快速实现丰富的综合应用。 本文档详细描述了平台开放的API接口、调用方式、使用场景等内容。用于指导开发者基于平台做二次开发。
 
 
 
@@ -166,7 +166,7 @@
 
 ## 3.1对接授权申请
 
-对于需要深度对接高度无人机远程调度平台的单位或第三方，需要向高度申请账号授权，并获取以下对接信息:
+对于需要深度对接无人机远程调度平台的单位或第三方，需要申请账号授权，并获取以下对接信息:
 
 - account：对接用户账号
 - passwd：对接密钥
@@ -176,7 +176,7 @@
 
 # 4.sso登录
 
-需要通过客户自有大屏、OA、ERP或其他自有平台直接跳转到高度无人机远程调度平台的客户，可通过单点登录直接进入到无人机远程调度平台，实现类似于免登进入系统的功能，(前提条件，账号必须在高度平台中存在，且对账号赋予了相关操作权限)
+需要通过客户自有大屏、OA、ERP或其他自有平台直接跳转到无人机远程调度平台的客户，可通过单点登录直接进入到无人机远程调度平台，实现类似于免登进入系统的功能，(前提条件，账号必须在平台中存在，且对账号赋予了相关操作权限)
 
 ## 4.1sso授权申请
 
@@ -1244,7 +1244,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
               "hightType": 0,
               "missionId": "1829443875471118336655836034",
               "platformId": "1725358456837378048289490001",
-              "custName": "高度创新",
+              "custName": "xx创新",
               "chooseShot": null,
               "collectFlightOverlapRate": 0.0,
               "collectGimbalModel": null,
@@ -1282,7 +1282,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
               "hightType": 0,
               "missionId": "1827980742963765248334870439",
               "platformId": "1725358456837378048289490001",
-              "custName": "高度创新",
+              "custName": "xx创新",
               "chooseShot": 0,
               "collectFlightOverlapRate": 80.0,
               "collectGimbalModel": "DC_03",
@@ -5034,7 +5034,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
                 "missionFlagName": "",
                 "creator": "zjc",
                 "missionId": "1629683220738084864542999075",
-                "unitName": "高度创新",
+                "unitName": "xx创新",
                 "executionsId": "GDM002S2312178-20240926-46646622",
                 "minutes": 1,
                 "plateformName": "龙岗-113清林径水库",
@@ -5172,7 +5172,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
               "activeName": null,
               "creator": "flj",
               "missionId": null,
-              "unitName": "高度创新",
+              "unitName": "xx创新",
               "executionsId": "GDM002S2312178-20240926-27075374",
               "platformId": "1725358456837378048289490001",
               "latitudeDeg": 22.759178995556777,
@@ -6359,7 +6359,7 @@ group/{gimbalId}/moving/
 
 ## 5.13.视频实时接入
 
-视频实时接入功能提供了将高度无人机远程调度平台中客户自有设备的无人机信息接入到自有平台，实现视频流间的无缝集成。
+视频实时接入功能提供了将无人机远程调度平台中客户自有设备的无人机信息接入到自有平台，实现视频流间的无缝集成。
 
 ### 多链路视频
 
