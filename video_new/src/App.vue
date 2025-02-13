@@ -83,8 +83,14 @@ const connectFun = async()=>{
         conn = null
       }
       if(ruleForm.pullStreamType == 1){
-        let cameraId = ruleForm.cameraId+'_dock'
-        conn = new Connection(ws,cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
+        if(ruleForm.sfu){
+          let cameraId = ruleForm.cameraId
+          conn = new Connection(ws,cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
+        }else{
+          let cameraId = ruleForm.cameraId+'_dock'
+          conn = new Connection(ws,cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
+        }
+        
       }else{
         conn = new Connection(ws,ruleForm.cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
       }
@@ -154,7 +160,7 @@ const streamTypeText = computed(()=>{
     <el-form-item label="cameraId" label-position="right" prop="cameraId">
       <el-input v-model="ruleForm.cameraId" />
     </el-form-item>
-    <el-form-item label="SFU" label-position="right" prop="sfu">
+    <el-form-item label="SFU/5g" label-position="right" prop="sfu">
       <el-switch v-model="ruleForm.sfu" />
     </el-form-item>
     <!-- <el-form-item label="视频来源" prop="from">
