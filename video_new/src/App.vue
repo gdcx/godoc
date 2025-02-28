@@ -15,9 +15,11 @@ const ruleForm = reactive({
   cameraId: Config.cameraId,
   sfu: false,
   streamType: 0,
-  // from: 0,//0无人机视频 1 机场视频
+  from: 1,//0无人机视频 1 机场视频
   userId: Config.userId,
-  pullStreamType: 0//自组网推流0  服务器推流1
+  pullStreamType: 0,//机场启用 自组网推流0  服务器推流1
+  videoAgg: 0,//无人机是否启用视频聚合
+  is5g: false,//无人机视频是否开启5g
 })
 // const userId = Config.userId;
 const rules = reactive({
@@ -68,6 +70,24 @@ const btnClick = ()=>{
     connectFun()
   }
 }
+//聚合开关切换
+const changeVideoAgg = (val)=>{
+  if(val){//开启聚合
+    ruleForm.sfu = true
+  }
+}
+//5g开关切换
+const changeVideo5g = (val)=>{
+  if(val){
+
+  }
+}
+//推流方式切换
+const changePullStreamType = (val)=>{
+  if(val){
+    ruleForm.sfu = true
+  }
+}
 //连接
 const connectFun = async()=>{
   if(!ruleFormRef.value) return;
@@ -82,18 +102,41 @@ const connectFun = async()=>{
         conn.stop()
         conn = null
       }
-      if(ruleForm.pullStreamType == 1){
-        if(ruleForm.sfu){
+      //如果当前链接的是无人机吊舱视频 - 先判断是否开启聚合   机场视频则无需判断该条件直接走else
+      if(ruleForm.from==1){//机场
+        if(ruleForm.pullStreamType==1){
+          ruleForm.sfu = true
+          let cameraId = ruleForm.cameraId+'_dock'
+          conn = new Connection(ws,cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
+        }else{
+          ruleForm.sfu = false
+          let cameraId = ruleForm.cameraId
+          conn = new Connection(ws,cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
+        }
+      }else{//无人机视频
+        if(ruleForm.videoAgg==1){
+          ruleForm.sfu = true
           let cameraId = ruleForm.cameraId
           conn = new Connection(ws,cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
         }else{
-          let cameraId = ruleForm.cameraId+'_dock'
-          conn = new Connection(ws,cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
+          if(ruleForm.is5g){
+            ruleForm.sfu = true
+            let cameraId = ruleForm.cameraId
+            conn = new Connection(ws,cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
+          }else{//自组网
+            if(ruleForm.pullStreamType==1){
+              ruleForm.sfu = true
+              let cameraId = ruleForm.cameraId+'_dock'
+              conn = new Connection(ws,cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
+            }else{//p2p
+              ruleForm.sfu = false
+              let cameraId = ruleForm.cameraId
+              conn = new Connection(ws,cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
+            }
+          }
         }
-        
-      }else{
-        conn = new Connection(ws,ruleForm.cameraId,ruleForm.nodeId,ruleForm.sfu,ruleForm.streamType,false,false)
       }
+      
       let rtcEle = document.getElementById('rtc')
       conn.updateElement(rtcEle);
       if (ws) {
@@ -124,7 +167,10 @@ const changeStreamType = ()=>{
   }else{
     streamType.value = 0
   }
-  conn.changeStream(streamType.value)
+  if(conn){
+    conn.changeStream(streamType.value)
+  }
+  
 }
 
 const connectText = computed(() => {
@@ -160,20 +206,26 @@ const streamTypeText = computed(()=>{
     <el-form-item label="cameraId" label-position="right" prop="cameraId">
       <el-input v-model="ruleForm.cameraId" />
     </el-form-item>
-    <el-form-item label="SFU/5g" label-position="right" prop="sfu">
-      <el-switch v-model="ruleForm.sfu" />
+    <el-form-item label="推流方式" prop="pullStreamType">
+      <el-radio-group v-model="ruleForm.pullStreamType" @change="changePullStreamType">
+        <el-radio :value="0">P2P</el-radio>
+        <el-radio :value="1">服务器推流</el-radio>
+      </el-radio-group>
     </el-form-item>
-    <!-- <el-form-item label="视频来源" prop="from">
+    <el-form-item label="视频来源" prop="from">
       <el-radio-group v-model="ruleForm.from">
         <el-radio :value="0">无人机</el-radio>
         <el-radio :value="1">机场</el-radio>
       </el-radio-group>
-    </el-form-item> -->
-    <el-form-item label="推流方式" prop="pullStreamType">
-      <el-radio-group v-model="ruleForm.pullStreamType">
-        <el-radio :value="0">P2P</el-radio>
-        <el-radio :value="1">服务器推流</el-radio>
-      </el-radio-group>
+    </el-form-item>
+    <el-form-item label="SFU" label-position="right" prop="sfu">
+      <el-switch v-model="ruleForm.sfu" />
+    </el-form-item>
+    <el-form-item label="无人机聚合开关" v-if="ruleForm.from==0" prop="videoAgg">
+      <el-switch v-model="ruleForm.videoAgg" :active-value="1" :inactive-value="0" @change="changeVideoAgg"/>
+    </el-form-item>
+    <el-form-item label="5g" prop="is5g" v-if="ruleForm.from==0">
+      <el-switch v-model="ruleForm.is5g" :disabled="ruleForm.videoAgg" @change="changeVideo5g"/>
     </el-form-item>
     <el-form-item label="streamType" prop="streamType">
       <el-radio-group v-model="ruleForm.streamType" @change="changeStreamType">

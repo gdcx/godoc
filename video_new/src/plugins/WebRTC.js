@@ -89,11 +89,26 @@ class WebRTC {
         this.pc.onnegotiationneeded = this.handleNegotiationNeededEvent;
         this.stream = new MediaStream();
 
+        if(this.initial){
+            this.pc.onnegotiationneeded = this.handleNegotiationNeededEvent;
+        }
+
         this.pc.ontrack = (event) => {
             this.stream.addTrack(event.track);
-            // console.log(event.streams.length + ' track is delivered')
+            console.log(event.streams.length + ' track is delivered')
             if (this.element != null) {
                 this.element.srcObject = this.stream;
+                console.log("type: " + event.track.kind + ", id: " + event.track.id)
+                if (event.track.kind === "video") {
+                    const stream = new MediaStream();
+                    stream.addTrack(event.track);
+                    console.log(event.streams.length + ' track1 is delivered')
+                    if (this.element != null) {
+                       this.element.srcObject = stream;
+                    } else {
+                        console.log("not rendering")
+                    }
+                }
             }
             //this.statisticsTimer = setInterval(this.printStatistics, 5000);
         };
