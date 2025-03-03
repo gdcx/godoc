@@ -28,7 +28,12 @@ class Connection {
         this.sub = null
         this.signal.addCamera(this.session,this)
         this.playCallback = null
+        
+        this.updateAudioStream = this.updateAudioStream.bind(this)
+
+        this.stopGatherAudioStream = this.stopGatherAudioStream.bind(this)
     }
+    
 
     start() {
         this.main.start()
@@ -66,7 +71,7 @@ class Connection {
     }
     // this is called when a message to cameraid is delivered
     onMessage(msg) {
-        console.log("conn onMessage:", msg);
+        // console.log("conn onMessage:", msg);
         // on sub
         if (msg.cmd == "sdp" || (msg.cmd == "icecandidate" && msg.data.target == TargetSub)) {
             if (this.sub == null) {
@@ -106,6 +111,25 @@ class Connection {
             return
         }
         this.main.changeElement(this.element)
+    }
+
+    //关闭音频采集
+    stopGatherAudioStream(){
+        console.log('close audio')
+        this.main.stopGatherAudioStream()
+    }
+    //更新音频流
+    updateAudioStream(currentMediaStream){
+        return new Promise((resolve,reject)=>{
+            let flag = this.main.updateAudioStream(currentMediaStream)
+            if(flag){
+                const data = {code: 0}
+                resolve(data)
+            }else{
+                reject()
+            }
+            
+        })
     }
 
 }

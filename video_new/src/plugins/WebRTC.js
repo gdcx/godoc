@@ -39,6 +39,11 @@ class WebRTC {
         this.stop = this.stop.bind(this);
         this.onMessage = this.onMessage.bind(this)
         this.pendingIces = []
+
+        this.updateAudioStream = this.updateAudioStream.bind(this)
+        this.stopGatherAudioStream = this.stopGatherAudioStream.bind(this)
+        this.audioStream = null//接收 外部的音频
+        this.ownerAudioStream = null //内部建立的音频
     }
 
 
@@ -97,7 +102,7 @@ class WebRTC {
             this.stream.addTrack(event.track);
             console.log(event.streams.length + ' track is delivered')
             if (this.element != null) {
-                this.element.srcObject = this.stream;
+                // this.element.srcObject = this.stream;
                 console.log("type: " + event.track.kind + ", id: " + event.track.id)
                 if (event.track.kind === "video") {
                     const stream = new MediaStream();
@@ -122,6 +127,29 @@ class WebRTC {
             this.pc.addTransceiver('audio', {
                 'direction': audioDir,
             });
+            
+            //音频
+            if(audioDir!="recvonly"){
+                if(this.audioStream){
+                    console.log('audio stream')
+                    this.audioStream.getTracks().forEach(track=>{
+                        this.pc.addTrack(track,this.audioStream)
+                    })
+                }else{
+                    try {
+                        let _this = this
+                        navigator.mediaDevices.getUserMedia({audio:true}).then((localStream)=>{
+                            _this.ownerAudioStream = localStream
+                            localStream.getTracks().forEach(track=>{
+                                _this.pc.addTrack(track,localStream)
+                            })
+                        })
+                    } catch (error) {
+                        console.log('failed to access media')
+                    }
+                }
+                
+            }
         }
 
         var videoDir = this.ability.getVideoDir()
@@ -146,7 +174,7 @@ class WebRTC {
     }
 
     handleNegotiationNeededEvent() {
-        console.log('handleNegotiationNeededEvent, cameraId:', this.cameraId);
+        // console.log('handleNegotiationNeededEvent, cameraId:', this.cameraId);
         if (this.initial) {
             this.pc.createOffer().then((offer) => {
                 this.pc.setLocalDescription(offer);
@@ -233,6 +261,29 @@ class WebRTC {
 
             // console.log(statsOutput);
         });
+    }
+    //关闭音频采集
+    stopGatherAudioStream(){
+        console.log('close audio',this.audioStream,this.ownerAudioStream)
+        if (this.audioStream) {
+            let tracks = this.audioStream.getTracks();
+            tracks.forEach(function (track) {
+              track.stop();
+            });
+            this.audioStream = null;
+        }
+        if(this.ownerAudioStream){
+            let tracks = this.ownerAudioStream.getTracks();
+            tracks.forEach(function (track) {
+              track.stop();
+            });
+            this.ownerAudioStream = null;
+        }
+    }
+    //更新音频流
+    updateAudioStream(currentMediaStream){
+        this.audioStream = currentMediaStream
+        return true
     }
 };
 
