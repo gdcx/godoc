@@ -43,14 +43,30 @@ webrtc 协议采用websocket进行信令交互，消息内容采用json 编码�
 
    ## 参数说明
 
+   | demo页面参数说明 | Type    | Description                                                  |
+   | ---------------- | ------- | ------------------------------------------------------------ |
+   | websocket url    | String  | ws请求地址（例如：ws://{{ip}}/rtc1/ws）                      |
+   | token            | String  | 用户token                                                    |
+   | userId           | String  | 用户id（该参数只做请求来源标识，不做校验；请求token时，如果参数中包括该字段，可直接使用，如果有custId也可以直接使用，都没有的话，可以使用请求组织的名称缩写 示例：深圳创新 -> 'szcx'） |
+| NodeId           | String  | 设备列表中返回的nodeId                                       |
+   | cameraId         | String  | 摄像机id（机场内外摄像头id、无人机吊舱id）                   |
+| 推流方式         | Number  | 0：P2P     1：服务器推流                                     |
+   | 视频来源         | Number  | 0：无人机    1：机场                                         |
+   | sfu              | Boolean | sfu支持                                                      |
+   | 无人机聚合开关   | Number  | 0：关闭      1：开启                                         |
+   | 5g               | Boolean | 是否为5g                                                     |
+   | streamType       | Number  | 0：主码流    1：辅码流                                       |
+   
+   
+   
    | WS参数说明 | Type   | Description                                                  |
    | ---------- | ------ | ------------------------------------------------------------ |
    | url        | String | ws请求地址                                                   |
    | token      | String | 用户token                                                    |
    | userId     | String | 用户id（该参数只做请求来源标识，不做校验；请求token时，如果参数中包括该字段，可直接使用，如果有custId也可以直接使用，都没有的话，可以使用请求组织的名称缩写 示例：深圳创新 -> 'szcx'） |
-
    
-
+   
+   
    | Connection参数说明 | Type          | Description                                                  |
    | ------------------ | ------------- | ------------------------------------------------------------ |
    | ws                 | String        | websocke连接实例                                             |
@@ -60,6 +76,8 @@ webrtc 协议采用websocket进行信令交互，消息内容采用json 编码�
    | streamType         | Number        | 码流（0主码流 1辅码流 具体根据单个摄像头是否支持辅码流做判断，openSub==1支持辅码流） |
    | audio_send         | Boolean       | 音频发送支持（开启音频发送支持，调用 start() 会默认打开音频授权，仅支持localhost/https；调用stopGatherAudioStream() 关闭音频采集） |
    | audio_recv         | Boolean       | 音频接收支持                                                 |
+   
+   
 
 #### 信令交互流程
 
