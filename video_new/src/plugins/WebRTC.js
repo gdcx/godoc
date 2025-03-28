@@ -99,7 +99,7 @@ class WebRTC {
         }
 
         this.pc.ontrack = (event) => {
-            this.stream.addTrack(event.track);
+            // this.stream.addTrack(event.track);
             console.log(event.streams.length + ' track is delivered')
             if (this.element != null) {
                 // this.element.srcObject = this.stream;
