@@ -176,11 +176,8 @@ class WebRTC {
     handleNegotiationNeededEvent() {
         console.log('handleNegotiationNeededEvent, cameraId:', this.cameraId,this.initial);
         if (this.initial) {
-            console.log(11111)
             this.pc.createOffer().then((offer) => {
-                console.log(222)
                 this.pc.setLocalDescription(offer);
-                console.log(333)
                 this.signal.sendMsg(new SDP(
                     this.signal.nextSeq(),
                     this.signal.getUserId(),

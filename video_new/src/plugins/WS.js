@@ -48,8 +48,12 @@ class WSClass {
         // this.sendRegisterAll();
         if(Number(this.socket.readyState)==1){
             if(this.storageMsg.length>0){
-                this.storageMsg.forEach(msg=>{
+                this.storageMsg.forEach((msg,index)=>{
                     this.socket.send(JSON.stringify(msg));
+                    if(index==this.storageMsg.length-1){
+                        this.storageMsg = []
+                    }
+                    
                 })
             }
             
