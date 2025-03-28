@@ -105,11 +105,11 @@ class WebRTC {
                 // this.element.srcObject = this.stream;
                 console.log("type: " + event.track.kind + ", id: " + event.track.id)
                 if (event.track.kind === "video") {
-                    const stream = new MediaStream();
-                    stream.addTrack(event.track);
+                    this.stream = new MediaStream();
+                    this.stream.addTrack(event.track);
                     console.log(event.streams.length + ' track1 is delivered')
                     if (this.element != null) {
-                       this.element.srcObject = stream;
+                       this.element.srcObject = this.stream;
                     } else {
                         console.log("not rendering")
                     }
@@ -174,10 +174,13 @@ class WebRTC {
     }
 
     handleNegotiationNeededEvent() {
-        // console.log('handleNegotiationNeededEvent, cameraId:', this.cameraId);
+        console.log('handleNegotiationNeededEvent, cameraId:', this.cameraId,this.initial);
         if (this.initial) {
+            console.log(11111)
             this.pc.createOffer().then((offer) => {
+                console.log(222)
                 this.pc.setLocalDescription(offer);
+                console.log(333)
                 this.signal.sendMsg(new SDP(
                     this.signal.nextSeq(),
                     this.signal.getUserId(),
@@ -234,7 +237,7 @@ class WebRTC {
         this.element = element;
     }
     changeElement(element) {
-        // console.log('changeElement:', element);
+        console.log('changeElement:', element);
         this.element = element;
         if (this.element != null) {
             this.element.srcObject = this.stream;
