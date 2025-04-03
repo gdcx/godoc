@@ -5,7 +5,9 @@ class Connection {
     //ws 摄像机，streamType码流 sfu支持
     constructor(signal,cameraId,peer,sfu,streamType,audio_send,audio_recv){
         this.signal = signal
-        this.signal.setPeer(peer)
+        // this.signal.setPeer(peer)
+        this.peer = peer
+        // console.log('peer', this.peer)
         this.cameraId = cameraId
         this.sfu = sfu
         this.streamType = streamType;//0主 1辅
@@ -24,7 +26,7 @@ class Connection {
         }else{
             this.mainAbility = new Ability(false, true, false)//接收能力
         }
-        this.main = new WebRTC(this.session,signal,cameraId,sfu,streamType,TargetMain,true,this.mainAbility)
+        this.main = new WebRTC(this.session,signal,cameraId,sfu,streamType,TargetMain,true,this.mainAbility,this.peer)
         this.sub = null
         this.signal.addCamera(this.session,this)
         this.playCallback = null
@@ -33,7 +35,6 @@ class Connection {
 
         this.stopGatherAudioStream = this.stopGatherAudioStream.bind(this)
     }
-    
 
     start() {
         this.main.start()
@@ -62,7 +63,8 @@ class Connection {
         this.signal.sendMsg(new Stream(
             this.signal.nextSeq(),
             this.signal.getUserId(),
-            this.signal.getPeer(),
+            // this.signal.getPeer(),
+            this.peer,
             this.cameraId,
             this.session,
             stream
@@ -75,7 +77,7 @@ class Connection {
         // on sub
         if (msg.cmd == "sdp" || (msg.cmd == "icecandidate" && msg.data.target == TargetSub)) {
             if (this.sub == null) {
-                this.sub = new WebRTC(this.session, this.signal, this.cameraId,this.streamType, this.sfu, TargetSub, false, this.subAbility)
+                this.sub = new WebRTC(this.session, this.signal, this.cameraId,this.streamType, this.sfu, TargetSub, false, this.subAbility,this.peer)
                 this.sub.start()
                 this.sub.updateElement(this.element)
             }

@@ -10,8 +10,9 @@ import { ICECandidate, JoinConfig, SDP, Stream, Answer } from "./Message";
  * ability 能力支持
  */
 class WebRTC {
-    constructor(session, signal, cameraId, sfu,streamType, target, initial, ability) {
+    constructor(session, signal, cameraId, sfu,streamType, target, initial, ability,peer) {
         this.signal = signal;
+        this.peer = peer
 
         this.cameraId = cameraId
         this.session = session
@@ -62,7 +63,8 @@ class WebRTC {
                         this.signal.sendMsg(new Answer(
                             this.signal.nextSeq(),
                             this.signal.getUserId(),
-                            this.signal.getPeer(),
+                            // this.signal.getPeer(),
+                            this.peer,
                             this.session,
                             this.cameraId,
                             this.pc.localDescription))
@@ -93,14 +95,13 @@ class WebRTC {
         this.pc = new RTCPeerConnection(this.config);
         this.pc.onnegotiationneeded = this.handleNegotiationNeededEvent;
         this.stream = new MediaStream();
-
         if(this.initial){
             this.pc.onnegotiationneeded = this.handleNegotiationNeededEvent;
         }
 
         this.pc.ontrack = (event) => {
             // this.stream.addTrack(event.track);
-            console.log(event.streams.length + ' track is delivered')
+            // console.log(event.streams.length + ' track is delivered')
             if (this.element != null) {
                 // this.element.srcObject = this.stream;
                 console.log("type: " + event.track.kind + ", id: " + event.track.id)
@@ -131,7 +132,7 @@ class WebRTC {
             //音频
             if(audioDir!="recvonly"){
                 if(this.audioStream){
-                    console.log('audio stream')
+                    // console.log('audio stream')
                     this.audioStream.getTracks().forEach(track=>{
                         this.pc.addTrack(track,this.audioStream)
                     })
@@ -154,11 +155,11 @@ class WebRTC {
 
         var videoDir = this.ability.getVideoDir()
         if (videoDir == "" && audioDir == "") {
-            console.log("pretend to recv video because audio is off")
+            // console.log("pretend to recv video because audio is off")
             videoDir = "recvonly"
         }
 
-        console.log("videoDir:", videoDir)
+        // console.log("videoDir:", videoDir)
         if (videoDir != "") {
             this.pc.addTransceiver('video', {
                 'direction': videoDir,
@@ -174,14 +175,15 @@ class WebRTC {
     }
 
     handleNegotiationNeededEvent() {
-        console.log('handleNegotiationNeededEvent, cameraId:', this.cameraId,this.initial);
+        // console.log('handleNegotiationNeededEvent, cameraId:', this.cameraId);
         if (this.initial) {
             this.pc.createOffer().then((offer) => {
                 this.pc.setLocalDescription(offer);
                 this.signal.sendMsg(new SDP(
                     this.signal.nextSeq(),
                     this.signal.getUserId(),
-                    this.signal.getPeer(),
+                    // this.signal.getPeer(),
+                    this.peer,
                     this.session,
                     this.cameraId,
                     offer,
@@ -191,7 +193,7 @@ class WebRTC {
     }
 
     handleICEConnectionStateChange() {
-        console.log('handleICEConnectionStateChange:' + this.pc.iceConnectionState);
+        // console.log('handleICEConnectionStateChange:' + this.pc.iceConnectionState);
         if (this.pc.iceConnectionState === "disconnected") {
             // this.signal.socket.close()
             console.log("%c" + "rtc断开重连", "background: red; font-size: 20px;");
@@ -208,7 +210,8 @@ class WebRTC {
         this.signal.sendMsg(new ICECandidate(
             this.signal.nextSeq(),
             this.signal.getUserId(),
-            this.signal.getPeer(),
+            // this.signal.getPeer(),
+            this.peer,
             this.session,
             this.cameraId,
             ice.candidate,
@@ -221,7 +224,8 @@ class WebRTC {
         this.signal.sendMsg(new Stream(
             this.signal.nextSeq(),
             this.signal.getUserId(),
-            this.signal.getPeer(),
+            // this.signal.getPeer(),
+            this.peer,
             this.cameraId,
             this.session,
             stream
@@ -234,7 +238,7 @@ class WebRTC {
         this.element = element;
     }
     changeElement(element) {
-        console.log('changeElement:', element);
+        // console.log('changeElement:', element);
         this.element = element;
         if (this.element != null) {
             this.element.srcObject = this.stream;
