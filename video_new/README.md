@@ -47,10 +47,10 @@ webrtc 协议采用websocket进行信令交互，消息内容采用json 编码�
    | ---------------- | ------- | ------------------------------------------------------------ |
    | websocket url    | String  | ws请求地址（例如：ws://{{ip}}/rtc1/ws）                      |
    | token            | String  | 用户token                                                    |
-   | userId           | String  | 用户id（该参数只做请求来源标识，不做校验；请求token时，如果参数中包括该字段，可直接使用，如果有custId也可以直接使用，都没有的话，可以使用请求组织的名称缩写 示例：深圳创新 -> 'szcx'） |
-| NodeId           | String  | 设备列表中返回的nodeId                                       |
+   | userId           | String  | 用户id（该参数只做请求来源标识，不做校验；请求token时，如果参数中包括该字段，可直接使用，如果有custId也可以直接使用，都没有的话，可以使用请求组织的名称缩写 示例：深圳创新写做'szcx'） |
+   | NodeId           | String  | 设备列表中返回的nodeId                                       |
    | cameraId         | String  | 摄像机id（机场内外摄像头id、无人机吊舱id）                   |
-| 推流方式         | Number  | 0：P2P     1：服务器推流                                     |
+   | 推流方式         | Number  | 0：P2P     1：服务器推流                                     |
    | 视频来源         | Number  | 0：无人机    1：机场                                         |
    | sfu              | Boolean | sfu支持                                                      |
    | 无人机聚合开关   | Number  | 0：关闭      1：开启                                         |
