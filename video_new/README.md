@@ -27,8 +27,14 @@ webrtc 协议采用websocket进行信令交互，消息内容采用json 编码�
 ## 执行步骤
 
 1. 进入video_new文件夹 
+
 2. 执行npm i 下载所需依赖
-3. 执行npm run dev浏览器中默认打开链接
+
+3. 检查src/pligins/Config.js中 iceServers - urls ，需要联系对接人员获取地址并填入(公网常用： turn:stun.godouav.com)
+
+   ![image-20250407182831576](C:\Users\29177\AppData\Roaming\Typora\typora-user-images\image-20250407182831576.png)
+
+4. 执行npm run dev浏览器中默认打开链接
 
 ## 新版视频改造
 1. 所有视频信令均通过同一路ws进行连接
@@ -46,7 +52,7 @@ webrtc 协议采用websocket进行信令交互，消息内容采用json 编码�
    | demo页面参数说明 | Type    | Description                                                  |
    | ---------------- | ------- | ------------------------------------------------------------ |
    | websocket url    | String  | ws请求地址（例如：ws://{{ip}}/rtc1/ws）                      |
-   | token            | String  | 用户token                                                    |
+   | token            | String  | 用户token（对接文档返回的access_token）                      |
    | userId           | String  | 用户id（该参数只做请求来源标识，不做校验；请求token时，如果参数中包括该字段，可直接使用，如果有custId也可以直接使用，都没有的话，可以使用请求组织的名称缩写 示例：深圳创新写做'szcx'） |
    | NodeId           | String  | 设备列表中返回的nodeId                                       |
    | cameraId         | String  | 摄像机id（机场内外摄像头id、无人机吊舱id）                   |
@@ -319,7 +325,7 @@ getUrl.js路径拼接封装，参见[getUrl.js](video_demo/getUrl.js)
 
    
 
-2. video_demo中的配置文件,也需要更改配置 （**有端口的需要加上对应端口**）
+2. demo中的配置文件,也需要更改配置 （**有端口的需要加上对应端口**）
 
    [Config.js]: /src/Config.js
 
