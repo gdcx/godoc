@@ -5925,7 +5925,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 | bucketName    | 桶名                                                         |
 | fileName      | 文件名                                                       |
 | filePath      | 文件路径                                                     |
-| fileUrl       | 地址                                                         |
+| playPath      | 文件播放地址(需要根据，storeType生成为完整的录像地址才能播放)，生成规则见: 5.13.视频实时接入->录像文件路径 |
 | fileSize      | 大小                                                         |
 | remark        | 备注                                                         |
 | flagName      | 标会名                                                       |
