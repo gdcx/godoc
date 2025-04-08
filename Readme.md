@@ -219,8 +219,8 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 
 public class AesUtil {
-    private static final String key = "QWz7pR4eKb2G9yYt6";
-    private static final String initVector = "Xa5n3jU8fL1MhZvT7";
+    private static final String key = "345fdrtgtdttwert";
+    private static final String initVector = "12345lkjhjytv678";
 
     public static String encrypt(String value,String key,String initVector) {
         try {
