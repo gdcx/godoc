@@ -3,10 +3,11 @@ class WSClass {
     constructor(wsUrl, token, userId) {
         this.wsUrl=wsUrl
         this.token=token
-        this.userId=userId
+        this.userSession = userId
+        this.userId=userId+ '_'+parseInt(new Date().getTime());//Math.round(new Date()/1000);
 
         this.cameras=new Map()
-        this.seq=Math.round(new Date()/1000);
+        this.seq=parseInt(new Date().getTime());
 
         this.socket=null
         this.lockReturn=false;
@@ -72,7 +73,6 @@ class WSClass {
             _this.notReconnect=true
             // console.log(obj.data.code)
             _this.connected=false;
-            console.log('ws onMessage',obj)
         } else {
             this.heartCheckNum=0
             if (obj.data.session!='') {
@@ -170,6 +170,9 @@ class WSClass {
     }
     getPeer() {
         return this.peer
+    }
+    getUserSession(){
+        return this.userSession
     }
 }
 export default WSClass;

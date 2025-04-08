@@ -12,7 +12,7 @@ class Connection {
         this.sfu = sfu
         this.streamType = streamType;//0主 1辅
 
-        this.session = cameraId+'_'+Math.floor(Date.now() / 1000).toString();
+        this.session = cameraId+'_'+this.signal.getUserSession()+'_'+Math.floor(Date.now() / 1000).toString();
         this.onMessage = this.onMessage.bind(this);
         this.start = this.start.bind(this)
         this.stop = this.stop.bind(this)

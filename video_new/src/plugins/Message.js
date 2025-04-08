@@ -1,7 +1,7 @@
 class WSMsg{
     constructor(cmd,from,to,seq,data){
         this.cmd = cmd;
-        this.from = from + '_'+Math.round(new Date()/1000);
+        this.from = from
         this.to=to;
         this.seq = seq;
         this.data =data;
