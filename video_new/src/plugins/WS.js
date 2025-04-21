@@ -76,9 +76,9 @@ class WSClass {
             _this.connected=false;
         } else {
             this.heartCheckNum=0
-            if(obj.data.connid!=''){
-                _this.connid = obj.data.connid
-            }else{
+            // if(obj.data.connid!=''){
+            //     _this.connid = obj.data.connid
+            // }else{
                 if (obj.data.session!='') {
                     for (let [k, v] of this.cameras) {
                         if (k===obj.data.session) {
@@ -86,7 +86,7 @@ class WSClass {
                         }
                     }
                 }
-            }
+            // }
             
         }
 
