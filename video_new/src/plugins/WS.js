@@ -3,8 +3,9 @@ class WSClass {
     constructor(wsUrl, token, userId) {
         this.wsUrl=wsUrl
         this.token=token
-        this.userSession = userId
-        this.userId=userId+ '_'+parseInt(new Date().getTime());//Math.round(new Date()/1000);
+        this.userSession = userId+ '_'+parseInt(new Date().getTime());
+        this.userId=userId+ '_'+parseInt(new Date().getTime());
+        this.connid = null;
 
         this.cameras=new Map()
         this.seq=parseInt(new Date().getTime());
@@ -75,13 +76,18 @@ class WSClass {
             _this.connected=false;
         } else {
             this.heartCheckNum=0
-            if (obj.data.session!='') {
-                for (let [k, v] of this.cameras) {
-                    if (k===obj.data.session) {
-                        v.onMessage(obj);
+            if(obj.data.connid!=''){
+                _this.connid = obj.data.connid
+            }else{
+                if (obj.data.session!='') {
+                    for (let [k, v] of this.cameras) {
+                        if (k===obj.data.session) {
+                            v.onMessage(obj);
+                        }
                     }
                 }
             }
+            
         }
 
     }
@@ -172,7 +178,12 @@ class WSClass {
         return this.peer
     }
     getUserSession(){
-        return this.userSession
+        if(this.connid){
+            return this.userId + '_'+this.connid
+        }else{
+            return this.userSession
+        }   
+        
     }
 }
 export default WSClass;
