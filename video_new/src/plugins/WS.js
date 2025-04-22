@@ -43,7 +43,7 @@ class WSClass {
 
     }
     onOpen() {
-        // console.log('ws onOpen');
+        console.log('ws onOpen');
         //开始心跳检测
         this.sendHeartbeat(this);
         this.connected=true;
@@ -72,13 +72,13 @@ class WSClass {
         _this.notReconnect=false
         if (obj.data.code&&obj.data.code==1) {
             _this.notReconnect=true
-            // console.log(obj.data.code)
+            // console.log(obj.data)
             _this.connected=false;
         } else {
             this.heartCheckNum=0
-            // if(obj.data.connid!=''){
-            //     _this.connid = obj.data.connid
-            // }else{
+            if(obj.data.connid && obj.data.connid!=''){
+                _this.connid = obj.data.connid
+            }else{
                 if (obj.data.session!='') {
                     for (let [k, v] of this.cameras) {
                         if (k===obj.data.session) {
@@ -86,7 +86,7 @@ class WSClass {
                         }
                     }
                 }
-            // }
+            }
             
         }
 
@@ -108,7 +108,7 @@ class WSClass {
     sendHeartbeat(_this) {
         _this.timeoutObj&&clearInterval(_this.timeoutObj)
         _this.timeoutObj=setInterval(function () {
-            // console.log(_this.socket.readyState)
+            // console.log(_this.socket.readyState,_this.notReconnect)
             if (_this.socket.readyState!=1&&!_this.notReconnect) {
                 _this.reConnect()
             } else {
@@ -169,7 +169,12 @@ class WSClass {
         return this.seq;
     }
     getUserId() {
-        return this.userId;
+        if(this.connid){
+            return this.connid
+        }else{
+            return this.userId;
+        }  
+        
     }
     setPeer(peer) {
         this.peer=peer
@@ -179,7 +184,8 @@ class WSClass {
     }
     getUserSession(){
         if(this.connid){
-            return this.userId + '_'+this.connid
+            // console.log(this.connid)
+            return this.connid +'_'+parseInt(new Date().getTime());
         }else{
             return this.userSession
         }   
