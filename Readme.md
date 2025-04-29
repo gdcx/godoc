@@ -7580,6 +7580,10 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
   }
   ```
 
+- mqtt接入demo
+
+  https://gitcode.com/gh_mirrors/mq/MQTT-Client-Examples/?utm_source=artical_gitcode&index=bottom&type=card&webUrl&isLogin=1
+
   
 
 # 7.电子围栏
