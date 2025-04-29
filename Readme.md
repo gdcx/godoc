@@ -7416,6 +7416,14 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
 
 ### 6.1mqtt用户名及密码生成规则
 
+- 接入点
+
+  mqtt.serverURIs=tcp://drone.godouav.com:1883，平台如果私有化见具体的mqtt部署地址拿到endpoint
+
+  appId 见3.1 对接授权申请
+
+  
+
 - 用户名生成
 
   ```
