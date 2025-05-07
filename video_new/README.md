@@ -56,12 +56,12 @@ webrtc 协议采用websocket进行信令交互，消息内容采用json 编码�
    | userId           | String  | 用户id（该参数只做请求来源标识，不做校验；请求token时，如果参数中包括该字段，可直接使用，如果有custId也可以直接使用，都没有的话，可以使用请求组织的名称缩写 示例：深圳创新写做'szcx'） |
    | NodeId           | String  | 设备列表中返回的nodeId                                       |
    | cameraId         | String  | 摄像机id（机场内外摄像头id、无人机吊舱id）                   |
-   | 推流方式         | Number  | 0：P2P     1：服务器推流                                     |
+   | 推流方式         | Number  | 0：P2P     1：服务器推流 （获取机场及无人机信息 - pushStreamType ） |
    | 视频来源         | Number  | 0：无人机    1：机场                                         |
    | sfu              | Boolean | sfu支持                                                      |
-   | 无人机聚合开关   | Number  | 0：关闭      1：开启                                         |
-   | 5g               | Boolean | 是否为5g                                                     |
-   | streamType       | Number  | 0：主码流    1：辅码流                                       |
+   | 无人机聚合开关   | Number  | 0：关闭      1：开启  （获取机场及无人机信息 - videoAgg ）   |
+   | 5g               | Boolean | 是否为5g （无人机自组网信号不好时，可做5g链路切换）          |
+   | streamType       | Number  | 0：主码流    1：辅码流  （摄像头数据中openSub==1 表示支持辅码流，可以连接辅码流） |
    
    
    
@@ -76,9 +76,9 @@ webrtc 协议采用websocket进行信令交互，消息内容采用json 编码�
    | Connection参数说明 | Type          | Description                                                  |
    | ------------------ | ------------- | ------------------------------------------------------------ |
    | ws                 | String        | websocke连接实例                                             |
-   | cameraId           | String        | 摄像机id（注意：无人机开启聚合videoAgg==1：cameraId；未开启聚合videoAgg==0，同时机场采用服务器推流pullStreamType==1: cameraId+'_dock';未开启聚合，同时机场采用p2p拉流，直接为cameraId;5g视频直接为cameraId）                                                             (机场视频：机场采用服务器推流pullStreamType==1: cameraId+'_dock';机场采用p2p拉流，直接为cameraId;) |
+   | cameraId           | String        | 摄像机id（注意：无人机开启聚合videoAgg==1：cameraId；未开启聚合videoAgg==0，同时机场采用服务器推流pushStreamType ==1: cameraId+'_dock';未开启聚合，同时机场采用p2p拉流，直接为cameraId;5g视频直接为cameraId）                                                             (机场视频：机场采用服务器推流pushStreamType ==1: cameraId+'_dock';机场采用p2p拉流，直接为cameraId;) |
    | nodeId             | String/Number | nodeId                                                       |
-   | sfu                | Boolean       | sfu支持（无人机开启聚合videoAgg==1：sfu=true；未开启聚合videoAgg==0，同时机场采用服务器推流pullStreamType==1:  sfu=true;未开启聚合，同时机场采用p2p拉流，sfu=false;5g视频: sfu=true）                                                                                                 (机场采用服务器推流pullStreamType==1: sfu=true;机场采用p2p拉流，sfu=false;)                                                              videoAgg 查询无人机信息中返回；                                                                                                                                        pullStreamType：查询机场信息返回 |
+   | sfu                | Boolean       | sfu支持（无人机开启聚合videoAgg==1：sfu=true；未开启聚合videoAgg==0，同时机场采用服务器推流pullStreamType==1:  sfu=true;未开启聚合，同时机场采用p2p拉流，sfu=false;5g视频: sfu=true）                                                                                                 (机场采用服务器推流pushStreamType ==1: sfu=true;机场采用p2p拉流，sfu=false;)                                                              videoAgg 查询无人机信息中返回；                                                                                                                                        pushStreamType ：查询机场信息返回 |
    | streamType         | Number        | 码流（0主码流 1辅码流 具体根据单个摄像头是否支持辅码流做判断，openSub==1支持辅码流） |
    | audio_send         | Boolean       | 音频发送支持（开启音频发送支持，调用 start() 会默认打开音频授权，仅支持localhost/https；调用stopGatherAudioStream() 关闭音频采集） |
    | audio_recv         | Boolean       | 音频接收支持                                                 |
