@@ -2758,7 +2758,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 
 - 接口说明
 
-​       机场紧急停止操作
+​       机场紧急停止操作（急停表示终止机场的一切动作，机场不可再进行其他操作，如果当前有执行任务则同时终止当前执飞任务）
 
 - 接口版本
 
@@ -2806,7 +2806,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 
 - 接口说明
 
-​       取消机场紧急停止操作
+​       取消机场紧急停止操作（只取消机场急停，可以进行其他机场有关的操作，与飞机无关）
 
 - 接口版本
 
@@ -4538,12 +4538,12 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 
 - 请求参数
 
-  | 参数名称     | 参数位置 | 数据类型 | 是否必须 | 参数描述                             |
-  | ------------ | -------- | -------- | -------- | ------------------------------------ |
-  | access_token | Header   | string   | 是       | 接口访问token凭证                    |
-  | id           | Body     | string   | 是       | droneId, 既获取无人机列表中的droneId |
-  | op           | Body     | int      | 是       | ContinuousOP 码                      |
-  | speed        | Body     | double   | 是       | 速度                                 |
+  | 参数名称     | 参数位置 | 数据类型 | 是否必须 | 参数描述                                                     |
+  | ------------ | -------- | -------- | -------- | ------------------------------------------------------------ |
+  | access_token | Header   | string   | 是       | 接口访问token凭证                                            |
+  | id           | Body     | string   | 是       | droneId, 既获取无人机列表中的droneId                         |
+  | op           | Body     | int      | 是       | ContinuousOP 码                                              |
+  | speed        | Body     | double   | 是       | 速度（水平速度：5m/s ，垂直速度3m/s）<br />升高降高参考垂直速度，其他参考水平速度 |
 
 - 返回值
 
@@ -4798,12 +4798,12 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   | ---------------- | -------- | -------- | -------- | ------------------------------------ |
   | access_token     | Header   | string   | 是       | 接口访问token凭证                    |
   | id               | Body     | string   | 是       | droneId, 既获取无人机列表中的droneId |
-  | radius           | Body     | double   | 是       | 半径,米                              |
-  | velocity         | Body     | double   | 是       | 速度, 正数：顺时钟， 负数：逆时钟    |
+  | radius           | Body     | double   | 是       | 半径,米（范围：5~800）               |
+  | velocity         | Body     | double   | 是       | 速度（1~10 m/s）                     |
   | longitude        | Body     | double   | 是       | 经度                                 |
   | latitude         | Body     | double   | 是       | 纬度                                 |
   | altitude         | Body     | double   | 是       | 海拔                                 |
-  | counterClockwise | Body     | double   | 是       | 是否逆时钟                           |
+  | counterClockwise | Body     | double   | 是       | 0 顺时针 1 逆时钟                    |
 
 - 返回值
 
@@ -8493,6 +8493,214 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
 	}
 }
 ```
+
+## 5.15 喊话器
+
+### 5.15.1 喊话涉及接口
+
+- 上传喊话文件
+- 新增喊话文件
+- 查询文件列表
+- 开始喊话
+- 停止喊话
+
+#### 上传喊话文件
+
+| **URL**                | {{base_url}}/interphone/loudSpeaker/upload                   |
+| ---------------------- | ------------------------------------------------------------ |
+| **Method**             | post                                                         |
+| **Headers**            | access_token                                                 |
+| **Params**             | **FormData**<br />**file**: 文件对象(二进制数据，仅支持mp3、wav格式)<br />**custId**: 组织id |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** | **fileUrl：** 文件存储路径<br />**fileUniqueNo：** 文件唯一编码<br />**fileName：** 文件名称<br />**bucketName：** 桶名 |
+
+返回示例：
+
+```json
+{
+    "code": 0,
+    "msg": "upload file successed.",
+    "data": {
+        "fileUniqueNo": "1a5ffd32c0a5069039d8610e8ca817dd0a92e1542c54a43f3548fb6ae7a7941d",
+        "bucketName": "gdcxcloud",
+        "fileName": "202505091705485e392784c4dd4da6a8f35d8d74d7fb9b.mp3",
+        "filePath": "LoudSpeaker/999001",
+        "fileUrl": "https://gdcxcloud.oss-cn-shenzhen.aliyuncs.com/LoudSpeaker/999001/202505091705485e392784c4dd4da6a8f35d8d74d7fb9b.mp3"
+    }
+}
+```
+
+#### 新增喊话文件
+
+| **URL**                | {{base_url}}/interphone/loudSpeaker/add                      |
+| ---------------------- | ------------------------------------------------------------ |
+| **Method**             | post                                                         |
+| **Headers**            | access_token                                                 |
+| **Params**             | **droneId**: 无人机id<br />**duration**: 秒数<br />**fileName**：文件名称<br />**fileSize**: 文件大小<br />**fileType**: 文件类型(1 普通录音文件    2 经过tts生成的喊话文件 ，默认值1)<br />**fileUniqueNo**: 文件唯一编码 （参考喊话文件上传）<br />**url**: 喊话文件存储地址 |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** |                                                              |
+
+请求示例：
+
+```js
+{
+    "droneId": "1725358456837378048289495838",
+    "fileType": 1,
+    "fileName": "111.mp3",
+    "duration": 295,
+    "fileSize": "4.55M",
+    "url": "https://gdcxcloud.oss-cn-shenzhen.aliyuncs.com/LoudSpeaker/999001/202505091705485e392784c4dd4da6a8f35d8d74d7fb9b.mp3",
+    "fileUniqueNo": "1a5ffd32c0a5069039d8610e8ca817dd0a92e1542c54a43f3548fb6ae7a7941d"
+}
+```
+
+
+
+返回示例：
+
+```json
+{
+    "code": 0,
+    "msg": "operate successfully.",
+    "data": null
+}
+```
+
+#### 喊话文件列表查询
+
+| **URL**                | {{base_url}}/interphone/loudSpeaker/queryAllInfoByDroneId/{{droneId}} |
+| ---------------------- | ------------------------------------------------------------ |
+| **Method**             | get                                                          |
+| **Headers**            | access_token                                                 |
+| **Params**             | 无                                                           |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** | **speakerId：** 喊话文件记录id<br/>**url：** 喊话文件路径<br/>**fileUniqueNo：** 唯一编码<br/>**duration：** 时长（s）<br/>**fileSize：** 文件大小<br />**fileName**：文件名称<br />**createDate**：创建时间<br />**fileType**：文件类型(1 普通录音文件    2 经过tts生成的喊话文件 ，默认值1)<br />**droneId**：无人机id |
+
+返回示例：
+
+```json
+{
+    "code": 0,
+    "msg": "operate successfully.",
+    "data": [
+        {
+            "bucketName": null,
+            "fileName": "新建TTS喊话1732865784276",
+            "updateDate": null,
+            "filePath": null,
+            "speakerId": "1862400201586233344195549921",
+            "url": "http://192.168.0.36:9091/gdcxvideo/LoudSpeaker/999001/2024112915362420a05bdcb20242b2af9ba88927f15bb6.wav",
+            "duration": 6,
+            "fileUniqueNo": "f5c92c3f47530571d07b971f73279647c92b3854651780b2bfce2e7afc0b4556",
+            "createBy": "1725361181457256448485625223",
+            "droneId": "1725358456837378048289495838",
+            "fileSize": "167.12K",
+            "updateBy": null,
+            "fileType": "2",
+            "status": 0,
+            "createDate": "2024-11-29 15:36:24"
+        },
+        {
+            "bucketName": null,
+            "fileName": "导入mp3文件",
+            "updateDate": "2024-06-27 10:14:33",
+            "filePath": null,
+            "speakerId": "1806149033530626048632882049",
+            "url": "https://gdcxcloud.oss-cn-shenzhen.aliyuncs.com/LoudSpeaker/1725683100287111168516157260/20240627101420e9ec383959a442e18687a39230c09600.mp3",
+            "duration": 12,
+            "fileUniqueNo": "75d03e2d50225a8ace45a6bf419cb3ef07090d401062b818b7ea9305a1935333",
+            "createBy": "1747511302705778688434602533",
+            "droneId": "1725358456837378048289495838",
+            "fileSize": "71.09K",
+            "updateBy": "1747511302705778688434602533",
+            "fileType": "1",
+            "status": 0,
+            "createDate": "2024-06-27 10:14:20"
+        },
+        {
+            "bucketName": null,
+            "fileName": "renxi.mp3",
+            "updateDate": null,
+            "filePath": null,
+            "speakerId": "1805875348349521920548867883",
+            "url": "https://gdcxcloud.oss-cn-shenzhen.aliyuncs.com/LoudSpeaker/1725683100287111168516157260/202406261606489d3d6e4a4704415199c2b176c15eb748.mp3",
+            "duration": 295,
+            "fileUniqueNo": "1a5ffd32c0a5069039d8610e8ca817dd0a92e1542c54a43f3548fb6ae7a7941d",
+            "createBy": "1747127746749927424150467629",
+            "droneId": "1725358456837378048289495838",
+            "fileSize": "4.55M",
+            "updateBy": null,
+            "fileType": "1",
+            "status": 0,
+            "createDate": "2024-06-26 16:06:49"
+        }
+    ]
+}
+```
+
+#### 开始喊话
+
+| **URL**                | {{base_url}}/portal/{nodeId}/ionclient/playFile              |
+| ---------------------- | ------------------------------------------------------------ |
+| **Method**             | post                                                         |
+| **Headers**            | access_token                                                 |
+| **Params**             | **nodeId：** 设备中的nodeId<br/>**uid：** 登录的用户id<br/>**fileid：** 喊话文件记录id<br/>**url：** 喊话文件路径<br/>**checksum：** 唯一编码<br/>**mode：** 模式（0表示单词  1表示循环） |
+| **Response**           | 参考返回示例                                                 |
+| **Response Parameter** |                                                              |
+
+请求示例：
+
+```json
+{
+    "nodeId": "98",
+    "uid": "1725361181457256448485625223",
+    "fileid": "1805875348349521920548867883",
+    "url": "https://gdcxcloud.oss-cn-shenzhen.aliyuncs.com/LoudSpeaker/1725683100287111168516157260/202406261606489d3d6e4a4704415199c2b176c15eb748.mp3",
+    "checksum": "1a5ffd32c0a5069039d8610e8ca817dd0a92e1542c54a43f3548fb6ae7a7941d",
+    "mode": 0
+}
+```
+
+返回示例：
+
+```json
+{
+    "code": 0,
+    "msg": "",
+    "data": null
+}
+```
+
+#### 停止喊话
+
+| **URL**                | {{base_url}}/portal/{nodeId}/ionclient/stopPlay  |
+| ---------------------- | ------------------------------------------------ |
+| **Method**             | post                                             |
+| **Headers**            | access_token                                     |
+| **Params**             | **nodeId：** 设备上的nodeId<br/>**uid：** 用户id |
+| **Response**           | 参考返回示例                                     |
+| **Response Parameter** |                                                  |
+
+请求示例：
+
+```json
+{
+    "nodeId": "98",
+    "uid": "1725361181457256448485625223"
+}
+```
+
+返回示例：
+
+```json
+{
+    "code": 0,
+    "msg": "",
+    "data": null
+}
+```
+
+
 
 
 
