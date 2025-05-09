@@ -1285,7 +1285,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 | sipAuthUserName | Sip认证用户                                                  |
 | sipPassWord     | Sip密码                                                      |
 
-## 5.4获取机场摄像机信息
+## 5.4获取机场内外摄像机
 
 - 接口说明
 
@@ -1300,13 +1300,13 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 - 接口地址
 
   ```
-  {{base_url}}/backend/platform/queryPlatformInfoByPlatformId/{platformId}
+  {{base_url}}/backend/camera/getListByPlatformId/{platformId}
   ```
 
 - 请求方法
 
   ```
-  GET
+  POST
   ```
 
 - 数据提交方式
@@ -1327,64 +1327,58 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 {
     "code": 0,
     "msg": "操作成功",
-    "data": {
-        "lastUseTime": "2024-09-02 12:06:26",
-        "listCamera": [
-            {
-                "name": "机场外摄像头",
-                "port": 554,
-                "url": "rtsp://admin:gdcx888666@192.168.119.140:554/h264/ch1/main/av_stream",
-                "status": 0,
-                "createBy": "1725362106884296704265405637",
-                "updateBy": "1787745197812224000553585656",
-                "createDate": "2023-11-20 10:15:24.000",
-                "updateDate": "2024-06-27 16:07:37.000",
-                "videoServerUrl": null,
-                "platformId": "1726423968849727488784920178",
-                "cameraId": "1726423970087047168554214027",
-                "cameraType": 0,
-                "sn": "BBB",
-                "model": "AAA",
-                "ipv4": "192.168.119.140",
-                "sipConfigId": "",
-                "ipv6": null,
-                "supportGB": 0,
-                "sipPassWord": "",
-                "openSub": 1,
-                "subUrl": "rtsp://admin:gdcx888666@192.168.119.140:554/stream2",
-                "sipUserName": "",
-                "sipAuthUserName": ""
-            },
-            {
-                "name": "舱内摄像头",
-                "port": 554,
-                "url": "rtsp://admin:gdcx888666@192.168.119.139:554/stream1",
-                "status": 0,
-                "createBy": "1725684357466820608438748095",
-                "updateBy": "1787745197812224000553585656",
-                "createDate": "2024-06-18 17:05:33.000",
-                "updateDate": "2024-06-27 16:07:37.000",
-                "videoServerUrl": null,
-                "platformId": "1726423968849727488784920178",
-                "cameraId": "1802991025162162176158371169",
-                "cameraType": 1,
-                "sn": "BBB",
-                "model": "AAA",
-                "ipv4": "192.168.119.139",
-                "sipConfigId": "",
-                "ipv6": null,
-                "supportGB": 0,
-                "sipPassWord": "",
-                "openSub": 0,
-                "subUrl": "rtsp://admin:gdcx888666@192.168.119.139:554/stream2",
-                "sipUserName": "",
-                "sipAuthUserName": ""
-            }
-        ],
-        
-        "name": "红花岭 119",
-        "platformId": "1726423968849727488784920178"
-    }
+    "data": [
+        {
+            "name": "内部摄像头",
+            "port": 554,
+            "url": "rtsp://admin:gdcx888666@192.168.113.139:554/h264/ch1/main/av_stream",
+            "status": 0,
+            "updateBy": "1725394712682172416686384233",
+            "updateDate": "2025-05-08 11:11:06.000",
+            "createDate": "2023-11-17 11:41:26.000",
+            "createBy": "10000100000000000000000001",
+            "ipv4": "192.168.109.139",
+            "sn": "A",
+            "platformId": "1725358456837378048289490001",
+            "cameraId": "1725358458276024320243987971",
+            "cameraType": 1,
+            "model": "BC",
+            "videoServerUrl": null,
+            "sipConfigId": "1731566914813169664398081949",
+            "ipv6": null,
+            "sipAuthUserName": "liuzhipeng",
+            "openSub": 1,
+            "sipPassWord": "",
+            "subUrl": "rtsp://admin:gdcx888666@192.168.113.139:554/h264/ch1/sub/av_stream",
+            "sipUserName": "",
+            "supportGB": 1
+        },
+        {
+            "name": "外部监控",
+            "port": 554,
+            "url": "rtsp://admin:gdcx888666@192.168.113.140:554/h264/ch1/main/av_stream",
+            "status": 0,
+            "updateBy": "1725394712682172416686384233",
+            "updateDate": "2025-05-08 11:11:06.000",
+            "createDate": "2023-11-17 11:41:26.000",
+            "createBy": "10000100000000000000000001",
+            "ipv4": "192.168.109.140",
+            "sn": "A11",
+            "platformId": "1725358456837378048289490001",
+            "cameraId": "1725358458292801536435857524",
+            "cameraType": 0,
+            "model": "B1",
+            "videoServerUrl": null,
+            "sipConfigId": "1731566914813169664398081949",
+            "ipv6": null,
+            "sipAuthUserName": "zhangguoliang",
+            "openSub": 1,
+            "sipPassWord": "",
+            "subUrl": "rtsp://admin:gdcx888666@192.168.113.140:554/h264/ch1/sub/av_stream",
+            "sipUserName": "",
+            "supportGB": 1
+        }
+    ]
 }
 ```
 
