@@ -2512,6 +2512,431 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
     | id       | 航线类型ID |
     | typeName | 类型名     |
 
+### 5.5.8 根据执行id查询航线航点
+
+- 接口说明
+
+​       查询航线航点（需要当前无人机是在执行任务，如果为一键起飞则不支持查询,即无人机实时数据中的ExeType）
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/backend/mission/QueryMissionLinePointByExecutionsId/{executionsId}
+  ```
+
+- 请求方法
+
+  ```
+  GET
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称     | 参数位置     | 数据类型 | 是否必须 | 参数描述          |
+  | ------------ | ------------ | -------- | -------- | ----------------- |
+  | access_token | header       | string   | 是       | 接口访问token凭证 |
+  | executionsId | PathVariable | string   | 是       | 执行id            |
+
+- 返回值
+
+```
+{
+    "code": 0,
+    "msg": "操作成功",
+    "data": {
+        "updateDate": "2025-03-24 17:55:41",
+        "photoMode": 1,
+        "signalLostDeal": 0,
+        "flyKilometer": "1.39km",
+        "aiTypeId": null,
+        "collectPhotos": 39,
+        "remark": null,
+        "collectTakeOffHight": 160,
+        "dicId": null,
+        "collectMargins": 0,
+        "lineShape": "LINESTRING(114.2453542000 22.7647344000 160.00,114.2442382040 22.7654466508 160.10,114.2442501747 22.7648506323 160.10,114.2449786368 22.7640485470 160.10,114.2449427344 22.7658366034 160.10,114.2456472691 22.7662265533 160.10,114.2456968917 22.7637545478 160.10,114.2464053181 22.7639501904 160.10,114.2463634937 22.7660342572 160.10,114.2470899151 22.7653336618 160.10,114.2471137468 22.7641458301 160.10,114.2478221778 22.7643414668 160.10,114.2478163291 22.7646330624 160.10)",
+        "autoBuildModelSwitch": 0,
+        "missionType": "1725435460400058368624656727",
+        "droneId": "1771379899936935936209581767",
+        "collectPhotoHight": 160.1,
+        "totalExecuteTimes": 0,
+        "updateBy": "1725684357466820608438748095",
+        "aiDetail": null,
+        "listSubMission": null,
+        "custId": "999001",
+        "missionName": "测试",
+        "flyAreaShape": "POLYGON((114.2453361320 22.7636549174,114.2438859414 22.7652516739,114.2459756521 22.7664083068,114.2480526713 22.7644051181,114.2453361320 22.7636549174))",
+        "aiSwitch": 0,
+        "operatorId": "1725684357466820608438748095",
+        "createDate": "2025-03-12 15:47:46",
+        "hightType": 0,
+        "isExecute": 0,
+        "missionId": "1899729013410197504529821149",
+        "listMissionLinePoint": [
+            {
+                "longitudeDeg": 0,
+                "pointIndex": -2,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": null,
+                "latitudeDeg": 0,
+                "cameraAction": 0,
+                "command": 178,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 0,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.2453542,
+                "pointIndex": -1,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": 65.8,
+                "platformAltitude": 59.8,
+                "speedMS": 0,
+                "platformLongitudeDeg": 114.2453542,
+                "pointType": 0,
+                "platformId": "1771379223085322240760662501",
+                "params": null,
+                "latitudeDeg": 22.7647344,
+                "cameraAction": 0,
+                "command": -1,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": 22.7647344,
+                "platformName": "Site_218",
+                "relativeAltitudeM": 65.8,
+                "nodeId": "218",
+                "direction": 329
+            },
+            {
+                "longitudeDeg": 114.2453542,
+                "pointIndex": 0,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": null,
+                "latitudeDeg": 22.7647344,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.24423820402114,
+                "pointIndex": 1,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]}]}]",
+                "latitudeDeg": 22.76544665078829,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.24425017470672,
+                "pointIndex": 2,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]}]}]",
+                "latitudeDeg": 22.764850632346736,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.2449786368024,
+                "pointIndex": 3,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]}]}]",
+                "latitudeDeg": 22.76404854696851,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.24494273443726,
+                "pointIndex": 4,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]}]}]",
+                "latitudeDeg": 22.765836603420624,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.24564726909242,
+                "pointIndex": 5,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]}]}]",
+                "latitudeDeg": 22.76622655331549,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.24569689174213,
+                "pointIndex": 6,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]}]}]",
+                "latitudeDeg": 22.76375454784189,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.24640531809294,
+                "pointIndex": 7,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]}]}]",
+                "latitudeDeg": 22.763950190449926,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.24636349369794,
+                "pointIndex": 8,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]}]}]",
+                "latitudeDeg": 22.766034257162545,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.24708991513639,
+                "pointIndex": 9,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]}]}]",
+                "latitudeDeg": 22.76533366184093,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.24711374679453,
+                "pointIndex": 10,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]}]}]",
+                "latitudeDeg": 22.76414583010318,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.24782217784683,
+                "pointIndex": 11,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]}]}]",
+                "latitudeDeg": 22.76434146680154,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            },
+            {
+                "longitudeDeg": 114.2478163291166,
+                "pointIndex": 12,
+                "missionId": "1899729013410197504529821149",
+                "platformHeight": null,
+                "platformAltitude": null,
+                "speedMS": 10,
+                "platformLongitudeDeg": null,
+                "pointType": 0,
+                "platformId": null,
+                "params": "[{\"label\":\"云台定向拍照\",\"actionType\":\"directionPhoto\",\"yaw\":null,\"ytYaw\":0,\"ytPitch\":-90,\"zoom\":1,\"params\":[{\"command\":115,\"params\":[null,null,null,null,null,null,null]},{\"command\":205,\"params\":[null,-90,0,null,null,3,8]},{\"command\":205,\"params\":[1,null,null,null,null,0,9]},{\"command\":205,\"params\":[null,null,null,null,2,1,9]},{\"command\":205,\"params\":[null,null,null,null,3,1,9]}]}]",
+                "latitudeDeg": 22.76463306242318,
+                "cameraAction": 0,
+                "command": 16,
+                "loiterTimeS": 0,
+                "platformLatitudeDeg": null,
+                "platformName": null,
+                "relativeAltitudeM": 160.1,
+                "nodeId": null,
+                "direction": null
+            }
+        ],
+        "chooseShot": 0,
+        "collectFlightOverlapRate": 80,
+        "collectGimbalModel": "DC_03",
+        "flyArea": "68640.20㎡",
+        "collectFlightAngle": 0,
+        "collectType": 1,
+        "collectSideOverlapRate": 70,
+        "createBy": "1725684357466820608438748095",
+        "collectSpeed": 10,
+        "missionLineType": 2,
+        "operateMode": 0,
+        "gsd": 6.1,
+        "totalExecuteLong": 0,
+        "executeTime": "2min19s",
+        "status": 0
+    }
+}
+```
+
+- 返回字段说明
+
+| 字段名            | 说明                             |
+| ----------------- | -------------------------------- |
+| missionId         | 航线ID                           |
+| PointIndex        | 航点顺序                         |
+| PointType         | 航点类型；0：普通航点；换电航点  |
+| PlatformId        | 换电装置Id                       |
+| LongitudeDeg      | 经度(度)                         |
+| LatitudeDeg       | 纬度(度)                         |
+| RelativeAltitudeM | 相对高度(米)                     |
+| Command           | 指令码                           |
+| SpeedMS           | CameraAction                     |
+| CameraAction      | 相机模式                         |
+| LoiterTimeS       | 悬停时间                         |
+| Params            | 该航点上复杂动作指令的相关参数集 |
+
 ## 5.6 机场操作相关
 
 ### 5.6.1获取执行ID
@@ -2598,10 +3023,10 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   | 参数名称        | 参数位置 | 数据类型 | 是否必须 | 参数描述                             |
   | --------------- | -------- | -------- | -------- | ------------------------------------ |
   | access_token    | header   | string   | 是       | 接口访问token凭证                    |
-  | airportId       | body     | string   | 是       | 机场ID, 既获取机场列表中的platformId |
-  | missionId       | body     | string   | 是       | 航线ID                               |
+  | airportID       | body     | string   | 是       | 机场ID, 既获取机场列表中的platformId |
+  | missionID       | body     | string   | 是       | 航线ID                               |
   | executionId     | body     | string   | 是       | 执行id                               |
-  | skipFlightCheck | body     | string   | 是       | 是否校验跳点飞行                     |
+  | skipFlightCheck | body     | string   | 是       | 是否校验起飞条件                     |
 
 - 返回值
 
@@ -3012,6 +3437,8 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 
 
 ## 5.7吊舱操作相关
+
+**吊舱左转、右转、向上、向下等指令需要定频发送，200ms发送一次指令，指令调用结束，需要调用停止，有风险，需谨慎操作**
 
 ### 5.7.1吊舱回中
 
@@ -4252,11 +4679,13 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 
 - 请求参数
 
-  | 参数名称     | 参数位置 | 数据类型 | 是否必须 | 参数描述                                   |
-  | ------------ | -------- | -------- | -------- | ------------------------------------------ |
-  | access_token | Header   | string   | 是       | 接口访问token凭证                          |
-  | airportID    | Body     | string   | 是       | platformId, 既获取无人机列表中的platformId |
-  | droneID      | Body     | string   | 是       | droneId, 既获取无人机列表中的droneId       |
+  | 参数名称        | 参数位置 | 数据类型 | 是否必须 | 参数描述                                   |
+  | --------------- | -------- | -------- | -------- | ------------------------------------------ |
+  | access_token    | Header   | string   | 是       | 接口访问token凭证                          |
+  | airportID       | Body     | string   | 是       | platformId, 既获取无人机列表中的platformId |
+  | droneID         | Body     | string   | 是       | droneId, 既获取无人机列表中的droneId       |
+  | custId          | Body     | String   | 是       | 组织id                                     |
+  | skipFlightCheck | Body     | Boolean  | 是       | 是否跳过起飞条件检测                       |
 
 - 返回值
 
@@ -4510,7 +4939,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 
 - 接口说明
 
-​      虚拟摇杆操作
+​      虚拟摇杆操作（**需要定频发送，200ms左右，调用完成必须结束，操作有风险，需谨慎操作**）
 
 - 接口版本
 
@@ -4666,7 +5095,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   ```
 
 
-### 5.8.12设置返航高度
+### ~~5.8.12设置返航高度（已废）~~
 
 - 接口说明
 
@@ -4714,7 +5143,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   ```
 
 
-### 5.8.13查询返航高度
+### ~~5.8.13查询返航高度（已废）~~
 
 - 接口说明
 
@@ -5009,11 +5438,11 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   ```
 
 
-### 5.8.19无人机降落
+### 5.8.19无人机降落（原地降落）
 
 - 接口说明
 
-​      无人机降落操作
+​      无人机降落操作（**正常不使用，有风险**）
 
 - 接口版本
 
@@ -5056,7 +5485,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   ```
 
 
-### 5.8.20设定巡航速度
+### ~~5.8.20设定巡航速度（已废）~~
 
 - 接口说明
 
@@ -5104,7 +5533,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   ```
 
 
-### 5.8.21查询巡航速度
+### ~~5.8.21查询巡航速度（已废）~~
 
 - 接口说明
 
