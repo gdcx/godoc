@@ -4369,7 +4369,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 - 接口地址
 
   ```
-  {{base_url}}/portal/{nodeId}/gimbal/irZoom?id={gimbalId}
+  {{base_url}}/portal/{nodeId}/gimbal/iRZoom?id={gimbalId}
   ```
 
 - 请求方法
@@ -4417,7 +4417,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 - 接口地址
 
   ```
-  {{base_url}}/portal/{nodeId}/gimbal/irZoom?id={gimbalId}
+  {{base_url}}/portal/{nodeId}/gimbal/redDotIndicatorOn?id={gimbalId}
   ```
 
 - 请求方法
