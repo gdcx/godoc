@@ -6766,7 +6766,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
 - 接口地址
 
   ```
-  {{base_url}}/backend/VideoCutPic/queryVideoCutPicByCondition/{executeId}
+  {{base_url}}/backend/VideoCutPic/queryVideoCutPicByCondition
   ```
 
 - 请求方法
