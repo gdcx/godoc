@@ -4685,6 +4685,7 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   | airportID       | Body     | string   | 是       | platformId, 既获取无人机列表中的platformId |
   | droneID         | Body     | string   | 是       | droneId, 既获取无人机列表中的droneId       |
   | custId          | Body     | String   | 是       | 组织id                                     |
+  | executionId     | Body     | String   | 是       | 执行id                                     |
   | skipFlightCheck | Body     | Boolean  | 是       | 是否跳过起飞条件检测                       |
 
 - 返回值
