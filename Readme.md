@@ -4545,6 +4545,53 @@ function commonLogin(account, password, baseUrl,appid,sign_secret,publicKey) {
   }
   ```
 
+### 5.7.24激光测距
+
+- 接口说明
+
+​       开启/关闭连续激光测距功能
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/portal/{nodeId}/gimbal/laserRanging
+  ```
+
+- 请求方法
+
+  ```
+  POST
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称     | 参数位置 | 数据类型 | 是否必须 | 参数描述                                  |
+  | ------------ | -------- | -------- | -------- | ---------------------------------- |
+  | access_token | Header   | string   | 是       | 接口访问token凭证                     |
+  | id     | body    | string   | 是       | 吊舱ID, 既获取吊舱列表中的gimbalId             |
+  | on     | body    | bool     | 是       | true为开启测距，false为关闭测距                |
+
+- 返回值
+
+  ```
+  {
+  	"code": 0,
+  	"msg": ""
+  }
+  ```
+
   
 
 ## 5.8.无人机操作相关
