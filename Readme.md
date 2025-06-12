@@ -8031,16 +8031,16 @@ webrtc 协议采用websocket进行信令交互，消息内容采用json 编码�
    | demo页面参数说明 | Type    | Description                                                  |
    | ---------------- | ------- | ------------------------------------------------------------ |
    | websocket url    | String  | ws请求地址（例如：ws://{{ip}}/rtc1/ws）                      |
-   | token            | String  | 用户token（对接文档返回的access_token）                      |
+   | token            | String  | 用户token（对接文档返回的access_token）[对接账号方式参考](https://gitee.com/romeo_zpl/gdoc/blob/master/Readme.md#51%E8%AE%A4%E8%AF%81%E7%99%BB%E5%BD%95) |
    | userId           | String  | 用户id（该参数只做请求来源标识，不做校验；请求token时，如果参数中包括该字段，可直接使用，如果有custId也可以直接使用，都没有的话，可以使用请求组织的名称缩写 示例：深圳创新写做'szcx'） |
-   | NodeId           | String  | 设备列表中返回的nodeId                                       |
-   | cameraId         | String  | 摄像机id（机场内外摄像头id、无人机吊舱id）                   |
-   | 推流方式         | Number  | 0：P2P     1：服务器推流 （获取机场及无人机信息 - pushStreamType ） |
+   | NodeId           | String  | 设备列表中返回的[获取方式](https://gitee.com/romeo_zpl/gdoc/blob/master/Readme.md#52-%E6%9C%BA%E5%9C%BA%E5%8F%8A%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%BF%A1%E6%81%AF) |
+   | cameraId         | String  | 摄像机id（机场内外摄像头id、无人机吊舱id）[获取方式](https://gitee.com/romeo_zpl/gdoc/blob/master/Readme.md#52-%E6%9C%BA%E5%9C%BA%E5%8F%8A%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%BF%A1%E6%81%AF) |
+   | 推流方式         | Number  | 0：P2P     1：服务器推流 （获取机场及无人机信息 - pushStreamType ）[获取方式](https://gitee.com/romeo_zpl/gdoc/blob/master/Readme.md#52-%E6%9C%BA%E5%9C%BA%E5%8F%8A%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%BF%A1%E6%81%AF) |
    | 视频来源         | Number  | 0：无人机    1：机场                                         |
    | sfu              | Boolean | sfu支持                                                      |
-   | 无人机聚合开关   | Number  | 0：关闭      1：开启  （获取机场及无人机信息 - videoAgg ）   |
+   | 无人机聚合开关   | Number  | 0：关闭      1：开启  （获取机场及无人机信息 - videoAgg ）[获取方式](https://gitee.com/romeo_zpl/gdoc/blob/master/Readme.md#52-%E6%9C%BA%E5%9C%BA%E5%8F%8A%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%BF%A1%E6%81%AF) |
    | 5g               | Boolean | 是否为5g （无人机自组网信号不好时，可做5g链路切换）          |
-   | streamType       | Number  | 0：主码流    1：辅码流  （摄像头数据中openSub==1 表示支持辅码流，可以连接辅码流） |
+   | streamType       | Number  | 0：主码流    1：辅码流  （摄像头数据中openSub==1 表示支持辅码流，可以连接辅码流）[获取方式](https://gitee.com/romeo_zpl/gdoc/blob/master/Readme.md#52-%E6%9C%BA%E5%9C%BA%E5%8F%8A%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%BF%A1%E6%81%AF) |
    
    
    
