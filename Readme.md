@@ -8030,7 +8030,7 @@ webrtc 协议采用websocket进行信令交互，消息内容采用json 编码�
 
    | demo页面参数说明 | Type    | Description                                                  |
    | ---------------- | ------- | ------------------------------------------------------------ |
-   | websocket url    | String  | ws请求地址（例如：ws://{{ip}}/rtc1/ws）                      |
+   | websocket url    | String  | ws请求地址（例如：ws://{{ip}}/rtc1/ws）**websocket无法连接，先核对token是否正确，如果头部包含“systemIntegreate_”，则去掉之后，在线jwt解析，看下后边token是否可以正常解析，不包含则直接解析，看是否正常解析** |
    | token            | String  | 用户token（对接文档返回的access_token）[对接账号方式参考](https://gitee.com/romeo_zpl/gdoc/blob/master/Readme.md#51%E8%AE%A4%E8%AF%81%E7%99%BB%E5%BD%95) |
    | userId           | String  | 用户id（该参数只做请求来源标识，不做校验；请求token时，如果参数中包括该字段，可直接使用，如果有custId也可以直接使用，都没有的话，可以使用请求组织的名称缩写 示例：深圳创新写做'szcx'） |
    | NodeId           | String  | 设备列表中返回的[获取方式](https://gitee.com/romeo_zpl/gdoc/blob/master/Readme.md#52-%E6%9C%BA%E5%9C%BA%E5%8F%8A%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%BF%A1%E6%81%AF) |
