@@ -9846,4 +9846,676 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
   | creator            | 创建人                                                       |
   | createDate         | 创建时间                                                     |
 
+
+
+
+# 8.飞行计划
+
+## 8.1 紧急计划
+
+- 接口说明
+
+​       创建紧急计划任务
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/backendflight/plan/add
+  ```
+
+- 请求方法
+
+  ```
+  POST
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称     | 参数位置 | 数据类型 | 是否必须 | 参数描述                                                     |
+  | ------------ | -------- | -------- | -------- | ------------------------------------------------------------ |
+  | access_token | Header   | string   | 是       | 接口访问token凭证                                            |
+  | flightPlanId | body     | string   | 是       | 调用方计划 id ，不超过32位                                   |
+  | custId       | body     | string   | 是       | 客户ID（对接账号登录成功返回客户id)                          |
+  | planName     | body     | string   | 是       | 计划名称                                                     |
+  | dataSrc      | body     | string   | 是       | 申请源:GDCX;1第三方(GaoDe,DJI)                               |
+  | planType     | body     | int      | 是       | 状态: 0日常计划(需审核) ;1紧急计划（自动审核）               |
+  | exeStrategy  | body     | int      | 是       | 执行策略:0单次定时;1重复定时;2立即执行                       |
+  | exePoint     | body     | string   | 是       | 巡检点,例如POINT(114.2444986666 22.7599366325),经纬度空格隔开 |
+  | beginDate    | body     | string   | 是       | 开始日期（YYYY-MM-DD HH:MM:SS)                               |
+  | remark       | body     | string   | 否       | 备注                                                         |
+
+- 返回值
+
+  ```
+  {
+      "code": 0,
+      "msg": "操作成功",
+      "data": null
+  }
+  ```
+
+- 请求参数demo
+
+  ```
+  {
+      "custId": "1935235774857531392563560701",
+      "custId": "999001",
+      "planName": "应急巡检计划",
+      "dataSrc": "GDCX",
+      "planType": 1,
+      "planType": 2,
+      "exePoint":  "POINT(114.2444986666 22.7599366325)",
+      "beginDate": "2025-06-18 16:50:00",
+      "remark": "XX突发应急事件"
+  }
+  ```
+
+  
+
+## 8.2 普通单次计划
+
+- 接口说明
+
+​       创建紧急计划任务
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/backendflight/plan/add
+  ```
+
+- 请求方法
+
+  ```
+  POST
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称     | 参数位置 | 数据类型 | 是否必须 | 参数描述                                             |
+  | ------------ | -------- | -------- | -------- | ---------------------------------------------------- |
+  | access_token | Header   | string   | 是       | 接口访问token凭证                                    |
+  | flightPlanId | body     | string   | 是       | 调用方计划 id ，不超过32位                           |
+  | custId       | body     | string   | 是       | 客户ID（对接账号登录成功返回客户id)                  |
+  | planName     | body     | string   | 是       | 计划名称                                             |
+  | dataSrc      | body     | int      | 是       | 申请源:GDCX;1第三方(GaoDe,DJI)                       |
+  | planType     | body     | string   | 是       | 状态: 0日常计划(需审核) ;1紧急计划（自动审核）       |
+  | platformId   | body     | string   | 是       | 执行机场                                             |
+  | missionType  | body     | string   | 否       | 任务类型                                             |
+  | missionId    | body     | string   | 是       | 计划行线                                             |
+  | beginDate    | body     | string   | 是       | 开始日期（YYYY-MM-DD)                                |
+  | exeStrategy  | body     | string   | 是       | 执行策略:0单次定时;1重复定时;2立即执行               |
+  | exeRange     | body     | int      | 是       | 执行时段(08:00-09:00,09:00-10:00,多个时段用逗号隔开) |
+  | remark       | body     | string   | 否       | 备注                                                 |
+
+- 返回值
+
+  ```
+  {
+      "code": 0,
+      "msg": "操作成功",
+      "data": null
+  }
+  ```
+
+- 请求参数demo
+
+  ```
+  {
+      "flightPlanId": "1935235774857531392563560702",
+      "custId": "999001",
+      "planName": "xx水源每日巡检",
+      "dataSrc": "GaoDe",
+      "planType": 0,
+      "platformId": "1725358456837378048289490001",
+      "missionType": "1725435460400058368624656727",
+      "missionId": "1924746178048303104817374741",
+      "beginDate": "2025-06-19",
+      "exeStrategy": 0,
+      "exeRange": "08:00-09:00,14:00-15:00",
+      "remark": ""
+  }
+  ```
+
+  
+
+## 8.3 普通循环计划
+
+- 接口说明
+
+​       创建紧急计划任务
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/backendflight/plan/add
+  ```
+
+- 请求方法
+
+  ```
+  POST
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称     | 参数位置 | 数据类型 | 是否必须 | 参数描述                                             |
+  | ------------ | -------- | -------- | -------- | ---------------------------------------------------- |
+  | access_token | Header   | string   | 是       | 接口访问token凭证                                    |
+  | flightPlanId | body     | string   | 是       | 调用方计划 id ，不超过32位                           |
+  | custId       | body     | string   | 是       | 客户ID（对接账号登录成功返回客户id)                  |
+  | planName     | body     | string   | 是       | 计划名称                                             |
+  | dataSrc      | body     | int      | 是       | 申请源:GDCX;1第三方(GaoDe,DJI)                       |
+  | planType     | body     | string   | 是       | 状态: 0日常计划(需审核) ;1紧急计划（自动审核）       |
+  | platformId   | body     | string   | 是       | 执行机场                                             |
+  | missionType  | body     | string   | 否       | 任务类型                                             |
+  | missionId    | body     | string   | 是       | 计划行线                                             |
+  | beginDate    | body     | string   | 是       | 开始日期（YYYY-MM-DD)                                |
+  | exeStrategy  | body     | string   | 是       | 执行策略:0单次定时;1重复定时;2立即执行               |
+  | exeRateUnit  | body     | string   | 是       | 执行频率(0:天; 1:周; 2:月)                           |
+  | exeRate      | body     | string   | 是       | 执行间隔，每n天、n周、n月执行一次                    |
+  | exeRange     | body     | int      | 是       | 执行时段(08:00-09:00,09:00-10:00,多个时段用逗号隔开) |
+  | remark       | body     | string   | 否       | 备注                                                 |
+
+- 返回值
+
+  ```
+  {
+      "code": 0,
+      "msg": "操作成功",
+      "data": null
+  }
+  ```
+
+- 请求参数demo
+
+  ```
+  {
+      "flightPlanId": "1935235774857531392563560702",
+      "custId": "999001",
+      "planName": "xx海岸线巡检",
+      "dataSrc": "GDCX",
+      "planType": 0,
+      "platformId": "1725358456837378048289490001",
+      "missionType": "1725435460400058368624656727",
+      "missionId": "1924746178048303104817374741",
+      "beginDate": "2025-06-20",
+      "endDate": "2025-07-26",
+      "exeStrategy": 1,
+      "exeRateUnit": 0,
+      "exeRate": 2,
+      "exeRange": "14:00-15:00",
+      "remark": "每两天执行一次海岸线巡检"
+  }
+  ```
+
+  
+
+##  8.4任务结果通知
+
+- 接口说明
+
+​       创建紧急计划任务
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  callBack URL 第三方提供
+  ```
+
+- 请求方法
+
+  ```
+  POST
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称     | 参数位置 | 数据类型 | 是否必须 | 参数描述                   |
+  | ------------ | -------- | -------- | -------- | -------------------------- |
+  | access_token | Header   | string   | 是       | 接口访问token凭证          |
+  | flightPlanId | body     | string   | 是       | 调用方计划 id ，不超过32位 |
+  | auditStatus  | body     | string   | 是       | 审核状态1:已审核;2:拒绝    |
+  | auditMsg     | body     | string   | 是       | 原因                       |
+
+- 返回值
+
+  ```
+  {
+      "code": 0,
+      "msg": "操作成功",
+      "data": null
+  }
+  ```
+
+- 请求参数demo
+
+  ```
+  {
+      "flightPlanId": "1935235774857531392563560702",
+      "auditStatus": "2",
+      "planName": "空域关闭"
+  }
+  ```
+
+  
+
+## 8.5 查询飞行计划执行结果
+
+- 接口说明
+
+​       查询飞行计划执行结果
+
+- 接口版本
+
+  ```
+  v2.0
+  ```
+
+- 接口地址
+
+  ```
+  {{base_url}}/backend/flight/plan/detailByFlightPlanId/{flightPlanId}
+  ```
+
+- 请求方法
+
+  ```
+  GET
+  ```
+
+- 数据提交方式
+
+  ```
+  application/json
+  ```
+
+- 请求参数
+
+  | 参数名称     | 参数位置     | 数据类型 | 是否必须 | 参数描述          |
+  | ------------ | ------------ | -------- | -------- | ----------------- |
+  | access_token | Header       | string   | 是       | 接口访问token凭证 |
+  | flightPlanId | pathVariable | string   | 是       | 计划id            |
+
+- 返回值
+
+  ```
+  {
+      "code": 0,
+      "msg": "操作成功",
+      "data": {
+          "exeRate": 1,
+          "endDate": "2025-06-30",
+          "exeRange": "08:00-09:00,10:00-11:00,14:00-15:00,16:00-17:00",
+          "planName": "森林火灾计划",
+          "auditMsg": "通过",
+          "subTaskPlan": [
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137132285952787864096",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-23 08:00",
+                  "endTime": "2025-06-23 09:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137132285953319496074",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-23 10:00",
+                  "endTime": "2025-06-23 11:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137132285954881630770",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-23 14:00",
+                  "endTime": "2025-06-23 15:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137132285955246352735",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-23 16:00",
+                  "endTime": "2025-06-23 17:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137140674560280733403",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-24 08:00",
+                  "endTime": "2025-06-24 09:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137140674561815310851",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-24 10:00",
+                  "endTime": "2025-06-24 11:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137140674562259953365",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-24 14:00",
+                  "endTime": "2025-06-24 15:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137140674563595057446",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-24 16:00",
+                  "endTime": "2025-06-24 17:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137149063168202308838",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-25 08:00",
+                  "endTime": "2025-06-25 09:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137149063169107637081",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-25 10:00",
+                  "endTime": "2025-06-25 11:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137149063170574818904",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-25 14:00",
+                  "endTime": "2025-06-25 15:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137149063171307982691",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-25 16:00",
+                  "endTime": "2025-06-25 17:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137153257472448002221",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-26 08:00",
+                  "endTime": "2025-06-26 09:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137153257473740302492",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-26 10:00",
+                  "endTime": "2025-06-26 11:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137153257474383021583",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-26 14:00",
+                  "endTime": "2025-06-26 15:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137153257475356206068",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-26 16:00",
+                  "endTime": "2025-06-26 17:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137161646080527173003",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-27 08:00",
+                  "endTime": "2025-06-27 09:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137161646081352686368",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-27 10:00",
+                  "endTime": "2025-06-27 11:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137161646082344900916",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-27 14:00",
+                  "endTime": "2025-06-27 15:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137161646083150823155",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-27 16:00",
+                  "endTime": "2025-06-27 17:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137165840384357952119",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-28 08:00",
+                  "endTime": "2025-06-28 09:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137165840385610805212",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-28 10:00",
+                  "endTime": "2025-06-28 11:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137165840386830034600",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-28 14:00",
+                  "endTime": "2025-06-28 15:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137165840387899997737",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-28 16:00",
+                  "endTime": "2025-06-28 17:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137174228992741327696",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-29 08:00",
+                  "endTime": "2025-06-29 09:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137174228993642181943",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-29 10:00",
+                  "endTime": "2025-06-29 11:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137174228994139166051",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-29 14:00",
+                  "endTime": "2025-06-29 15:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137174228995895002558",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-29 16:00",
+                  "endTime": "2025-06-29 17:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137182617600133257559",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-30 08:00",
+                  "endTime": "2025-06-30 09:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137182617601659135601",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-30 10:00",
+                  "endTime": "2025-06-30 11:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137182617602699535314",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-30 14:00",
+                  "endTime": "2025-06-30 15:00",
+                  "exeResult": "待执行"
+              },
+              {
+                  "ExeStatus": 0,
+                  "subFlightPlanId": "1937075137182617603448804535",
+                  "executeMsg": null,
+                  "beginTime": "2025-06-30 16:00",
+                  "endTime": "2025-06-30 17:00",
+                  "exeResult": "待执行"
+              }
+          ],
+          "MissionName": "WX_TEST",
+          "custId": "999001",
+          "PlanType": 0,
+          "planTypeName": "日常任务",
+          "MissionType": "1725435460400058368624656727",
+          "exeRateUnit": 0,
+          "platformName": "103模拟机场",
+          "dataSrc": "GDCX",
+          "auditDate": "2025-06-23 17:25:00",
+          "applyer": "张金城",
+          "auditor": "张金城",
+          "exePoint": null,
+          "platformId": "1725358456837378048289490001",
+          "flightPlanId": "1937075137123897344798430503",
+          "missionTypeName": "普通航线",
+          "MissionId": "1924746178048303104817374741",
+          "beginDate": "2025-06-23",
+          "exeStrategy": 1,
+          "auditStatus": 1,
+          "applyDate": "2025-06-23 17:07:59"
+      }
+  }
+  ```
+
+  
+
+- 返回值说明
+
+  | 字段名             | 说明                                                         |
+  | ------------------ | ------------------------------------------------------------ |
+  | flightPlanId       | 计划ID                                                       |
+  | planName           | 分类                                                         |
+  | custId             | 电子围栏分类名                                               |
+  | PlanType           | 状态0日常;1紧急                                              |
+  | planTypeName       | 状态名                                                       |
+  | platformId         | 机场id                                                       |
+  | platformName       | 机场名                                                       |
+  | missionType        | 任务类型ID                                                   |
+  | missionTypeName    | 任务类型                                                     |
+  | missionId          | 任务ID                                                       |
+  | missionName        | 任务名                                                       |
+  | beginDate          | 任务开始日期                                                 |
+  | endDate            | 任务结束日期                                                 |
+  | exeStrategy        | 执行策略:0单次定时;1重复定时;2立即执行                       |
+  | exeRateUnit        | 执行频率(0:天;1:周;2:月)                                     |
+  | exeRate            | 执行间隔，每n天、n周、n月执行一次                            |
+  | exeRange           | 执行时段(例如: 08:00-09:00,09:00-10:00)                      |
+  | exePoint           | 巡检点,例如POINT(114.2444986666 22.7599366325),经纬度空格隔开 |
+  | dataSrc            | 申请源:GDCX;1第三方(GaoDe,DJI)                               |
+  | remark             | 备注                                                         |
+  | applyer            | 申请人                                                       |
+  | applyDate          | 申请日期                                                     |
+  | auditor            | 审核人                                                       |
+  | auditDate          | 审核日期                                                     |
+  | auditStatus        | 状态                                                         |
+  | auditMsg           | 审核结果                                                     |
+  | ---subFlightPlanId | 子计划ID                                                     |
+  | ---beginTime       | 计划预计执行时间                                             |
+  | ---endTime         | 计划预计结束时间                                             |
+  | ---exeStatus       | 0待执行,1:已暂停,2:拒绝,3执行中,4完成,5执行失败              |
+  | ---exeResult       | 执行结果                                                     |
+  | ---executeMsg      | 原因                                                         |
+
   
