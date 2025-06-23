@@ -10193,14 +10193,14 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
       "msg": "操作成功",
       "data": {
           "exeRate": 1,
-          "endDate": "2025-06-30",
-          "exeRange": "08:00-09:00,10:00-11:00,14:00-15:00,16:00-17:00",
+          "endDate": "2025-06-26",
+          "exeRange": "08:00-09:00",
           "planName": "森林火灾计划",
-          "auditMsg": "通过",
+          "auditMsg": null,
           "subTaskPlan": [
               {
                   "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137132285952787864096",
+                  "subFlightPlanId": "1937087892568604672885389534",
                   "executeMsg": null,
                   "beginTime": "2025-06-23 08:00",
                   "endTime": "2025-06-23 09:00",
@@ -10208,31 +10208,7 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
               },
               {
                   "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137132285953319496074",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-23 10:00",
-                  "endTime": "2025-06-23 11:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137132285954881630770",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-23 14:00",
-                  "endTime": "2025-06-23 15:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137132285955246352735",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-23 16:00",
-                  "endTime": "2025-06-23 17:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137140674560280733403",
+                  "subFlightPlanId": "1937087892576993280466679306",
                   "executeMsg": null,
                   "beginTime": "2025-06-24 08:00",
                   "endTime": "2025-06-24 09:00",
@@ -10240,31 +10216,7 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
               },
               {
                   "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137140674561815310851",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-24 10:00",
-                  "endTime": "2025-06-24 11:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137140674562259953365",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-24 14:00",
-                  "endTime": "2025-06-24 15:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137140674563595057446",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-24 16:00",
-                  "endTime": "2025-06-24 17:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137149063168202308838",
+                  "subFlightPlanId": "1937087892581187584319147113",
                   "executeMsg": null,
                   "beginTime": "2025-06-25 08:00",
                   "endTime": "2025-06-25 09:00",
@@ -10272,186 +10224,10 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
               },
               {
                   "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137149063169107637081",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-25 10:00",
-                  "endTime": "2025-06-25 11:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137149063170574818904",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-25 14:00",
-                  "endTime": "2025-06-25 15:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137149063171307982691",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-25 16:00",
-                  "endTime": "2025-06-25 17:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137153257472448002221",
+                  "subFlightPlanId": "1937087892589576192784722721",
                   "executeMsg": null,
                   "beginTime": "2025-06-26 08:00",
                   "endTime": "2025-06-26 09:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137153257473740302492",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-26 10:00",
-                  "endTime": "2025-06-26 11:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137153257474383021583",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-26 14:00",
-                  "endTime": "2025-06-26 15:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137153257475356206068",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-26 16:00",
-                  "endTime": "2025-06-26 17:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137161646080527173003",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-27 08:00",
-                  "endTime": "2025-06-27 09:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137161646081352686368",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-27 10:00",
-                  "endTime": "2025-06-27 11:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137161646082344900916",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-27 14:00",
-                  "endTime": "2025-06-27 15:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137161646083150823155",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-27 16:00",
-                  "endTime": "2025-06-27 17:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137165840384357952119",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-28 08:00",
-                  "endTime": "2025-06-28 09:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137165840385610805212",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-28 10:00",
-                  "endTime": "2025-06-28 11:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137165840386830034600",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-28 14:00",
-                  "endTime": "2025-06-28 15:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137165840387899997737",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-28 16:00",
-                  "endTime": "2025-06-28 17:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137174228992741327696",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-29 08:00",
-                  "endTime": "2025-06-29 09:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137174228993642181943",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-29 10:00",
-                  "endTime": "2025-06-29 11:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137174228994139166051",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-29 14:00",
-                  "endTime": "2025-06-29 15:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137174228995895002558",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-29 16:00",
-                  "endTime": "2025-06-29 17:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137182617600133257559",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-30 08:00",
-                  "endTime": "2025-06-30 09:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137182617601659135601",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-30 10:00",
-                  "endTime": "2025-06-30 11:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137182617602699535314",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-30 14:00",
-                  "endTime": "2025-06-30 15:00",
-                  "exeResult": "待执行"
-              },
-              {
-                  "ExeStatus": 0,
-                  "subFlightPlanId": "1937075137182617603448804535",
-                  "executeMsg": null,
-                  "beginTime": "2025-06-30 16:00",
-                  "endTime": "2025-06-30 17:00",
                   "exeResult": "待执行"
               }
           ],
@@ -10463,24 +10239,24 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
           "exeRateUnit": 0,
           "platformName": "103模拟机场",
           "dataSrc": "GDCX",
-          "auditDate": "2025-06-23 17:25:00",
+          "auditDate": null,
           "applyer": "张金城",
-          "auditor": "张金城",
+          "auditor": "",
           "exePoint": null,
           "platformId": "1725358456837378048289490001",
-          "flightPlanId": "1937075137123897344798430503",
+          "flightPlanId": "1937087892560216064407902268",
           "missionTypeName": "普通航线",
           "MissionId": "1924746178048303104817374741",
           "beginDate": "2025-06-23",
           "exeStrategy": 1,
-          "auditStatus": 1,
-          "applyDate": "2025-06-23 17:07:59"
+          "auditStatus": 0,
+          "applyDate": "2025-06-23 17:58:37"
       }
   }
   ```
-
   
-
+  
+  
 - 返回值说明
 
   | 字段名             | 说明                                                         |
