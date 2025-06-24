@@ -9964,9 +9964,9 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
   | planName     | body     | string   | 是       | 计划名称                                             |
   | dataSrc      | body     | int      | 是       | 申请源:GDCX;1第三方(GaoDe,DJI)                       |
   | planType     | body     | string   | 是       | 状态: 0日常计划(需审核) ;1紧急计划（自动审核）       |
-  | platformId   | body     | string   | 是       | 执行机场                                             |
-  | missionType  | body     | string   | 否       | 任务类型                                             |
-  | missionId    | body     | string   | 是       | 计划行线                                             |
+  | platformId   | body     | string   | 是       | 执行机场，见5.2.1 权限内的机场及无人机 接口          |
+  | missionType  | body     | string   | 否       | 任务类型 ，见5.5.6查询任务类型列表按客户 接口        |
+  | missionId    | body     | string   | 是       | 计划行线，见5.5.1获取航线列表 接口                   |
   | beginDate    | body     | string   | 是       | 开始日期（YYYY-MM-DD)                                |
   | exeStrategy  | body     | string   | 是       | 执行策略:0单次定时;1重复定时;2立即执行               |
   | exeRange     | body     | int      | 是       | 执行时段(08:00-09:00,09:00-10:00,多个时段用逗号隔开) |
@@ -10043,9 +10043,9 @@ const getCoordnatePliex = (result, drawing, ctx, videoWidth, videoHeight) => {
   | planName     | body     | string   | 是       | 计划名称                                             |
   | dataSrc      | body     | int      | 是       | 申请源:GDCX;1第三方(GaoDe,DJI)                       |
   | planType     | body     | string   | 是       | 状态: 0日常计划(需审核) ;1紧急计划（自动审核）       |
-  | platformId   | body     | string   | 是       | 执行机场                                             |
-  | missionType  | body     | string   | 否       | 任务类型                                             |
-  | missionId    | body     | string   | 是       | 计划行线                                             |
+  | platformId   | body     | string   | 是       | 执行机场，见5.2.1 权限内的机场及无人机 接口          |
+  | missionType  | body     | string   | 否       | 任务类型，见 5.5.6查询任务类型列表按客户 接口        |
+  | missionId    | body     | string   | 是       | 计划行线，见5.5.1获取航线列表 接口                   |
   | beginDate    | body     | string   | 是       | 开始日期（YYYY-MM-DD)                                |
   | exeStrategy  | body     | string   | 是       | 执行策略:0单次定时;1重复定时;2立即执行               |
   | exeRateUnit  | body     | string   | 是       | 执行频率(0:天; 1:周; 2:月)                           |
